@@ -118,7 +118,7 @@ authRouter.get('/callback', async (c) => {
 
       const rawMessage = `
       🎉 *${NOTIFICATION_TYPE.NEW_USER}*
-      
+
       👤 *Name*: ${githubUser.name || 'N/A'}
       🖋️ *GitHub Username*: \`${githubUser.login}\`
       🖼️ *Avatar*: [View Avatar](${githubUser.avatar_url})

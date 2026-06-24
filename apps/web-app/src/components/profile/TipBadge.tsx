@@ -9,7 +9,7 @@ export function TipBadge({ username }: TipBadgeProps) {
   return (
     <a
       className=""
-      href={`${currentUrl}/profile?user=${username}`}
+      href={`${currentUrl}/app/dev/${username}`}
       target="_blank"
       rel="noopener noreferrer"
     >
