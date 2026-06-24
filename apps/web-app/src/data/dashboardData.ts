@@ -1,22 +1,27 @@
 export const DASHBOARDNAV = [
   {
-    title: "Dashboard",
-    icon: "🛖",
+    title: "Home",
+    icon: "Home",
     path: "/app",
   },
   {
     title: "Bounties",
-    icon: "💰",
+    icon: "Bounty",
     path: "/app/bounties",
   },
   {
+    title: "Companies",
+    icon: "Company",
+    path: "/app/company",
+  },
+  {
     title: "Board",
-    icon: "🏆",
+    icon: "Board",
     path: "/app/leaderboard",
   },
   {
     title: "Explore",
-    icon: "🌍",
+    icon: "Explore",
     path: "/app/explore",
   },
 ];

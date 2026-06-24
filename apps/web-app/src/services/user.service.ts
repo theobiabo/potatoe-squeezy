@@ -6,6 +6,7 @@ export interface UpdateUserProfilePayload {
   email?: string | null;
   twitterUrl?: string | null;
   tippersPublic?: boolean;
+  leaderboardOptIn?: boolean;
 }
 
 export interface UserRankBadge {

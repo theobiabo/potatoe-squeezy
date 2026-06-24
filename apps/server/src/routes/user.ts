@@ -173,6 +173,7 @@ userRoute.put('/profile', async (c) => {
       email?: string | null;
       twitterUrl?: string | null;
       tippersPublic?: boolean;
+      leaderboardOptIn?: boolean;
     }>();
 
     const updates: Partial<typeof users.$inferInsert> = {
@@ -230,6 +231,10 @@ userRoute.put('/profile', async (c) => {
 
     if (body.tippersPublic !== undefined) {
       updates.tippersPublic = Boolean(body.tippersPublic);
+    }
+
+    if (body.leaderboardOptIn !== undefined) {
+      updates.leaderboardOptIn = Boolean(body.leaderboardOptIn);
     }
 
     const updated = await db
@@ -301,6 +306,7 @@ userRoute.get('/all', async (c) => {
           displayName: users.displayName,
           avatarUrl: users.avatarUrl,
           twitterUrl: users.twitterUrl,
+          leaderboardOptIn: users.leaderboardOptIn,
           network: users.network,
           walletAddress: users.walletAddress,
           createdAt: users.createdAt,

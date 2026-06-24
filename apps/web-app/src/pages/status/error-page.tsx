@@ -14,14 +14,14 @@ const AuthErrorPage = () => {
   return (
     <div className="h-[100vh] w-[80%] lg:w-[520px] mx-auto text-center flex flex-col items-center justify-center text-white">
       <h1 className="text-4xl mb-4">ERROR</h1>
-      <p className="text-sm text-gray-400 mb-6">{message}</p>
+      <p className="mb-6 text-sm text-[#8f8a99]">{message}</p>
 
-      <div className="w-full bg-gray-900/30 border border-gray-800 rounded-xl p-4 text-left">
-        <p className="text-xs text-gray-400">CODE:</p>
+      <div className="w-full rounded-[24px] border border-[#2b2933] bg-[#0f0d16] p-4 text-left">
+        <p className="text-xs text-[#8f8a99]">CODE:</p>
         <p className="font-mono text-sm break-all">{error}</p>
         {description ? (
           <>
-            <p className="mt-3 text-xs text-gray-400">DETAILS:</p>
+            <p className="mt-3 text-xs text-[#8f8a99]">DETAILS:</p>
             <p className="font-mono text-sm break-all">{description}</p>
           </>
         ) : null}

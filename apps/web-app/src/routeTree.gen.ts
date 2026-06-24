@@ -13,9 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as StatusSuccessRouteImport } from './routes/status/success'
 import { Route as StatusErrorRouteImport } from './routes/status/error'
+import { Route as EmbedTipBadgeRouteImport } from './routes/embed.tip-badge'
 import { Route as AppProfileRouteImport } from './routes/app/profile'
 import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppExploreRouteImport } from './routes/app/explore'
+import { Route as AppCompanyRouteImport } from './routes/app/company'
 import { Route as AppBountiesRouteImport } from './routes/app/bounties'
 import { Route as AppDevUsernameRouteImport } from './routes/app/dev.$username'
 
@@ -39,6 +41,11 @@ const StatusErrorRoute = StatusErrorRouteImport.update({
   path: '/status/error',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmbedTipBadgeRoute = EmbedTipBadgeRouteImport.update({
+  id: '/embed/tip-badge',
+  path: '/embed/tip-badge',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppProfileRoute = AppProfileRouteImport.update({
   id: '/app/profile',
   path: '/app/profile',
@@ -52,6 +59,11 @@ const AppLeaderboardRoute = AppLeaderboardRouteImport.update({
 const AppExploreRoute = AppExploreRouteImport.update({
   id: '/app/explore',
   path: '/app/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppCompanyRoute = AppCompanyRouteImport.update({
+  id: '/app/company',
+  path: '/app/company',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppBountiesRoute = AppBountiesRouteImport.update({
@@ -68,9 +80,11 @@ const AppDevUsernameRoute = AppDevUsernameRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app/bounties': typeof AppBountiesRoute
+  '/app/company': typeof AppCompanyRoute
   '/app/explore': typeof AppExploreRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/profile': typeof AppProfileRoute
+  '/embed/tip-badge': typeof EmbedTipBadgeRoute
   '/status/error': typeof StatusErrorRoute
   '/status/success': typeof StatusSuccessRoute
   '/app/': typeof AppIndexRoute
@@ -79,9 +93,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/bounties': typeof AppBountiesRoute
+  '/app/company': typeof AppCompanyRoute
   '/app/explore': typeof AppExploreRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/profile': typeof AppProfileRoute
+  '/embed/tip-badge': typeof EmbedTipBadgeRoute
   '/status/error': typeof StatusErrorRoute
   '/status/success': typeof StatusSuccessRoute
   '/app': typeof AppIndexRoute
@@ -91,9 +107,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app/bounties': typeof AppBountiesRoute
+  '/app/company': typeof AppCompanyRoute
   '/app/explore': typeof AppExploreRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/profile': typeof AppProfileRoute
+  '/embed/tip-badge': typeof EmbedTipBadgeRoute
   '/status/error': typeof StatusErrorRoute
   '/status/success': typeof StatusSuccessRoute
   '/app/': typeof AppIndexRoute
@@ -104,9 +122,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app/bounties'
+    | '/app/company'
     | '/app/explore'
     | '/app/leaderboard'
     | '/app/profile'
+    | '/embed/tip-badge'
     | '/status/error'
     | '/status/success'
     | '/app/'
@@ -115,9 +135,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/app/bounties'
+    | '/app/company'
     | '/app/explore'
     | '/app/leaderboard'
     | '/app/profile'
+    | '/embed/tip-badge'
     | '/status/error'
     | '/status/success'
     | '/app'
@@ -126,9 +148,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app/bounties'
+    | '/app/company'
     | '/app/explore'
     | '/app/leaderboard'
     | '/app/profile'
+    | '/embed/tip-badge'
     | '/status/error'
     | '/status/success'
     | '/app/'
@@ -138,9 +162,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppBountiesRoute: typeof AppBountiesRoute
+  AppCompanyRoute: typeof AppCompanyRoute
   AppExploreRoute: typeof AppExploreRoute
   AppLeaderboardRoute: typeof AppLeaderboardRoute
   AppProfileRoute: typeof AppProfileRoute
+  EmbedTipBadgeRoute: typeof EmbedTipBadgeRoute
   StatusErrorRoute: typeof StatusErrorRoute
   StatusSuccessRoute: typeof StatusSuccessRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -177,6 +203,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StatusErrorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/embed/tip-badge': {
+      id: '/embed/tip-badge'
+      path: '/embed/tip-badge'
+      fullPath: '/embed/tip-badge'
+      preLoaderRoute: typeof EmbedTipBadgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/profile': {
       id: '/app/profile'
       path: '/app/profile'
@@ -196,6 +229,13 @@ declare module '@tanstack/react-router' {
       path: '/app/explore'
       fullPath: '/app/explore'
       preLoaderRoute: typeof AppExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/company': {
+      id: '/app/company'
+      path: '/app/company'
+      fullPath: '/app/company'
+      preLoaderRoute: typeof AppCompanyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/bounties': {
@@ -218,9 +258,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppBountiesRoute: AppBountiesRoute,
+  AppCompanyRoute: AppCompanyRoute,
   AppExploreRoute: AppExploreRoute,
   AppLeaderboardRoute: AppLeaderboardRoute,
   AppProfileRoute: AppProfileRoute,
+  EmbedTipBadgeRoute: EmbedTipBadgeRoute,
   StatusErrorRoute: StatusErrorRoute,
   StatusSuccessRoute: StatusSuccessRoute,
   AppIndexRoute: AppIndexRoute,

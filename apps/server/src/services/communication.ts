@@ -13,6 +13,7 @@ type TipMailPayload = {
     name?: string | null;
   } | null;
   amount: string | number;
+  currency?: string | null;
   txHash?: string | null;
   note?: string | null;
 };
@@ -185,6 +186,7 @@ class CommunicationChannel {
     recipient,
     sender,
     amount,
+    currency,
     txHash,
     note,
   }: TipMailPayload) {
@@ -194,14 +196,15 @@ class CommunicationChannel {
 
     const senderName =
       sender?.name?.trim() || sender?.username?.trim() || 'A supporter';
+    const displayCurrency = currency?.trim() || 'SOL';
 
     await this.sendMail({
       to: recipient.email,
-      subject: `You received ${amount} SOL`,
+      subject: `You received ${amount} ${displayCurrency}`,
       html: this.renderTemplate({
-        preheader: `You received ${amount} SOL on Potatoe Squeezy.`,
+        preheader: `You received ${amount} ${displayCurrency} on Potatoe Squeezy.`,
         title: 'You just got tipped',
-        intro: `${senderName} sent you ${amount} SOL.`,
+        intro: `${senderName} sent you ${amount} ${displayCurrency}.`,
         body: `
           <p style="margin:0 0 14px;">Your work is getting noticed and rewarded.</p>
           ${

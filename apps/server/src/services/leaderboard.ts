@@ -84,6 +84,7 @@ export class LeaderboardService {
       })
       .from(users)
       .leftJoin(developerStats, eq(users.id, developerStats.userId))
+      .where(eq(users.leaderboardOptIn, true))
       .orderBy(
         desc(developerStats.totalPoints),
         desc(developerStats.totalEarnedUSD),
@@ -155,6 +156,7 @@ export class LeaderboardService {
           eq(contributions.merged, true),
           gte(contributions.createdAt, since),
           eq(bounties.isVerified, true),
+          eq(users.leaderboardOptIn, true),
         ),
       );
 
@@ -219,6 +221,7 @@ export class LeaderboardService {
       })
       .from(developerStats)
       .innerJoin(users, eq(developerStats.userId, users.id))
+      .where(eq(users.leaderboardOptIn, true))
       .orderBy(
         desc(developerStats.consecutiveDays),
         desc(developerStats.totalPoints),

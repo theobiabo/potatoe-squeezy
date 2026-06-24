@@ -40,7 +40,7 @@ function AuthButton() {
   return (
     <div>
       <button
-        className="rounded-xl mx-auto flex items-center gap-2 justify-center bg-gray-800 w-fit px-4 py-2"
+        className="mx-auto flex w-fit items-center justify-center gap-2 rounded-[12px] border border-[#2b2933] bg-[#15131d] px-4 py-2 text-[#c9d1d9] transition-colors hover:bg-[#1c1925] hover:text-white"
         type="button"
         disabled={isStartingOAuth}
         onClick={signInWithGithub}

@@ -7,6 +7,8 @@ import ModalLayout from "@/components/popups/modals";
 import { DialogDescription } from "@/components/ui/dialog.tsx";
 import useAuth from "@/hooks/useAuth.ts";
 import { Button } from "@/components/ui/button.tsx";
+import { buildReadmeBadgeMarkdown } from "@potatoe/utils";
+import { BASE_API_URL } from "@/constant";
 
 const SettingsDrawerView = () => {
   const { user } = useUserStore() || {};
@@ -16,17 +18,10 @@ const SettingsDrawerView = () => {
   const { logout } = useAuth();
 
   const copyBadgeCode = () => {
-    const badgeCode = `
-        <a href="${window.location.origin}/app/profile?user=${profile_name}" target="_blank" rel="noopener noreferrer">
-          <img 
-            src="https://coffee-major-wallaby-86.mypinata.cloud/ipfs/bafkreiaskbvndui55ycmqdu6ui6arfkhxmqgjvjcaw26myp4y76mmqtbyi" 
-            width="350" 
-            height="54" 
-            style="width: 250px; height: 54px;" 
-            alt="Potatoe Squeezy - Support GitHub contributors with crypto" 
-          />
-        </a>
-      `.trim();
+    const badgeCode = buildReadmeBadgeMarkdown(profile_name, {
+      apiOrigin: BASE_API_URL,
+      appOrigin: window.location.origin,
+    });
     navigator.clipboard.writeText(badgeCode);
     toast.success("Badge code copied to clipboard!");
   };
@@ -38,10 +33,7 @@ const SettingsDrawerView = () => {
 
         <ModalLayout
           trigger={
-            <div
-              className="flex items-center justify-between p-4 transition-all duration-200
-          border-2 cursor-pointer text-r ed-600  bg-gray-900/50 hover:bg-gray-900/70 rounded-xl border-red-900/40 hover:border-purple-500/30"
-            >
+            <div className="flex cursor-pointer items-center justify-between rounded-[18px] border border-red-500/30 bg-[#15131d] p-4 text-red-300 transition-colors hover:border-red-500/50 hover:bg-[#1c1925]">
               <div className="flex items-center gap-2">
                 <Power />
                 <h4 className="text-sm "> Log out</h4>
@@ -54,7 +46,11 @@ const SettingsDrawerView = () => {
             Your account would be logged out
           </DialogDescription>
 
-          <Button className={"mt-4 bg-red-700 w-full"} onClick={logout}>
+          <Button
+            className={"mt-4 w-full"}
+            variant="destructive"
+            onClick={logout}
+          >
             Continue
           </Button>
         </ModalLayout>

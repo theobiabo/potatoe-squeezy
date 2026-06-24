@@ -95,6 +95,19 @@ authRouter.get('/callback', async (c) => {
     );
   }
 
+  const githubId = String(githubUser.id ?? '').trim();
+  const githubLogin = String(githubUser.login ?? '').trim();
+
+  if (!githubId || !githubLogin) {
+    return c.json(
+      {
+        error: 'Authentication failed',
+        details: 'Missing GitHub id or login',
+      },
+      401,
+    );
+  }
+
   try {
     const matchedUser = await findExistingUserForGitHub(
       c.env.DB,
@@ -106,8 +119,8 @@ authRouter.get('/callback', async (c) => {
     if (!matchedUser) {
       const result = await c.env.DB.insert(users)
         .values({
-          githubId: githubUser.id.toString(),
-          username: githubUser.login,
+          githubId,
+          username: githubLogin,
           name: githubUser.name || null,
           email: githubUser.email || null,
           avatarUrl: githubUser.avatar_url || null,
@@ -118,7 +131,7 @@ authRouter.get('/callback', async (c) => {
 
       const rawMessage = `
       🎉 *${NOTIFICATION_TYPE.NEW_USER}*
-      
+
       👤 *Name*: ${githubUser.name || 'N/A'}
       🖋️ *GitHub Username*: \`${githubUser.login}\`
       🖼️ *Avatar*: [View Avatar](${githubUser.avatar_url})
@@ -141,8 +154,8 @@ authRouter.get('/callback', async (c) => {
     } else {
       const result = await c.env.DB.update(users)
         .set({
-          githubId: githubUser.id.toString(),
-          username: githubUser.login,
+          githubId,
+          username: githubLogin,
           name: githubUser.name || null,
           email: githubUser.email || null,
           avatarUrl: githubUser.avatar_url || null,

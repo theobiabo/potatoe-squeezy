@@ -112,8 +112,8 @@ const AddOrUpdateAddress = ({ onUpdateAddress }: AddOrUpdateAddressProps) => {
               onClick={() => handleSelectChain(option.value)}
               className={`flex items-center gap-2 rounded-md w-full border px-3 py-2 text-sm transition-colors ${
                 isActive
-                  ? "border-red-400 bg-white/10 text-white"
-                  : "border-white/10 bg-gray-900/50 text-white/60 hover:border-white/40"
+                  ? "border-orange-500/50 bg-orange-500/10 text-white"
+                  : "border-[#2b2933] bg-[#15131d] text-[#8f8a99] hover:border-[#4b465a] hover:text-white"
               }`}
             >
               <Icon
@@ -131,7 +131,7 @@ const AddOrUpdateAddress = ({ onUpdateAddress }: AddOrUpdateAddressProps) => {
         placeholder={`Enter your ${chain} wallet address`}
         value={address}
         onChange={(e) => setAddress(e.target.value)}
-        className="bg-gray-900/50 border-white/10 text-white !py-4"
+        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
       />
 
       <div className="flex flex-col justify-end gap-3">

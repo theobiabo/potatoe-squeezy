@@ -7,3 +7,10 @@ type Bindings = {
 };
 
 export type Env = Bindings;
+
+declare module 'hono' {
+  interface ContextVariableMap {
+    user: any;
+    userId: any;
+  }
+}

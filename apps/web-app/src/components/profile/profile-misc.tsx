@@ -10,17 +10,14 @@ const SentAndReceivedTokenPanel = () => {
   const totalSent = profile?.totalTokensSent ?? profile?.totalTipsSent ?? "0";
   return (
     <>
-      <div
-        className="flex rounded-md  gap-4 bg-gray-900/80 px-3 py-2 text-xs
-            text-gray-100 sm:flex-row sm:items-center sm:gap-3 sm:text-sm"
-      >
+      <div className="flex gap-4 rounded-[18px] border border-[#2b2933] bg-[#15131d] px-3 py-2 text-xs text-[#c9d1d9] sm:flex-row sm:items-center sm:gap-3 sm:text-sm">
         <div>
-          <span className="text-gray-400">Received:</span>{" "}
+          <span className="text-[#8f8a99]">Received:</span>
           <span className="font-medium">{totalReceived} SOL</span>
         </div>
-        <span className="hidden text-gray-600 sm:inline">|</span>
+        <span className="hidden text-[#2b2933] sm:inline">|</span>
         <div>
-          <span className="text-gray-400">Sent:</span>{" "}
+          <span className="text-[#8f8a99]">Sent:</span>
           <span className="font-medium">{totalSent} SOL</span>
         </div>
       </div>

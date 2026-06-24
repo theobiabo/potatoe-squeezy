@@ -16,17 +16,20 @@ const UpdateProfile = () => {
   const [email, setEmail] = useState("");
   const [twitterUrl, setTwitterUrl] = useState("");
   const [tippersPublic, setTippersPublic] = useState(false);
+  const [leaderboardOptIn, setLeaderboardOptIn] = useState(false);
 
   useEffect(() => {
     setDisplayName(profile?.user?.displayName ?? "");
     setEmail(profile?.user?.email ?? "");
     setTwitterUrl(profile?.user?.twitterUrl ?? "");
     setTippersPublic(Boolean(profile?.user?.tippersPublic));
+    setLeaderboardOptIn(Boolean(profile?.user?.leaderboardOptIn));
   }, [
     profile?.user?.displayName,
     profile?.user?.email,
     profile?.user?.twitterUrl,
     profile?.user?.tippersPublic,
+    profile?.user?.leaderboardOptIn,
   ]);
 
   const updateProfileMutation = useMutation({
@@ -36,6 +39,7 @@ const UpdateProfile = () => {
         email: email.trim() || null,
         twitterUrl: twitterUrl.trim() || null,
         tippersPublic,
+        leaderboardOptIn,
       }),
     onSuccess: (response) => {
       setAuthUser(response.user);
@@ -56,7 +60,7 @@ const UpdateProfile = () => {
         value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
         maxLength={80}
-        className="border-white/10 bg-gray-900/50 text-white !py-4"
+        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
       />
 
       <Input
@@ -64,22 +68,32 @@ const UpdateProfile = () => {
         placeholder="Email address"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="border-white/10 bg-gray-900/50 text-white !py-4"
+        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
       />
 
       <Input
         placeholder="Twitter/X profile URL or @handle"
         value={twitterUrl}
         onChange={(e) => setTwitterUrl(e.target.value)}
-        className="border-white/10 bg-gray-900/50 text-white !py-4"
+        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
       />
 
-      <label className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-gray-900/50 px-4 py-3 text-sm text-white">
+      <label className="flex items-center justify-between gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-3 text-sm text-white">
         <span>Show my tippers on my public profile</span>
         <input
           type="checkbox"
           checked={tippersPublic}
           onChange={(e) => setTippersPublic(e.target.checked)}
+          className="h-4 w-4"
+        />
+      </label>
+
+      <label className="flex items-center justify-between gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-3 text-sm text-white">
+        <span>Include me on public leaderboards</span>
+        <input
+          type="checkbox"
+          checked={leaderboardOptIn}
+          onChange={(e) => setLeaderboardOptIn(e.target.checked)}
           className="h-4 w-4"
         />
       </label>

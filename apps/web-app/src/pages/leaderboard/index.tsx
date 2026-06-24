@@ -24,11 +24,9 @@ type LeaderboardRow = {
   badges: LeaderboardBadge[];
 };
 
-const medalByRank: Record<number, string> = {
-  1: "🥇",
-  2: "🥈",
-  3: "🥉",
-};
+function formatRank(rank: number) {
+  return `#${rank}`;
+}
 
 const tableHeader = [
   "Rank",
@@ -40,10 +38,10 @@ const tableHeader = [
 
 function LeaderboardTable({ rows }: { rows: LeaderboardRow[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-800 bg-black/30">
+    <div className="overflow-x-auto rounded-[24px] border border-[#2b2933] bg-[#0f0d16]">
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left border-b border-gray-800 text-gray-400">
+          <tr className="border-b border-[#2b2933] text-left text-[#8f8a99]">
             {tableHeader.map((item) => (
               <th key={item} className="px-4 py-3 font-medium">
                 {item}
@@ -55,10 +53,10 @@ function LeaderboardTable({ rows }: { rows: LeaderboardRow[] }) {
           {rows.map((row) => (
             <tr
               key={`${row.userId}-${row.rank}`}
-              className="border-b border-gray-900"
+              className="border-b border-[#2b2933] last:border-b-0"
             >
               <td className="px-4 py-3 font-semibold text-white">
-                {medalByRank[row.rank] ?? `#${row.rank}`}
+                {formatRank(row.rank)}
               </td>
               <td className="px-4 py-3">
                 <Link
@@ -71,7 +69,7 @@ function LeaderboardTable({ rows }: { rows: LeaderboardRow[] }) {
                       row.avatarUrl ||
                       "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
                     }
-                    className="object-cover w-8 h-8 rounded-full"
+                    className="h-8 w-8 rounded-full border border-[#2b2933] object-cover"
                   />
                   <span className="font-medium text-white">{row.username}</span>
                 </Link>
@@ -87,13 +85,13 @@ function LeaderboardTable({ rows }: { rows: LeaderboardRow[] }) {
                   {row.badges.slice(0, 3).map((badge) => (
                     <span
                       key={badge.id}
-                      className="px-2 py-1 text-xs font-medium rounded-md bg-gray-800 text-gray-200"
+                      className="rounded-[10px] border border-[#2b2933] bg-[#15131d] px-2 py-1 text-xs font-medium text-[#c9d1d9]"
                     >
                       {badge.name}
                     </span>
                   ))}
                   {row.badges.length === 0 && (
-                    <span className="text-xs text-gray-500">No badges</span>
+                    <span className="text-xs text-[#8f8a99]">No badges</span>
                   )}
                 </div>
               </td>
@@ -134,7 +132,7 @@ function LeaderboardPage() {
 
   const emptyState = useMemo(
     () => (
-      <div className="py-16 text-center border border-gray-800 rounded-xl bg-black/20 text-gray-400">
+      <div className="rounded-[24px] border border-[#2b2933] bg-[#0f0d16] py-16 text-center text-[#8f8a99]">
         No leaderboard data yet
       </div>
     ),
@@ -146,13 +144,13 @@ function LeaderboardPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-semibold text-white">Leaderboard</h1>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-[#8f8a99]">
             Global, weekly, and streak rankings
           </p>
         </div>
 
         <Tabs defaultValue="global" className="space-y-4 ">
-          <TabsList className="  bg-transparent">
+          <TabsList>
             <TabsTrigger value="global">Global</TabsTrigger>
             <TabsTrigger value="weekly">Weekly</TabsTrigger>
             <TabsTrigger value="streaks">Streaks</TabsTrigger>

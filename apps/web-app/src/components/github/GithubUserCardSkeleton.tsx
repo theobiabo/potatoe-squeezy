@@ -2,13 +2,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function GithubUserCardSkeleton() {
   return (
-    <div className="bg-gray-900/20 backdrop-blur-xl rounded-2xl p-6 border border-white/10">
-      <div className="flex flex-col items-center text-center gap-4">
-        <Skeleton className="w-24 h-24 rounded-2xl" />
-        <div className="space-y-3 w-full">
+    <div className="rounded-[24px] border border-[#2b2933] bg-[#0f0d16] p-6">
+      <div className="flex flex-col items-center gap-4 text-center">
+        <Skeleton className="h-24 w-24 rounded-[18px]" />
+        <div className="w-full space-y-3">
           <div>
-            <Skeleton className="h-8 w-48 mx-auto" />
-            <div className="flex items-center justify-center gap-2 mt-2">
+            <Skeleton className="mx-auto h-8 w-48" />
+            <div className="mt-2 flex items-center justify-center gap-2">
               <Skeleton className="h-4 w-24" />
             </div>
           </div>

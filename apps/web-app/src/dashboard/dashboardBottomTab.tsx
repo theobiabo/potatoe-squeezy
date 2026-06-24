@@ -11,11 +11,8 @@ function DashboardBottomTab() {
   }, []);
 
   return (
-    <nav className="fixed w-[340px] max-w-[95vw] bottom-3 left-1/2 -translate-x-1/2 z-50">
-      <div
-        className="flex items-center justify-between gap-2 px-4  bg-black/40 backdrop-blur-xl 
-        border border-white/10 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.5)]"
-      >
+    <nav className="fixed bottom-3 left-1/2 z-50 w-[460px] max-w-[95vw] -translate-x-1/2">
+      <div className="flex items-center justify-between gap-2 rounded-[24px] border border-[#2b2933] bg-[#0f0d16]/95 px-3 py-2">
         {DASHBOARDNAV.map((item) => {
           const isActive = currentPath === item.path;
 
@@ -24,17 +21,16 @@ function DashboardBottomTab() {
               key={item.path}
               to={item.path}
               className={`
-                flex flex-col items-center justify-center min-w-[64px] p-2
-                rounded-xl transition-all duration-300 ease-out
-                hover:bg-white/5
+                flex min-w-[70px] flex-col items-center justify-center rounded-[16px] px-2 py-1.5
+                                transition-colors hover:bg-[#15131d]
                 ${
                   isActive
-                    ? "bg-primary   text-orange-500 border border-primary/20"
-                    : "text-muted-foreground hover:text-primary"
+                    ? "border border-[#2b2933] bg-[#15131d] text-white"
+                    : "text-[#8f8a99] hover:text-white"
                 }
               `}
             >
-              <span className={`text-xl mb-1 ${isActive ? "scale-110" : ""}`}>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-current/60">
                 {item.icon}
               </span>
               <span className="text-[10px] font-medium tracking-wide">

@@ -3,19 +3,22 @@
   "files": [],
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./tsconfig.app.json",
     },
     {
-      "path": "./tsconfig.node.json"
-    }
+      "path": "./tsconfig.node.json",
+    },
   ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@potatoe/shared": ["../../packages/shared/src/index.ts"],
-      "@potatoe/shared/*": ["../../packages/shared/src/*"]
+      "@potatoe/shared/*": ["../../packages/shared/src/*"],
+      "@potatoe/enum": ["../../packages/enum/src/index.ts"],
+      "@potatoe/utils": ["../../packages/utils/src/index.ts"],
+      "@potatoe/utils/*": ["../../packages/utils/src/*"],
     },
-    "jsx": "react-jsx"
-  }
+    "jsx": "react-jsx",
+  },
 }

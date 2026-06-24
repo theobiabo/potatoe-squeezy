@@ -1,5 +1,3 @@
-import React from "react";
-import DefaultButton from "../button";
 import Button from "../button";
 
 interface IGithubUserCardProps {
@@ -13,33 +11,26 @@ function GithubUsersCard({
   user_name,
   user_avatar_url,
   github_username,
-  html_url,
 }: IGithubUserCardProps) {
   const goToProfile = () => {
     if (typeof window !== "undefined") {
-      window.location.href = `/app/profile?user=${github_username}`;
+      window.location.href = `/app/dev/${github_username}`;
     }
   };
 
   return (
-    <div
-      className={`w-[85%] lg:w-[230px]
-      bg-[#1b1b1b2b] rounded-lg px-4 shadow-sm 
-      border-2 border-gray-300/10 py-4 
-      flex flex-col items-center justify-center
-      hover:border-red-500/20 transition-all duration-300`}
-    >
+    <div className="flex w-[85%] flex-col items-center justify-center rounded-[24px] border border-[#2b2933] bg-[#0f0d16] px-4 py-4 transition-colors hover:border-[#4b465a] hover:bg-[#15131d] lg:w-[230px]">
       <img
         src={user_avatar_url}
         alt={user_name}
-        className="h-20 w-20 rounded-xl object-cover"
+        className="h-20 w-20 rounded-[18px] border border-[#2b2933] object-cover"
       />
       <div className="mt-3 text-center">
         <p className="font-medium">{user_name}</p>
-        <p className="text-sm text-gray-400">@{github_username}</p>
+        <p className="text-sm text-[#8f8a99]">@{github_username}</p>
       </div>
       <Button onClick={goToProfile} className="w-full mt-4" variant="default">
-        🍟 Zap User ⚡
+        View profile
       </Button>
     </div>
   );

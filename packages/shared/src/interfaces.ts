@@ -14,6 +14,7 @@ export interface IPotatoeUser {
   displayName: string | null;
   avatarUrl: string | null;
   twitterUrl: string | null;
+  leaderboardOptIn: boolean;
   createdAt: string;
   updatedAt: string;
 }

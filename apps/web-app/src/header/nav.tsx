@@ -2,15 +2,15 @@ const Nav = () => {
   return (
     <nav className="container px-4 mx-auto my-4">
       <div className="flex items-center justify-between w-full gap-4">
-        <div>
-          <h1 className="text-4xl">🥔</h1>
-        </div>
+        <a href="/" className="text-sm font-semibold text-white">
+          Potatoe Squeezy
+        </a>
         <div className="flex items-center gap-8">
           <a
             href="https://github.com/yhoungdev/potatoe-squeezy"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 bg-gray-800 rounded-lg"
+            className="rounded-[12px] border border-[#2b2933] bg-[#15131d] p-2 text-[#c9d1d9] transition-colors hover:bg-[#1c1925] hover:text-white"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

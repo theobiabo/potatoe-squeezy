@@ -111,11 +111,11 @@ function Notification() {
       trigger={
         <button
           type="button"
-          className="relative rounded-md bg-gray-800 p-2 text-white transition-colors hover:bg-gray-700"
+          className="relative rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-[#c9d1d9] transition-colors hover:border-[#4b465a] hover:bg-[#15131d] hover:text-white"
         >
           <NotificationIcon />
           {notifications.length > 0 ? (
-            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-400 px-1 text-[10px] font-semibold text-white">
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full border border-[#2b2933] bg-orange-500 px-1 text-[10px] font-semibold text-black">
               {notifications.length}
             </span>
           ) : null}
@@ -139,30 +139,30 @@ function Notification() {
         ) : null}
 
         {isLoading ? (
-          <div className="rounded-xl border border-white/10 bg-gray-900/50 p-4 text-sm text-gray-400">
+          <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 text-sm text-[#8f8a99]">
             Loading notifications...
           </div>
         ) : notifications.length === 0 ? (
-          <div className="rounded-xl border border-white/10 bg-gray-900/50 p-4 text-sm text-gray-400">
+          <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 text-sm text-[#8f8a99]">
             No notifications yet.
           </div>
         ) : (
           notifications.map((item) => (
             <div
               key={item.id}
-              className="rounded-xl border border-white/10 bg-gray-900/50 p-4"
+              className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-white">{item.title}</p>
-                  <p className="text-sm text-gray-300">{item.message}</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm text-[#c9d1d9]">{item.message}</p>
+                  <p className="text-xs text-[#8f8a99]">
                     {item.sender?.username
                       ? `From @${item.sender.username}`
                       : `${item.senderAddress.slice(0, 4)}...${item.senderAddress.slice(-4)}`}
                   </p>
                 </div>
-                <p className="shrink-0 text-xs text-gray-500">
+                <p className="shrink-0 text-xs text-[#8f8a99]">
                   {formatDistanceToNow(new Date(item.createdAt), {
                     addSuffix: true,
                   })}

@@ -1,18 +1,10 @@
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { X } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import Typography from "@/components/typography";
+import CustomModal from "./custom-modal";
 
 interface IModalLayout {
-  trigger?: React.ReactNode;
-  children: React.ReactNode;
+  trigger?: ReactNode;
+  children: ReactNode;
   title: string;
   onClose?: () => void;
   open?: boolean;
@@ -27,29 +19,40 @@ const ModalLayout = ({
   open,
   closeOnOverlayClick = true,
 }: IModalLayout) => {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const controlled = typeof open === "boolean";
+  const visible = controlled ? open : internalOpen;
+
+  const handleClose = () => {
+    if (!controlled) setInternalOpen(false);
+    onClose?.();
+  };
+
   return (
-    <AlertDialog open={open}>
-      {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
-      <AlertDialogContent
-        onPointerDownOutside={(e) => {
-          if (!closeOnOverlayClick) {
-            e.preventDefault();
-          }
-        }}
+    <>
+      {trigger && (
+        <button
+          type="button"
+          className="contents"
+          onClick={() => setInternalOpen(true)}
+        >
+          {trigger}
+        </button>
+      )}
+      <CustomModal
+        open={visible}
+        onClose={handleClose}
+        labelledBy="modal-layout-title"
+        closeOnOverlayClick={closeOnOverlayClick}
       >
-        <AlertDialogHeader>
-          <div className="flex items-center justify-between">
-            <AlertDialogTitle>{title}</AlertDialogTitle>
-            {(closeOnOverlayClick || !open) && (
-              <AlertDialogCancel onClick={onClose} className="p-2">
-                <X className="w-4 h-4" />
-              </AlertDialogCancel>
-            )}
-          </div>
+        <div className="space-y-4 pr-8">
+          <Typography as="h2" variant="h5" id="modal-layout-title">
+            {title}
+          </Typography>
           <div>{children}</div>
-        </AlertDialogHeader>
-      </AlertDialogContent>
-    </AlertDialog>
+        </div>
+      </CustomModal>
+    </>
   );
 };
 
