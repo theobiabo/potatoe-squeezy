@@ -58,10 +58,10 @@ function UsersPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search GitHub users..."
-              className="w-full p-3 bg-gray-900 rounded-xl pl-10"
+              className="w-full rounded-[18px] border border-[#2b2933] bg-[#0f0d16] p-3 pl-10 text-white placeholder:text-[#8f8a99] outline-none focus:border-[#4b465a] focus:ring-2 focus:ring-orange-500/30"
             />
             <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8f8a99]"
               size={20}
             />
           </div>
@@ -82,7 +82,7 @@ function UsersPage() {
       </div>
 
       {users.length === 0 && !loading && (
-        <div className="text-center text-gray-500 mt-8">
+        <div className="mt-8 text-center text-[#8f8a99]">
           Search for GitHub users to get started
         </div>
       )}

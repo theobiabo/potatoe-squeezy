@@ -1,22 +1,31 @@
 import { useMemo } from "react";
 import { formatPoints, formatUsd } from "@potatoe/utils";
 import DefaultDashboard from "@/layouts/dashboard";
-import TipDeveloperDialog from "@/components/tipping/TipDeveloperDialog";
-import ProfileShareCard from "@/components/share/ProfileShareCard";
-import PublicSupporterWall from "@/components/profile/PublicSupporterWall";
+import TipDeveloperDialog from "@/components/tipping/tip-developer-dialog";
+import CompanyInviteDialog from "@/components/company/company-invite-dialog";
+import ProfileShareCard from "@/components/share/profile-share-card";
+import PublicSupporterWall from "@/components/profile/public-supporter-wall";
 import Typography from "@/components/typography";
-import { useDeveloperProfile } from "@/hooks/useDeveloperProfile";
-import ProfileHero from "@/components/profile/sections/ProfileHero";
+import { useDeveloperProfile } from "@/hooks/use-developer-profile";
+import { useGitHubProfileData } from "@/hooks/use-github-profile-data";
+import ProfileHero from "@/components/profile/sections/profile-hero";
 import ProfileStatsGrid, {
   type ProfileStatItem,
-} from "@/components/profile/sections/ProfileStatsGrid";
-import ProfileSection from "@/components/profile/sections/ProfileSection";
-import ProfileBadges from "@/components/profile/sections/ProfileBadges";
-import RecentContributions from "@/components/profile/sections/RecentContributions";
-import ContributionGraph from "@/components/profile/sections/ContributionGraph";
+} from "@/components/profile/sections/profile-stats-grid";
+import ProfileSection from "@/components/profile/sections/profile-section";
+import ProfileBadges from "@/components/profile/sections/profile-badges";
+import RecentContributions from "@/components/profile/sections/recent-contributions";
+import ContributionGraph from "@/components/profile/sections/contribution-graph";
+import GitHubRepositoryGraph from "@/components/profile/sections/github-repository-graph";
 
 function DeveloperProfilePage({ username }: { username: string }) {
   const { data, loading, refresh } = useDeveloperProfile(username);
+  const github = useGitHubProfileData(username);
+
+  const graphContributions = github.data?.contributions.length
+    ? github.data.contributions
+    : (data?.recentContributions ?? []);
+  const graphSource = github.data?.contributions.length ? "github" : "potatoe";
 
   const stats = useMemo<ProfileStatItem[]>(() => {
     if (!data) return [];
@@ -77,6 +86,9 @@ function DeveloperProfilePage({ username }: { username: string }) {
             tipAction={
               <TipDeveloperDialog developer={data.user} onSuccess={refresh} />
             }
+            companyAction={
+              <CompanyInviteDialog developer={data.user} onSuccess={refresh} />
+            }
           />
 
           <ProfileStatsGrid items={stats} />
@@ -101,7 +113,16 @@ function DeveloperProfilePage({ username }: { username: string }) {
             </ProfileSection>
           </div>
 
-          <ContributionGraph contributions={data.recentContributions} />
+          <ContributionGraph
+            contributions={graphContributions}
+            loading={github.isLoading && !data.recentContributions.length}
+            source={graphSource}
+          />
+          <GitHubRepositoryGraph
+            username={data.user.username}
+            repositories={github.data?.repositories ?? []}
+            loading={github.isLoading}
+          />
           <ProfileShareCard username={data.user.username} compact />
           <PublicSupporterWall username={data.user.username} />
           <ProfileBadges badges={data.badges} />

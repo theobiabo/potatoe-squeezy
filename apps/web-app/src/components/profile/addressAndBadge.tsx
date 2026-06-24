@@ -17,9 +17,11 @@ const AddressAndBadge = ({ username, onCopyBadge }: AddressAndBadgeProps) => {
       <ModalLayout
         title="Update Wallet Address"
         trigger={
-          <div className="flex items-center justify-between p-4 transition-all duration-200 border cursor-pointer bg-gray-900/50 hover:bg-gray-900/70 rounded-xl border-white/5 hover:border-purple-500/30">
-            <h4 className="text-sm text-gray-300">Add/Update Wallet Address</h4>
-            <ChevronRight className="text-gray-400" />
+          <div className="flex cursor-pointer items-center justify-between rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 transition-colors hover:border-[#4b465a] hover:bg-[#1c1925]">
+            <h4 className="text-sm text-[#c9d1d9]">
+              Add/Update Wallet Address
+            </h4>
+            <ChevronRight className="text-[#8f8a99]" />
           </div>
         }
       >
@@ -29,9 +31,9 @@ const AddressAndBadge = ({ username, onCopyBadge }: AddressAndBadgeProps) => {
       <ModalLayout
         title="Your Badge"
         trigger={
-          <div className="flex items-center justify-between p-4 transition-all duration-200 border cursor-pointer bg-gray-900/50 hover:bg-gray-900/70 rounded-xl border-white/5 hover:border-purple-500/30">
-            <h4 className="text-sm text-gray-300"> Generate Badge</h4>
-            <ChevronRight className="text-gray-400" />
+          <div className="flex cursor-pointer items-center justify-between rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 transition-colors hover:border-[#4b465a] hover:bg-[#1c1925]">
+            <h4 className="text-sm text-[#c9d1d9]">Generate Badge</h4>
+            <ChevronRight className="text-[#8f8a99]" />
           </div>
         }
       >
@@ -42,13 +44,10 @@ const AddressAndBadge = ({ username, onCopyBadge }: AddressAndBadgeProps) => {
           >
             Your Tip Badge
           </Typography>
-          <div className="flex justify-center p-4 border bg-gray-900/50 rounded-xl border-white/5">
+          <div className="flex justify-center rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4">
             <TipBadge username={username} />
           </div>
-          <Button
-            onClick={onCopyBadge}
-            className="w-full bg-gray-800 animate-pulse"
-          >
+          <Button onClick={onCopyBadge} className="w-full">
             Copy Badge Code <CopyIcon />
           </Button>
         </div>
@@ -57,9 +56,9 @@ const AddressAndBadge = ({ username, onCopyBadge }: AddressAndBadgeProps) => {
       <ModalLayout
         title="Update Profile"
         trigger={
-          <div className="flex items-center justify-between p-4 transition-all duration-200 border cursor-pointer bg-gray-900/50 hover:bg-gray-900/70 rounded-xl border-white/5 hover:border-purple-500/30">
-            <h4 className="text-sm text-gray-300"> Update Profile</h4>
-            <ChevronRight className="text-gray-400" />
+          <div className="flex cursor-pointer items-center justify-between rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 transition-colors hover:border-[#4b465a] hover:bg-[#1c1925]">
+            <h4 className="text-sm text-[#c9d1d9]">Update Profile</h4>
+            <ChevronRight className="text-[#8f8a99]" />
           </div>
         }
       >

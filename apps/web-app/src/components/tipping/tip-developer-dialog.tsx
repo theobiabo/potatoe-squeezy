@@ -120,14 +120,14 @@ export default function TipDeveloperDialog({
         </div>
 
         <div className="mt-5 space-y-5">
-          <div className="flex items-center gap-3 rounded-xl border border-[#30363d] bg-[#161b22] p-3">
+          <div className="flex items-center gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] p-3">
             <img
               src={
                 developer.avatarUrl ||
                 "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
               }
               alt={displayName}
-              className="h-10 w-10 rounded-full border border-[#30363d] object-cover"
+              className="h-10 w-10 rounded-full border border-[#2b2933] object-cover"
             />
             <div className="min-w-0">
               <Typography as="p" variant="h6" className="truncate">
@@ -153,7 +153,7 @@ export default function TipDeveloperDialog({
                     "rounded-md border px-3 py-2 text-sm font-medium transition-colors",
                     amount === String(tipAmount)
                       ? "border-orange-500/50 bg-orange-500/15 text-orange-300"
-                      : "border-[#30363d] bg-[#161b22] text-[#c9d1d9] hover:bg-[#21262d]",
+                      : "border-[#2b2933] bg-[#15131d] text-[#c9d1d9] hover:bg-[#1c1925]",
                   )}
                 >
                   {tipAmount}
@@ -167,9 +167,9 @@ export default function TipDeveloperDialog({
                 step="0.01"
                 value={amount}
                 onChange={(event) => setAmount(event.target.value)}
-                className="border-[#30363d] bg-[#010409] text-white"
+                className="border-[#2b2933] bg-[#0f0d16] text-white"
               />
-              <span className="rounded-md border border-[#30363d] bg-[#161b22] px-3 py-2 text-sm text-[#c9d1d9]">
+              <span className="rounded-[12px] border border-[#2b2933] bg-[#15131d] px-3 py-2 text-sm text-[#c9d1d9]">
                 {SupportedTipToken.SOL}
               </span>
             </div>
@@ -184,12 +184,12 @@ export default function TipDeveloperDialog({
               maxLength={160}
               onChange={(event) => setNote(event.target.value)}
               placeholder="Thanks for your open-source work"
-              className="border-[#30363d] bg-[#010409] text-white"
+              className="border-[#2b2933] bg-[#0f0d16] text-white"
             />
           </div>
 
           {!recipientAddress && (
-            <div className="rounded-xl border border-orange-500/30 bg-orange-500/10 p-3 text-sm text-orange-200">
+            <div className="rounded-[18px] border border-orange-500/30 bg-orange-500/10 p-3 text-sm text-orange-200">
               This developer needs to connect a wallet before receiving direct
               tips.
             </div>

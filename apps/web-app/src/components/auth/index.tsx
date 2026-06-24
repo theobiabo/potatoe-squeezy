@@ -56,23 +56,22 @@ function AuthComponent() {
           </motion.span>
 
           <motion.h1
-            className="text-2xl font-semibiold "
+            className="text-2xl font-semibold text-white"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            Reward Devs, Get Zapped—The Solana Way!
+            Developer reputation and rewards for open-source work.
           </motion.h1>
 
           <motion.p
-            className="leading-relaxed text-gray-400 text-md"
+            className="text-md leading-relaxed text-[#8f8a99]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            When life gives you commits, don't just push—squeeze out some SOL
-            instead! With PotatoSqueezy, get zapped and tip GitHub users for
-            their awesome contributions. Open-source just got more rewarding!
+            Build a public developer profile, track contribution history, and
+            receive support from people and companies that value your work.
           </motion.p>
         </div>
 
@@ -83,7 +82,7 @@ function AuthComponent() {
           transition={{ delay: 0.5 }}
         >
           {!isAuthenticated ? (
-            <Button className="bg-gray-800 w-fit" onClick={handleGithubLogin}>
+            <Button className="w-fit" onClick={handleGithubLogin}>
               <GithubIcon /> Continue with Github
             </Button>
           ) : (

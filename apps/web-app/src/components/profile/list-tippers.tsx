@@ -17,21 +17,21 @@ export default function ListTippers() {
         <Typography as="h2" variant="h5" className="text-white">
           List Tippers
         </Typography>
-        <Typography as="p" variant="caption" className="text-gray-400">
+        <Typography as="p" variant="caption" className="text-[#8f8a99]">
           People who have tipped you recently.
         </Typography>
       </div>
 
       {isLoading ? (
-        <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-6 text-sm text-gray-400">
+        <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-6 text-sm text-[#8f8a99]">
           Loading tippers...
         </div>
       ) : tippers.length === 0 ? (
-        <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-6 text-sm text-gray-400">
+        <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-6 text-sm text-[#8f8a99]">
           No tippers yet.
         </div>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-white/10 bg-black/20">
+        <div className="overflow-hidden rounded-[18px] border border-[#2b2933] bg-[#15131d]">
           {tippers.map((tipper) => {
             const displayName = tipper.displayName?.trim() || tipper.username;
             const initials = displayName.slice(0, 2).toUpperCase();
@@ -57,7 +57,7 @@ export default function ListTippers() {
                     <Typography
                       as="p"
                       variant="caption"
-                      className="truncate text-gray-400"
+                      className="truncate text-[#8f8a99]"
                     >
                       {canOpenProfile
                         ? `@${tipper.profileUsername}`
@@ -79,7 +79,7 @@ export default function ListTippers() {
                   <Typography
                     as="p"
                     variant="caption"
-                    className="text-gray-400"
+                    className="text-[#8f8a99]"
                   >
                     {tipper.tipCount} tip{tipper.tipCount === 1 ? "" : "s"}
                     {tipper.lastTippedAt
@@ -101,7 +101,7 @@ export default function ListTippers() {
                   key={tipper.identityKey}
                   to="/app/dev/$username"
                   params={{ username: tipper.profileUsername }}
-                  className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-4 transition-colors last:border-b-0 hover:bg-white/5"
+                  className="flex items-center justify-between gap-4 border-b border-[#2b2933] px-4 py-4 transition-colors last:border-b-0 hover:bg-[#1c1925]"
                 >
                   {rowContent}
                 </Link>
@@ -111,7 +111,7 @@ export default function ListTippers() {
             return (
               <div
                 key={tipper.identityKey}
-                className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-4 last:border-b-0"
+                className="flex items-center justify-between gap-4 border-b border-[#2b2933] px-4 py-4 last:border-b-0"
               >
                 {rowContent}
               </div>

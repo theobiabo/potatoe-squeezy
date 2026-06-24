@@ -3,23 +3,25 @@ import { getDisplayName } from "@potatoe/utils";
 import { Button } from "@/components/ui/button";
 import Typography from "@/components/typography";
 import type { DeveloperUser } from "@/types/developer-profile";
-import ProfileStatusBadge from "./ProfileStatusBadge";
+import ProfileStatusBadge from "./profile-status-badge";
 
 interface ProfileHeroProps {
   user: DeveloperUser;
   onShare: () => void;
   tipAction: ReactNode;
+  companyAction?: ReactNode;
 }
 
 export default function ProfileHero({
   user,
   onShare,
   tipAction,
+  companyAction,
 }: ProfileHeroProps) {
   const displayName = getDisplayName(user.displayName, user.username);
 
   return (
-    <section className="rounded-xl border border-[#30363d] bg-[#0d1117] p-5">
+    <section className="rounded-[24px] border border-[#2b2933] bg-[#0f0d16] p-7">
       <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
         <div className="flex min-w-0 gap-4">
           <img
@@ -27,7 +29,7 @@ export default function ProfileHero({
               user.avatarUrl ||
               "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
             }
-            className="h-20 w-20 rounded-full border border-[#30363d] object-cover"
+            className="h-20 w-20 rounded-full border border-[#2b2933] object-cover"
             alt={displayName}
           />
           <div className="min-w-0 pt-1">
@@ -52,6 +54,7 @@ export default function ProfileHero({
 
         <div className="grid gap-2 sm:min-w-44">
           {tipAction}
+          {companyAction}
           <Button variant="outline" onClick={onShare} className="w-full">
             Share profile
           </Button>

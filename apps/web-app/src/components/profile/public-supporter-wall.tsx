@@ -1,8 +1,8 @@
 import { formatDistanceToNow } from "date-fns";
 import { getDisplayName } from "@potatoe/utils";
 import Typography from "@/components/typography";
-import { usePublicTippers } from "@/hooks/usePublicTippers";
-import ProfileSection from "./sections/ProfileSection";
+import { usePublicTippers } from "@/hooks/use-public-tippers";
+import ProfileSection from "./sections/profile-section";
 
 interface PublicSupporterWallProps {
   username: string;
@@ -43,14 +43,14 @@ export default function PublicSupporterWall({
           No public supporters yet.
         </Typography>
       ) : (
-        <div className="divide-y divide-[#30363d] overflow-hidden rounded-lg border border-[#30363d]">
+        <div className="divide-y divide-[#2b2933] overflow-hidden rounded-[18px] border border-[#2b2933]">
           {data.tippers.map((tipper) => {
             const displayName = getDisplayName(
               tipper.displayName,
               tipper.username,
             );
             const content = (
-              <div className="flex items-center justify-between gap-4 bg-[#0d1117] px-4 py-3 transition-colors hover:bg-[#161b22]">
+              <div className="flex items-center justify-between gap-4 bg-[#0f0d16] px-4 py-3 transition-colors hover:bg-[#15131d]">
                 <div className="flex min-w-0 items-center gap-3">
                   <img
                     src={
@@ -58,7 +58,7 @@ export default function PublicSupporterWall({
                       "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
                     }
                     alt={displayName}
-                    className="h-9 w-9 rounded-full border border-[#30363d] object-cover"
+                    className="h-9 w-9 rounded-full border border-[#2b2933] object-cover"
                   />
                   <div className="min-w-0">
                     <Typography as="p" variant="h6" className="truncate">

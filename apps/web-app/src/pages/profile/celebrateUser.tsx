@@ -150,7 +150,7 @@ function CelebrateUser({
   );
 
   return (
-    <div className="bg-gray-900 w-full lg:w-[450px] rounded-xl px-4 py-4">
+    <div className="w-full rounded-[24px] border border-[#2b2933] bg-[#0f0d16] px-4 py-4 lg:w-[450px]">
       <div className="py-4">
         <h2 className="font-semibold text-center">
           Select or Enter Amount to Zap
@@ -161,12 +161,11 @@ function CelebrateUser({
             <button
               key={amount}
               className={`
-                bg-gray-600 rounded-xl w-10 h-10
-                flex items-center justify-center
-                border-[1px] border-white/20
-                transition-all duration-200
-                ${amount === quantity ? "!bg-red-400 scale-105" : ""}
-                ${!connected ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-500"}
+                flex h-10 w-10 items-center justify-center rounded-[12px]
+                border border-[#2b2933] bg-[#15131d]
+                transition-colors
+                ${amount === quantity ? "border-orange-500/50 bg-orange-500/15 text-orange-300" : ""}
+                ${!connected ? "cursor-not-allowed opacity-50" : "hover:bg-[#1c1925]"}
               `}
               onClick={() => handleAmountSelect(amount)}
               disabled={!connected}
@@ -186,8 +185,7 @@ function CelebrateUser({
           max={MAX_AMOUNT}
           step="0.000001"
           placeholder={`Enter custom amount (${MIN_AMOUNT}-${MAX_AMOUNT} SOL)`}
-          className="w-full p-2 text-sm bg-transparent border-2 border-white/20 rounded-xl
-                    focus:border-red-400 outline-none transition-colors duration-200"
+          className="w-full rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-sm text-white outline-none transition-colors placeholder:text-[#8f8a99] focus:border-[#4b465a] focus:ring-2 focus:ring-orange-500/30"
           disabled={!connected}
         />
       </div>
@@ -198,18 +196,13 @@ function CelebrateUser({
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Hey, I just squashed potato to SOL, enjoy!"
           maxLength={200}
-          className="w-full p-2 text-sm bg-transparent border-2 border-white/20 rounded-xl
-                    focus:border-red-400 outline-none transition-colors duration-200
-                    resize-none h-24"
+          className="h-24 w-full resize-none rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-sm text-white outline-none transition-colors placeholder:text-[#8f8a99] focus:border-[#4b465a] focus:ring-2 focus:ring-orange-500/30"
           disabled={!connected}
         />
       </div>
 
       <Button
-        className={`
-          w-full transition-all duration-200
-          ${hasValidAmount && connected ? "bg-red-400 hover:bg-red-500" : "bg-gray-600"}
-        `}
+        className="w-full"
         onClick={handleZap}
         disabled={
           !hasValidAmount ||
@@ -225,7 +218,7 @@ function CelebrateUser({
 
       {!connected && (
         <>
-          <p className="text-sm text-center mt-2 text-gray-400">
+          <p className="text-sm text-center mt-2 text-[#8f8a99]">
             Connect your wallet to send tips
           </p>
           <div className="mt-3 flex justify-center">
@@ -235,13 +228,13 @@ function CelebrateUser({
       )}
 
       {connected && !hasValidRecipientWallet && (
-        <p className="mt-2 text-sm text-center text-gray-400">
+        <p className="mt-2 text-sm text-center text-[#8f8a99]">
           This developer has not added a valid Solana wallet yet.
         </p>
       )}
 
       {connected && isOwnProfile && (
-        <p className="mt-2 text-sm text-center text-gray-400">
+        <p className="mt-2 text-sm text-center text-[#8f8a99]">
           You cannot zap yourself from your own profile.
         </p>
       )}
@@ -253,15 +246,15 @@ function CelebrateUser({
           </h3>
 
           {isLoadingTippers ? (
-            <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-gray-400">
+            <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-4 text-sm text-[#8f8a99]">
               Loading tippers...
             </div>
           ) : publicTippers.tippers.length === 0 ? (
-            <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-gray-400">
+            <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-4 text-sm text-[#8f8a99]">
               No public tippers yet.
             </div>
           ) : (
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-black/20">
+            <div className="overflow-hidden rounded-[18px] border border-[#2b2933] bg-[#15131d]">
               {publicTippers.tippers.map((tipper) => {
                 const displayName =
                   tipper.displayName?.trim() || tipper.username;
@@ -282,7 +275,7 @@ function CelebrateUser({
                         <p className="truncate text-sm font-medium text-white">
                           {displayName}
                         </p>
-                        <p className="truncate text-xs text-gray-400">
+                        <p className="truncate text-xs text-[#8f8a99]">
                           {canOpenProfile
                             ? `@${tipper.profileUsername}`
                             : tipper.senderType === "agent"
@@ -296,7 +289,7 @@ function CelebrateUser({
                       <p className="text-sm font-medium text-white">
                         {tipper.totalAmount} SOL
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-[#8f8a99]">
                         {tipper.tipCount} tip{tipper.tipCount === 1 ? "" : "s"}
                         {tipper.lastTippedAt
                           ? ` · ${formatDistanceToNow(
@@ -317,7 +310,7 @@ function CelebrateUser({
                       key={tipper.identityKey}
                       to="/app/dev/$username"
                       params={{ username: tipper.profileUsername }}
-                      className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 transition-colors last:border-b-0 hover:bg-white/5"
+                      className="flex items-center justify-between gap-3 border-b border-[#2b2933] px-4 py-3 transition-colors last:border-b-0 hover:bg-[#1c1925]"
                     >
                       {rowContent}
                     </Link>
@@ -327,7 +320,7 @@ function CelebrateUser({
                 return (
                   <div
                     key={tipper.identityKey}
-                    className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 last:border-b-0"
+                    className="flex items-center justify-between gap-3 border-b border-[#2b2933] px-4 py-3 last:border-b-0"
                   >
                     {rowContent}
                   </div>

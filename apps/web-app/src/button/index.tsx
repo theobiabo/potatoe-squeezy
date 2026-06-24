@@ -26,11 +26,13 @@ const DefaultButton: React.FC<IProps> = ({
   disabled = false,
 }): React.ReactNode => {
   const variantStyles: Record<string, string> = {
-    primary: "bg-orange-500 text-white hover:bg-orange-600",
-    secondary: "bg-gray-500 text-white hover:bg-gray-600",
-    danger: "bg-red-500 text-white hover:bg-red-600",
+    primary:
+      "border border-orange-500/30 bg-orange-500 text-black hover:bg-orange-400",
+    secondary:
+      "border border-[#2b2933] bg-[#15131d] text-[#c9d1d9] hover:bg-[#1c1925]",
+    danger: "border border-red-500/30 bg-red-600 text-white hover:bg-red-500",
     default:
-      "bg-[#212830]  border-[#80808054] border text-white hover:bg-red-600",
+      "border border-[#2b2933] bg-[#15131d] text-[#c9d1d9] hover:bg-[#1c1925] hover:text-white",
   };
 
   return (
@@ -38,7 +40,7 @@ const DefaultButton: React.FC<IProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`rounded-xl my-2 !px-4 !py-2 transition-all duration-300 ${
+      className={`my-2 rounded-[12px] !px-4 !py-2 transition-colors ${
         variantStyles[variant]
       } ${disabled ? "opacity-50 cursor-not-allowed" : ""} ${className}`}
     >

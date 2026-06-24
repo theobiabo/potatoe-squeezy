@@ -56,7 +56,7 @@ const UpdateProfile = () => {
         value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
         maxLength={80}
-        className="border-white/10 bg-gray-900/50 text-white !py-4"
+        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
       />
 
       <Input
@@ -64,17 +64,17 @@ const UpdateProfile = () => {
         placeholder="Email address"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="border-white/10 bg-gray-900/50 text-white !py-4"
+        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
       />
 
       <Input
         placeholder="Twitter/X profile URL or @handle"
         value={twitterUrl}
         onChange={(e) => setTwitterUrl(e.target.value)}
-        className="border-white/10 bg-gray-900/50 text-white !py-4"
+        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
       />
 
-      <label className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-gray-900/50 px-4 py-3 text-sm text-white">
+      <label className="flex items-center justify-between gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-3 text-sm text-white">
         <span>Show my tippers on my public profile</span>
         <input
           type="checkbox"

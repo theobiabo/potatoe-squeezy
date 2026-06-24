@@ -16,7 +16,7 @@ function DashboardHeader() {
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <a
           href="/app"
-          className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2 py-1 transition hover:border-white/30 hover:bg-white/10"
+          className="flex items-center gap-2 rounded-[16px] border border-[#2b2933] bg-[#0f0d16] px-2 py-1 transition hover:border-[#4b465a] hover:bg-[#15131d]"
         >
           <img
             src="/logo/logo.png"
@@ -39,7 +39,7 @@ function DashboardHeader() {
             trigger={
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-md bg-gray-900/80 p-2 text-gray-100 shadow-sm transition hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-black"
+                className="inline-flex items-center justify-center rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-[#c9d1d9] transition hover:border-[#4b465a] hover:bg-[#15131d] hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:ring-offset-2 focus:ring-offset-[#0f0d16]"
               >
                 <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>

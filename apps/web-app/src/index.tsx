@@ -64,7 +64,7 @@ function CelebrateUser({ username, walletAddress }: CelebrateUserProps) {
   };
 
   return (
-    <div className="bg-gray-900 w-full lg:w-[450px] rounded-xl px-4 py-4">
+    <div className="w-full rounded-[24px] border border-[#2b2933] bg-[#0f0d16] px-4 py-4 lg:w-[450px]">
       <div className="py-4">
         <h2 className="font-semibold text-center">
           Select or Enter Amount to Zap
@@ -77,12 +77,9 @@ function CelebrateUser({ username, walletAddress }: CelebrateUserProps) {
             return (
               <div
                 key={amount}
-                className={`bg-gray-600 cursor-pointer
-                  rounded-xl w-10 h-10
-                  flex items-center justify-center
-                  border-[1px] border-white/20
-                  ${isSelected ? "!bg-red-400" : ""}
-                  ${!publicKey ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-[12px] border border-[#2b2933] bg-[#15131d]
+                  ${isSelected ? "border-orange-500/50 bg-orange-500/15 text-orange-300" : ""}
+                  ${!publicKey ? "cursor-not-allowed opacity-50" : "hover:bg-[#1c1925]"}`}
                 onClick={() => handleAmountSelect(amount)}
               >
                 {amount}
@@ -103,7 +100,7 @@ function CelebrateUser({ username, walletAddress }: CelebrateUserProps) {
           min="0"
           step="0.1"
           placeholder="Enter custom amount (SOL)"
-          className="w-full p-2 text-sm bg-transparent border-2 border-white/20 rounded-xl"
+          className="w-full rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-sm text-white outline-none transition-colors placeholder:text-[#8f8a99] focus:border-[#4b465a] focus:ring-2 focus:ring-orange-500/30"
           disabled={!publicKey}
         />
       </div>
@@ -113,13 +110,13 @@ function CelebrateUser({ username, walletAddress }: CelebrateUserProps) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Hey, I just squashed potato to SOL, enjoy!"
-          className="w-full p-2 text-sm bg-transparent border-2 border-white/20 rounded-xl"
+          className="w-full rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-sm text-white outline-none transition-colors placeholder:text-[#8f8a99] focus:border-[#4b465a] focus:ring-2 focus:ring-orange-500/30"
           disabled={!publicKey}
         />
       </div>
 
       <Button
-        className={`w-full ${hasValidAmount && publicKey ? "bg-red-400 hover:bg-red-500" : "bg-gray-600"}`}
+        className="w-full"
         onClick={() => handleZap()}
         disabled={!hasValidAmount || !publicKey || loading}
       >

@@ -19,13 +19,13 @@ export function GithubUserCard({ user }: GithubUserCardProps) {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="rounded-xl border border-[#30363d] bg-[#0d1117] p-5"
+      className="rounded-[24px] border border-[#2b2933] bg-[#0f0d16] p-5"
     >
       <div className="flex flex-col items-center gap-4 text-center">
         <img
           src={user.avatar_url}
           alt={user.login}
-          className="h-20 w-20 rounded-full border border-[#30363d] object-cover"
+          className="h-20 w-20 rounded-full border border-[#2b2933] object-cover"
         />
         <div className="w-full space-y-3">
           <div>
@@ -36,13 +36,13 @@ export function GithubUserCard({ user }: GithubUserCardProps) {
               href={`https://github.com/${user.login}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-[#8b949e] transition-colors hover:text-orange-300"
+              className="text-sm text-[#8f8a99] transition-colors hover:text-orange-300"
             >
               @{user.login}
             </a>
           </div>
           {user.bio && (
-            <p className="text-sm leading-relaxed text-[#8b949e]">
+            <p className="text-sm leading-relaxed text-[#8f8a99]">
               {truncateText(user.bio, 30)}
             </p>
           )}

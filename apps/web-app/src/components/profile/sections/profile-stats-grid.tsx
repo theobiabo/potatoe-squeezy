@@ -16,7 +16,7 @@ export default function ProfileStatsGrid({ items }: ProfileStatsGridProps) {
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded-xl border border-[#30363d] bg-[#0d1117] p-4"
+          className="rounded-[24px] border border-[#2b2933] bg-[#0f0d16] p-5"
         >
           <Typography as="p" variant="caption">
             {item.label}

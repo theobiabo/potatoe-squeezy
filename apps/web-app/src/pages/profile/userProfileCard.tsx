@@ -63,7 +63,7 @@ function UserProfileCard() {
   if (loading) {
     return (
       <div className="flex justify-center mt-8">
-        <Skeleton className="w-[300px] h-[200px] rounded-xl" />
+        <Skeleton className="h-[200px] w-[300px] rounded-[24px]" />
       </div>
     );
   }
@@ -92,7 +92,7 @@ function UserProfileCard() {
           isOwnProfile={isOwnProfile}
         />
       ) : (
-        <div className="w-full rounded-xl border border-white/10 bg-gray-900 px-6 py-8 text-center text-gray-300 lg:w-[450px]">
+        <div className="w-full rounded-[24px] border border-[#2b2933] bg-[#0f0d16] px-6 py-8 text-center text-[#c9d1d9] lg:w-[450px]">
           You are viewing your own profile. Zapping yourself is disabled.
         </div>
       )}

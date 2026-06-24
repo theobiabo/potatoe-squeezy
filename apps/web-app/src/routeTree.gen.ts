@@ -17,6 +17,7 @@ import { Route as EmbedTipBadgeRouteImport } from './routes/embed.tip-badge'
 import { Route as AppProfileRouteImport } from './routes/app/profile'
 import { Route as AppLeaderboardRouteImport } from './routes/app/leaderboard'
 import { Route as AppExploreRouteImport } from './routes/app/explore'
+import { Route as AppCompanyRouteImport } from './routes/app/company'
 import { Route as AppBountiesRouteImport } from './routes/app/bounties'
 import { Route as AppDevUsernameRouteImport } from './routes/app/dev.$username'
 
@@ -60,6 +61,11 @@ const AppExploreRoute = AppExploreRouteImport.update({
   path: '/app/explore',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppCompanyRoute = AppCompanyRouteImport.update({
+  id: '/app/company',
+  path: '/app/company',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppBountiesRoute = AppBountiesRouteImport.update({
   id: '/app/bounties',
   path: '/app/bounties',
@@ -74,6 +80,7 @@ const AppDevUsernameRoute = AppDevUsernameRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app/bounties': typeof AppBountiesRoute
+  '/app/company': typeof AppCompanyRoute
   '/app/explore': typeof AppExploreRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/profile': typeof AppProfileRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/bounties': typeof AppBountiesRoute
+  '/app/company': typeof AppCompanyRoute
   '/app/explore': typeof AppExploreRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/profile': typeof AppProfileRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app/bounties': typeof AppBountiesRoute
+  '/app/company': typeof AppCompanyRoute
   '/app/explore': typeof AppExploreRoute
   '/app/leaderboard': typeof AppLeaderboardRoute
   '/app/profile': typeof AppProfileRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app/bounties'
+    | '/app/company'
     | '/app/explore'
     | '/app/leaderboard'
     | '/app/profile'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/app/bounties'
+    | '/app/company'
     | '/app/explore'
     | '/app/leaderboard'
     | '/app/profile'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app/bounties'
+    | '/app/company'
     | '/app/explore'
     | '/app/leaderboard'
     | '/app/profile'
@@ -150,6 +162,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppBountiesRoute: typeof AppBountiesRoute
+  AppCompanyRoute: typeof AppCompanyRoute
   AppExploreRoute: typeof AppExploreRoute
   AppLeaderboardRoute: typeof AppLeaderboardRoute
   AppProfileRoute: typeof AppProfileRoute
@@ -218,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppExploreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/company': {
+      id: '/app/company'
+      path: '/app/company'
+      fullPath: '/app/company'
+      preLoaderRoute: typeof AppCompanyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/bounties': {
       id: '/app/bounties'
       path: '/app/bounties'
@@ -238,6 +258,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppBountiesRoute: AppBountiesRoute,
+  AppCompanyRoute: AppCompanyRoute,
   AppExploreRoute: AppExploreRoute,
   AppLeaderboardRoute: AppLeaderboardRoute,
   AppProfileRoute: AppProfileRoute,

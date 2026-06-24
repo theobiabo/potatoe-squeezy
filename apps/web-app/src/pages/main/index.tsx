@@ -3,8 +3,8 @@ import WalletTransactionTable from "@/components/tables/transactionTable.tsx";
 import DefaultDashboard from "@/layouts/dashboard.tsx";
 import WalletProfilePanel from "@/components/wallet/walletProfilePanel.";
 import ListTippers from "@/components/profile/list-tippers";
-import DashboardOnboardingCard from "@/components/dashboard/DashboardOnboardingCard";
-import ProfileShareCard from "@/components/share/ProfileShareCard";
+import DashboardOnboardingCard from "@/components/dashboard/dashboard-onboarding-card";
+import ProfileShareCard from "@/components/share/profile-share-card";
 import TransactionService from "@/services/transaction.service";
 import { useUserStore } from "@/store/user.store";
 

@@ -32,8 +32,7 @@ export function GithubUserSearch({
             onChange={(e) => onSearchChange(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Search GitHub username..."
-            className="w-full  !p-5 bg-white/5 rounded-xl pl-11 border border-white/10 
-              focus:outline-none focus:ring-2 transition-all"
+            className="w-full rounded-[18px] border border-[#2b2933] bg-[#0f0d16] !p-5 pl-11 text-white transition-colors placeholder:text-[#8f8a99] focus:border-[#4b465a] focus:outline-none focus:ring-2 focus:ring-orange-500/30"
           />
         </div>
         <Button variant="default" onClick={onSearch} disabled={loading}>

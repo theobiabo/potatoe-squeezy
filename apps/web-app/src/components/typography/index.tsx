@@ -13,20 +13,20 @@ const typographyVariants = cva("", {
       h6: "scroll-m-20 text-sm font-semibold tracking-tight text-white",
       p: "text-sm leading-6 text-[#c9d1d9]",
       blockquote:
-        "mt-6 border-l-2 border-[#30363d] pl-6 text-sm italic text-[#8b949e]",
+        "mt-6 border-l-2 border-[#2b2933] pl-6 text-sm italic text-[#8f8a99]",
       list: "my-6 ml-6 list-disc text-sm text-[#c9d1d9] [&>li]:mt-2",
       body1: "text-base leading-7 text-[#c9d1d9]",
       body2: "text-sm leading-6 text-[#c9d1d9]",
-      caption: "text-xs leading-5 text-[#8b949e]",
-      muted: "text-sm leading-6 text-[#8b949e]",
-      label: "text-xs font-medium uppercase tracking-[0.12em] text-[#8b949e]",
+      caption: "text-xs leading-5 text-[#8f8a99]",
+      muted: "text-sm leading-6 text-[#8f8a99]",
+      label: "text-xs font-medium uppercase tracking-[0.12em] text-[#8f8a99]",
       code: "font-mono text-xs leading-5 text-[#c9d1d9]",
     },
     color: {
       default: "",
       primary: "text-orange-400",
       secondary: "text-[#c9d1d9]",
-      muted: "text-[#8b949e]",
+      muted: "text-[#8f8a99]",
       accent: "text-white",
       destructive: "text-red-400",
       success: "text-[#7ee787]",
@@ -46,17 +46,32 @@ const typographyVariants = cva("", {
   },
 });
 
+type TypographyElement =
+  | "p"
+  | "span"
+  | "div"
+  | "small"
+  | "strong"
+  | "blockquote"
+  | "ul"
+  | "li"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6";
+
 interface TypographyProps
   extends
-    React.HTMLAttributes<HTMLElement>,
+    Omit<React.HTMLAttributes<HTMLElement>, "color">,
     VariantProps<typeof typographyVariants> {
-  as?: keyof JSX.IntrinsicElements;
+  as?: TypographyElement;
   children: React.ReactNode;
-  weight?: "normal" | "medium" | "semibold" | "bold" | "extrabold";
 }
 
 export const Typography = ({
-  as: Component = "p",
+  as = "p",
   children,
   variant,
   color,
@@ -64,13 +79,13 @@ export const Typography = ({
   className,
   ...props
 }: TypographyProps) => {
-  return (
-    <Component
-      className={cn(typographyVariants({ variant, color, weight, className }))}
-      {...props}
-    >
-      {children}
-    </Component>
+  return React.createElement(
+    as,
+    {
+      className: cn(typographyVariants({ variant, color, weight, className })),
+      ...props,
+    },
+    children,
   );
 };
 

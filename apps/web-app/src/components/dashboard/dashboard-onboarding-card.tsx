@@ -1,7 +1,7 @@
 import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/user.store";
-import ProfileSection from "@/components/profile/sections/ProfileSection";
+import ProfileSection from "@/components/profile/sections/profile-section";
 
 interface DashboardOnboardingCardProps {
   hasTippers: boolean;
@@ -42,7 +42,7 @@ export default function DashboardOnboardingCard({
         {steps.map((step, index) => (
           <div
             key={step.label}
-            className="rounded-lg border border-[#30363d] bg-[#010409] p-3"
+            className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-3"
           >
             <Typography as="p" variant="caption">
               Step {index + 1}

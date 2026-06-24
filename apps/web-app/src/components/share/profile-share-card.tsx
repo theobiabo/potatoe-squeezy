@@ -3,7 +3,7 @@ import { buildDeveloperProfileUrl, getProfileShareValue } from "@potatoe/utils";
 import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { useClipboard } from "@/hooks/useClipboard";
-import ProfileSection from "@/components/profile/sections/ProfileSection";
+import ProfileSection from "@/components/profile/sections/profile-section";
 
 interface ProfileShareCardProps {
   username: string;
@@ -28,7 +28,7 @@ export default function ProfileShareCard({
       title={compact ? "Share profile" : "Grow your supporter page"}
       description="Share a public profile, README badge, or short post that points supporters to your developer page."
     >
-      <div className="rounded-lg border border-[#30363d] bg-[#010409] px-3 py-2">
+      <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] px-3 py-2">
         <Typography as="p" variant="code" className="break-all">
           {profileUrl}
         </Typography>

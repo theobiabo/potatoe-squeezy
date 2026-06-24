@@ -36,7 +36,9 @@ export default function ProfileSection({
           {action}
         </CardHeader>
       )}
-      <CardContent className={cn(!title && !description && "pt-5", contentClassName)}>
+      <CardContent
+        className={cn(!title && !description && "pt-7", contentClassName)}
+      >
         {children}
       </CardContent>
     </Card>

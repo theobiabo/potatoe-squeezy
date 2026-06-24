@@ -65,9 +65,9 @@ function WalletTransactionTable() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full"
       >
-        <Card className="border-white/10 bg-black/20 backdrop-blur-xl">
+        <Card className="border-[#2b2933] bg-[#0f0d16]">
           <CardContent className="flex items-center justify-center h-48">
-            <div className="text-gray-400 animate-pulse">
+            <div className="text-[#8f8a99] animate-pulse">
               Loading transactions...
             </div>
           </CardContent>
@@ -83,7 +83,7 @@ function WalletTransactionTable() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full"
       >
-        <Card className="border-white/10 bg-black/20 backdrop-blur-xl">
+        <Card className="border-[#2b2933] bg-[#0f0d16]">
           <CardContent className="flex items-center justify-center h-48 text-red-400">
             {error}
           </CardContent>
@@ -98,7 +98,7 @@ function WalletTransactionTable() {
       animate={{ opacity: 1, y: 0 }}
       className="w-full"
     >
-      <Card className="border-white/10 bg-black/20 backdrop-blur-xl">
+      <Card className="border-[#2b2933] bg-[#0f0d16]">
         <CardHeader className="flex-row items-center justify-between pb-4 space-y-0">
           <h2 className="text-lg font-semibold text-white">
             Recent Transactions
@@ -116,12 +116,12 @@ function WalletTransactionTable() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="border-white/10 hover:bg-transparent">
-                  {/*<TableHead className="text-gray-400">Type</TableHead>*/}
-                  <TableHead className="text-gray-400"></TableHead>
-                  <TableHead className="text-gray-400">Amount</TableHead>
-                  <TableHead className="text-gray-400">From/To</TableHead>
-                  <TableHead className="text-gray-400">Time</TableHead>
+                <TableRow className="border-[#2b2933] hover:bg-transparent">
+                  {/*<TableHead className="text-[#8f8a99]">Type</TableHead>*/}
+                  <TableHead className="text-[#8f8a99]"></TableHead>
+                  <TableHead className="text-[#8f8a99]">Amount</TableHead>
+                  <TableHead className="text-[#8f8a99]">From/To</TableHead>
+                  <TableHead className="text-[#8f8a99]">Time</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -142,7 +142,7 @@ function WalletTransactionTable() {
                             currentId === tx.id ? null : tx.id,
                           )
                         }
-                        className="cursor-pointer transition-colors border-white/10 hover:bg-white/5"
+                        className="cursor-pointer border-[#2b2933] transition-colors hover:bg-[#15131d]"
                       >
                         <TableCell className="flex items-center gap-2 font-medium">
                           <span
@@ -169,15 +169,15 @@ function WalletTransactionTable() {
                           {type === "Received" ? "+" : "-"}
                           {tx.amount} SOL
                         </TableCell>
-                        <TableCell className="font-mono text-gray-400">
+                        <TableCell className="font-mono text-[#8f8a99]">
                           {formatAddress(displayAddress)}
                         </TableCell>
-                        <TableCell className="text-gray-400">
+                        <TableCell className="text-[#8f8a99]">
                           <div
                             className="flex items-center gap-2"
                             title={format(new Date(tx.createdAt), "PPpp")}
                           >
-                            <ClockIcon className="w-4 h-4 text-gray-500" />
+                            <ClockIcon className="w-4 h-4 text-[#8f8a99]" />
                             {formatDistanceToNow(new Date(tx.createdAt), {
                               addSuffix: true,
                             })}
@@ -191,12 +191,12 @@ function WalletTransactionTable() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="border-white/10 bg-white/[0.03]"
+                            className="border-[#2b2933] bg-[#15131d]"
                           >
                             <TableCell colSpan={4} className="px-4 py-4">
-                              <div className="grid gap-3 text-sm text-gray-300 md:grid-cols-2">
+                              <div className="grid gap-3 text-sm text-[#c9d1d9] md:grid-cols-2">
                                 <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-gray-500">
+                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
                                     Type
                                   </p>
                                   <p className="font-medium text-white">
@@ -204,7 +204,7 @@ function WalletTransactionTable() {
                                   </p>
                                 </div>
                                 <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-gray-500">
+                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
                                     Timestamp
                                   </p>
                                   <p className="font-medium text-white">
@@ -214,7 +214,7 @@ function WalletTransactionTable() {
                                   </p>
                                 </div>
                                 <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-gray-500">
+                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
                                     From
                                   </p>
                                   <p className="font-mono break-all text-white">
@@ -222,7 +222,7 @@ function WalletTransactionTable() {
                                   </p>
                                 </div>
                                 <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-gray-500">
+                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
                                     To
                                   </p>
                                   <p className="font-mono break-all text-white">
@@ -230,7 +230,7 @@ function WalletTransactionTable() {
                                   </p>
                                 </div>
                                 <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-gray-500">
+                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
                                     Transaction Hash
                                   </p>
                                   <p className="font-mono break-all text-white">
@@ -238,7 +238,7 @@ function WalletTransactionTable() {
                                   </p>
                                 </div>
                                 <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-gray-500">
+                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
                                     Note
                                   </p>
                                   <p className="text-white">
