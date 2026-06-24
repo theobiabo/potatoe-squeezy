@@ -6,10 +6,12 @@ const Hero = () => {
       <Nav />
       <div className="items-center flex mt-[2em] justify-center h-[80vh]">
         <div className="w-[90%] lg:w-[600px] mx-auto text-center">
-          <h2 className="text-7xl animate-pulse">🍟</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">
+            Potatoe Squeezy
+          </p>
 
           <div className="flex w-fit px-4 py-1 mx-auto my-8 rounded-full border border-orange-300">
-            <small>Coming Soon 🥳🥳</small>
+            <small>Coming Soon</small>
           </div>
           <h1 className="text-3xl font-bold">
             GitHub Just Got Starchier — Turn Potatoes into Bitcoin!

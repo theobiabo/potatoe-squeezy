@@ -18,6 +18,14 @@ export default defineConfig({
         __dirname,
         "../../packages/shared/src/index.ts",
       ),
+      "@potatoe/enum": path.resolve(
+        __dirname,
+        "../../packages/enum/src/index.ts",
+      ),
+      "@potatoe/utils": path.resolve(
+        __dirname,
+        "../../packages/utils/src/index.ts",
+      ),
       buffer: "buffer",
       process: "process",
       stream: "stream-browserify",
@@ -32,6 +40,5 @@ export default defineConfig({
 
   define: {
     global: "globalThis",
-    // process: "process",
   },
 });

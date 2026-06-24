@@ -161,9 +161,9 @@ function CelebrateUser({
             <button
               key={amount}
               className={`
-                bg-gray-600 rounded-xl w-10 h-10 
+                bg-gray-600 rounded-xl w-10 h-10
                 flex items-center justify-center
-                border-[1px] border-white/20 
+                border-[1px] border-white/20
                 transition-all duration-200
                 ${amount === quantity ? "!bg-red-400 scale-105" : ""}
                 ${!connected ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-500"}
@@ -220,13 +220,7 @@ function CelebrateUser({
           isProcessing
         }
       >
-        {isProcessing || loading ? (
-          <span className="flex items-center gap-2">
-            Processing... <span className="animate-spin">⚡</span>
-          </span>
-        ) : (
-          "Zap 🍟"
-        )}
+        {isProcessing || loading ? "Processing..." : "Send tip"}
       </Button>
 
       {!connected && (

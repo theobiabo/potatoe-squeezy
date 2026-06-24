@@ -1,10 +1,9 @@
+import { ProfileShareKind } from "@potatoe/enum";
+import { buildDeveloperProfileUrl, getProfileShareValue } from "@potatoe/utils";
+import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
-import { ProfileShareKind } from "@/enums/web-app.enum";
 import { useClipboard } from "@/hooks/useClipboard";
-import {
-  buildDeveloperProfileUrl,
-  getProfileShareValue,
-} from "@/utils/profile-share";
+import ProfileSection from "@/components/profile/sections/ProfileSection";
 
 interface ProfileShareCardProps {
   username: string;
@@ -25,24 +24,14 @@ export default function ProfileShareCard({
   const profileUrl = buildDeveloperProfileUrl(username);
 
   return (
-    <section className="rounded-xl border border-white/10 bg-black/20 p-4 backdrop-blur-xl">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-white">
-            <span className="text-orange-400">↗</span>
-            <h2 className="text-lg font-semibold">
-              {compact ? "Share profile" : "Grow your supporter page"}
-            </h2>
-          </div>
-          <p className="mt-1 text-sm text-gray-400">
-            Share your Potatoe Squeezy profile anywhere developers discover your
-            work.
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 font-mono text-xs text-gray-300">
-        {profileUrl}
+    <ProfileSection
+      title={compact ? "Share profile" : "Grow your supporter page"}
+      description="Share a public profile, README badge, or short post that points supporters to your developer page."
+    >
+      <div className="rounded-lg border border-[#30363d] bg-[#010409] px-3 py-2">
+        <Typography as="p" variant="code" className="break-all">
+          {profileUrl}
+        </Typography>
       </div>
 
       <div className="mt-4 grid gap-2 sm:grid-cols-3">
@@ -57,12 +46,11 @@ export default function ProfileShareCard({
                 `${action.label} copied`,
               )
             }
-            className="border-white/10 bg-white/[0.03] text-white hover:bg-white/[0.08]"
           >
-            ⧉ {action.label}
+            {action.label}
           </Button>
         ))}
       </div>
-    </section>
+    </ProfileSection>
   );
 }

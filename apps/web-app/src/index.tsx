@@ -78,9 +78,9 @@ function CelebrateUser({ username, walletAddress }: CelebrateUserProps) {
               <div
                 key={amount}
                 className={`bg-gray-600 cursor-pointer
-                  rounded-xl w-10 h-10 
+                  rounded-xl w-10 h-10
                   flex items-center justify-center
-                  border-[1px] border-white/20 
+                  border-[1px] border-white/20
                   ${isSelected ? "!bg-red-400" : ""}
                   ${!publicKey ? "opacity-50 cursor-not-allowed" : ""}`}
                 onClick={() => handleAmountSelect(amount)}
@@ -123,7 +123,7 @@ function CelebrateUser({ username, walletAddress }: CelebrateUserProps) {
         onClick={() => handleZap()}
         disabled={!hasValidAmount || !publicKey || loading}
       >
-        {loading ? "Processing..." : "Zap 🍟"}
+        {loading ? "Processing..." : "Send tip"}
       </Button>
     </div>
   );

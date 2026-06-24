@@ -7,7 +7,9 @@ const Auth = () => {
       <Nav />
       <div className="items-center flex mt-[2em] justify-center h-[80vh]">
         <div className="w-[90%] lg:w-[600px] mx-auto text-center">
-          <h2 className="text-7xl animate-pulse mb-4">🍟</h2>
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">
+            Potatoe Squeezy
+          </p>
 
           <h1 className="text-3xl font-bold">Continue with Github</h1>
 

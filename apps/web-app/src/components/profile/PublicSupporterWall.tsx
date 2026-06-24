@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import ApiClient from "@/util/api";
-import type { PublicTippersResponse } from "@/types/developer-profile";
+import { getDisplayName } from "@potatoe/utils";
+import Typography from "@/components/typography";
+import { usePublicTippers } from "@/hooks/usePublicTippers";
+import ProfileSection from "./sections/ProfileSection";
 
 interface PublicSupporterWallProps {
   username: string;
@@ -10,70 +11,46 @@ interface PublicSupporterWallProps {
 export default function PublicSupporterWall({
   username,
 }: PublicSupporterWallProps) {
-  const [data, setData] = useState<PublicTippersResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    const fetchTippers = async () => {
-      setLoading(true);
-      try {
-        const response = await ApiClient.get<PublicTippersResponse>(
-          `/users/${username}/tippers`,
-        );
-        if (!cancelled) setData(response);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    };
-
-    fetchTippers();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [username]);
+  const { data, loading } = usePublicTippers(username);
 
   if (loading) {
     return (
-      <section className="rounded-xl border border-gray-800 bg-black/30 p-4 text-sm text-gray-400">
-        Loading supporters
-      </section>
+      <ProfileSection>
+        <Typography as="p" variant="muted">
+          Loading supporters.
+        </Typography>
+      </ProfileSection>
     );
   }
 
   if (!data?.isPublic) {
     return (
-      <section className="rounded-xl border border-gray-800 bg-black/30 p-4">
-        <h2 className="text-lg font-medium text-white">Supporter Wall</h2>
-        <p className="mt-2 text-sm text-gray-500">
+      <ProfileSection title="Supporter wall">
+        <Typography as="p" variant="muted">
           This developer keeps their supporter wall private.
-        </p>
-      </section>
+        </Typography>
+      </ProfileSection>
     );
   }
 
   return (
-    <section className="rounded-xl border border-gray-800 bg-black/30 p-4">
-      <div className="mb-4 flex items-center justify-between gap-4">
-        <div>
-          <h2 className="text-lg font-medium text-white">Supporter Wall</h2>
-          <p className="text-sm text-gray-400">
-            Top supporters and recent tips
-          </p>
-        </div>
-        <span className="text-orange-400">♥</span>
-      </div>
-
+    <ProfileSection
+      title="Supporter wall"
+      description="Top supporters and recent public tips."
+    >
       {data.tippers.length === 0 ? (
-        <p className="text-sm text-gray-500">No public supporters yet</p>
+        <Typography as="p" variant="muted">
+          No public supporters yet.
+        </Typography>
       ) : (
-        <div className="space-y-2">
+        <div className="divide-y divide-[#30363d] overflow-hidden rounded-lg border border-[#30363d]">
           {data.tippers.map((tipper) => {
-            const displayName = tipper.displayName?.trim() || tipper.username;
+            const displayName = getDisplayName(
+              tipper.displayName,
+              tipper.username,
+            );
             const content = (
-              <div className="flex items-center justify-between gap-4 rounded-lg bg-black/40 p-3 transition-colors hover:bg-black/60">
+              <div className="flex items-center justify-between gap-4 bg-[#0d1117] px-4 py-3 transition-colors hover:bg-[#161b22]">
                 <div className="flex min-w-0 items-center gap-3">
                   <img
                     src={
@@ -81,24 +58,24 @@ export default function PublicSupporterWall({
                       "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
                     }
                     alt={displayName}
-                    className="h-9 w-9 rounded-full object-cover"
+                    className="h-9 w-9 rounded-full border border-[#30363d] object-cover"
                   />
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-white">
+                    <Typography as="p" variant="h6" className="truncate">
                       {displayName}
-                    </p>
-                    <p className="truncate text-xs text-gray-400">
+                    </Typography>
+                    <Typography as="p" variant="caption" className="truncate">
                       {tipper.senderType === "agent"
                         ? "Agent supporter"
                         : "Supporter"}
-                    </p>
+                    </Typography>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-semibold text-white">
+                <div className="shrink-0 text-right">
+                  <Typography as="p" variant="h6">
                     {tipper.totalAmount} SOL
-                  </p>
-                  <p className="text-xs text-gray-500">
+                  </Typography>
+                  <Typography as="p" variant="caption" className="mt-1">
                     {tipper.tipCount} tip{tipper.tipCount === 1 ? "" : "s"}
                     {tipper.lastTippedAt
                       ? ` · ${formatDistanceToNow(
@@ -108,7 +85,7 @@ export default function PublicSupporterWall({
                           },
                         )}`
                       : ""}
-                  </p>
+                  </Typography>
                 </div>
               </div>
             );
@@ -128,6 +105,6 @@ export default function PublicSupporterWall({
           })}
         </div>
       )}
-    </section>
+    </ProfileSection>
   );
 }

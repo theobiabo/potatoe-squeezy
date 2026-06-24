@@ -1,5 +1,7 @@
+import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/user.store";
+import ProfileSection from "@/components/profile/sections/ProfileSection";
 
 interface DashboardOnboardingCardProps {
   hasTippers: boolean;
@@ -25,40 +27,40 @@ export default function DashboardOnboardingCard({
   ];
 
   return (
-    <section className="rounded-xl border border-white/10 bg-black/20 p-4 backdrop-blur-xl">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h2 className="text-lg font-semibold text-white">Start earning</h2>
-          <p className="mt-1 text-sm text-gray-400">
-            Complete these steps to make your Potatoe Squeezy profile
-            reward-ready.
-          </p>
-        </div>
-        {user?.username && (
-          <Button
-            asChild
-            variant="outline"
-            className="border-white/10 bg-white/[0.03] text-white hover:bg-white/[0.08]"
-          >
-            <a href={`/app/dev/${user.username}`}>↗ View</a>
+    <ProfileSection
+      title="Start earning"
+      description="Complete these steps to make your Potatoe Squeezy profile reward-ready."
+      action={
+        user?.username ? (
+          <Button asChild variant="outline" size="sm">
+            <a href={`/app/dev/${user.username}`}>View profile</a>
           </Button>
-        )}
-      </div>
-
-      <div className="mt-4 space-y-3">
-        {steps.map((step) => (
-          <div key={step.label} className="flex items-center gap-3 text-sm">
-            <span
-              className={step.complete ? "text-green-400" : "text-gray-500"}
-            >
-              {step.complete ? "✓" : "○"}
-            </span>
-            <span className={step.complete ? "text-gray-300" : "text-gray-500"}>
+        ) : null
+      }
+    >
+      <div className="grid gap-3 md:grid-cols-3">
+        {steps.map((step, index) => (
+          <div
+            key={step.label}
+            className="rounded-lg border border-[#30363d] bg-[#010409] p-3"
+          >
+            <Typography as="p" variant="caption">
+              Step {index + 1}
+            </Typography>
+            <Typography as="p" variant="h6" className="mt-1">
               {step.label}
-            </span>
+            </Typography>
+            <Typography
+              as="p"
+              variant="caption"
+              color={step.complete ? "success" : "muted"}
+              className="mt-2"
+            >
+              {step.complete ? "Completed" : "Pending"}
+            </Typography>
           </div>
         ))}
       </div>
-    </section>
+    </ProfileSection>
   );
 }
