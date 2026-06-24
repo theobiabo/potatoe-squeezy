@@ -5,6 +5,7 @@ import TipDeveloperDialog from "@/components/tipping/tip-developer-dialog";
 import CompanyInviteDialog from "@/components/company/company-invite-dialog";
 import ProfileShareCard from "@/components/share/profile-share-card";
 import PublicSupporterWall from "@/components/profile/public-supporter-wall";
+import SponsorGatedContent from "@/components/profile/sponsor-gated-content";
 import Typography from "@/components/typography";
 import { useDeveloperProfile } from "@/hooks/use-developer-profile";
 import { useGitHubProfileData } from "@/hooks/use-github-profile-data";
@@ -124,6 +125,7 @@ function DeveloperProfilePage({ username }: { username: string }) {
             loading={github.isLoading}
           />
           <ProfileShareCard username={data.user.username} compact />
+          <SponsorGatedContent username={data.user.username} />
           <PublicSupporterWall username={data.user.username} />
           <ProfileBadges badges={data.badges} />
           <RecentContributions contributions={data.recentContributions} />

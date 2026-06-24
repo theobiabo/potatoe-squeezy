@@ -1,24 +1,24 @@
+import { buildTipBadgeClickUrl, buildTipBadgeUrl } from "@potatoe/utils";
+import { BASE_API_URL } from "@/constant";
+
 interface TipBadgeProps {
   username: string;
 }
 
 export function TipBadge({ username }: TipBadgeProps) {
-  const currentUrl =
-    typeof window !== "undefined" ? window.location.origin : "";
-
   return (
     <a
       className=""
-      href={`${currentUrl}/app/dev/${username}`}
+      href={buildTipBadgeClickUrl(username, BASE_API_URL)}
       target="_blank"
       rel="noopener noreferrer"
     >
       <img
-        src="https://coffee-major-wallaby-86.mypinata.cloud/ipfs/bafkreiaskbvndui55ycmqdu6ui6arfkhxmqgjvjcaw26myp4y76mmqtbyi"
-        width="350"
-        height="54"
-        style={{ width: "250px", height: "54px" }}
-        alt="Potatoe Squeezy - Support GitHub contributors with crypto | Product Hunt"
+        src={buildTipBadgeUrl(username, BASE_API_URL)}
+        width="420"
+        height="96"
+        style={{ width: "420px", maxWidth: "100%", height: "96px" }}
+        alt={`Tip ${username} on Potatoe Squeezy`}
       />
     </a>
   );

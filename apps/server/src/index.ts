@@ -15,6 +15,12 @@ import bountiesRoute from './routes/bounties';
 import githubWebhookRoute from './routes/github-webhook';
 import docsRoute from './routes/docs';
 import notificationsRoute from './routes/notifications';
+import embedRoute from './routes/embed';
+import tiersRoute from './routes/sponsorship-tiers';
+import subscriptionsRoute from './routes/subscriptions';
+import receiptsRoute from './routes/receipts';
+import gatedContentRoute from './routes/gated-content';
+import analyticsRoute from './routes/analytics';
 import { authRouter } from './routes/auth';
 import { sendTelegramMessage } from './utils/telegram-notification';
 import { TELEGRAM_CHAT_ID } from './constants';
@@ -218,6 +224,12 @@ const routes = [
   { path: '/bounties', handler: bountiesRoute },
   { path: '/github', handler: githubWebhookRoute },
   { path: '/docs', handler: docsRoute },
+  { path: '/embed', handler: embedRoute },
+  { path: '/tiers', handler: tiersRoute },
+  { path: '/subscriptions', handler: subscriptionsRoute },
+  { path: '/receipts', handler: receiptsRoute },
+  { path: '/gated-content', handler: gatedContentRoute },
+  { path: '/analytics', handler: analyticsRoute },
 ];
 
 routes.forEach(({ path, handler }) => {

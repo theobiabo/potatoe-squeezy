@@ -138,7 +138,8 @@ publicUsersRoute.get('/github/search', async (c) => {
         searchResponse.status === 403
           ? 'GitHub rate limit reached. Please try again shortly.'
           : 'Failed to fetch GitHub users';
-      return c.json({ error: message }, searchResponse.status);
+      const status = searchResponse.status === 403 ? 403 : 502;
+      return c.json({ error: message }, status);
     }
 
     const searchResult = (await searchResponse.json()) as {

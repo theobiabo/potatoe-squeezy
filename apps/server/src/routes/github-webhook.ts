@@ -2,11 +2,19 @@ import { Hono } from 'hono';
 import { and, eq, inArray } from 'drizzle-orm';
 import { createHash } from 'crypto';
 import { db } from '../db';
-import { bounties, contributions, users, webhookEvents } from '../db/schema';
+import {
+  bounties,
+  contributions,
+  githubActionEvents,
+  users,
+  webhookEvents,
+} from '../db/schema';
 import { verifyGitHubSignature } from '../utils/github-signature';
 import { getEscrowService } from '../services/escrow';
 import { DeveloperStatsService } from '../services/developer-stats';
 import { BadgeService } from '../services/badges';
+import type { Env } from '../types/env';
+import type { User } from '../types';
 import { toUsd } from '../services/pricing';
 import {
   getBotLogin,
@@ -15,7 +23,12 @@ import {
   parseBountyCommand,
 } from '../services/bounty-verification';
 
-const githubWebhookRoute = new Hono();
+const githubWebhookRoute = new Hono<{
+  Bindings: Env;
+  Variables: {
+    user: User | null;
+  };
+}>();
 
 const statsService = new DeveloperStatsService();
 const badgeService = new BadgeService();
@@ -24,6 +37,35 @@ const SUPPORTED_BY_NETWORK: Record<string, string[]> = {
   solana: ['SOL', 'USDC'],
   stellar: ['XLM', 'USDC'],
 };
+
+const normalizeOptionalText = (value: unknown) => {
+  if (typeof value !== 'string') {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+};
+
+const normalizeUrl = (value: unknown) => {
+  const raw = normalizeOptionalText(value);
+
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return new URL(raw).toString();
+  } catch {
+    return null;
+  }
+};
+
+const frontendOrigin = () =>
+  (process.env.FRONTEND_APP_URL || 'https://www.potatosqueezy.xyz').replace(
+    /\/+$/,
+    '',
+  );
 
 const difficultyFromPR = (pullRequest: Record<string, unknown>) => {
   const changedFiles = Number(pullRequest.changed_files ?? 0);
@@ -560,6 +602,58 @@ const processPullRequestEvent = async (
     await processMergedPR(payload);
   }
 };
+
+githubWebhookRoute.post('/release-pings', async (c) => {
+  const user = c.get('user');
+
+  if (!user) {
+    return c.json({ error: 'Unauthorized' }, 401);
+  }
+
+  const body = await c.req.json();
+  const repo = normalizeOptionalText(body.repo);
+  const releaseTag = normalizeOptionalText(body.releaseTag);
+  const releaseName = normalizeOptionalText(body.releaseName);
+  const releaseUrl = normalizeUrl(body.releaseUrl);
+  const actionRunUrl = normalizeUrl(body.actionRunUrl);
+  const customMessage = normalizeOptionalText(body.message);
+
+  if (!repo || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) {
+    return c.json({ error: 'Repo must be owner/name' }, 400);
+  }
+
+  const message =
+    customMessage ||
+    `${releaseTag || releaseName || 'A new release'} shipped — support the work.`;
+
+  if (message.length > 240) {
+    return c.json({ error: 'Message must be 240 characters or fewer' }, 400);
+  }
+
+  const inserted = await db
+    .insert(githubActionEvents)
+    .values({
+      id: crypto.randomUUID(),
+      creatorId: user.id,
+      repo,
+      releaseTag,
+      releaseName,
+      releaseUrl,
+      actionRunUrl,
+      message,
+    })
+    .returning();
+
+  return c.json(
+    {
+      event: inserted[0],
+      tipPageUrl: `${frontendOrigin()}/app/dev/${encodeURIComponent(
+        user.username,
+      )}`,
+    },
+    201,
+  );
+});
 
 githubWebhookRoute.post('/webhook', async (c) => {
   const secret = process.env.GITHUB_WEBHOOK_SECRET;

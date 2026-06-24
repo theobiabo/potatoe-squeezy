@@ -4,6 +4,7 @@ import Typography from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { useClipboard } from "@/hooks/useClipboard";
 import ProfileSection from "@/components/profile/sections/profile-section";
+import { BASE_API_URL } from "@/constant";
 
 interface ProfileShareCardProps {
   username: string;
@@ -42,7 +43,10 @@ export default function ProfileShareCard({
             disabled={isCopying}
             onClick={() =>
               copy(
-                getProfileShareValue(username, action.kind),
+                getProfileShareValue(username, action.kind, {
+                  apiOrigin: BASE_API_URL,
+                  appOrigin: window.location.origin,
+                }),
                 `${action.label} copied`,
               )
             }

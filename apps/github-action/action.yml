@@ -1,0 +1,55 @@
+name: Potatoe Squeezy release ping
+description: Post release activity to Potatoe Squeezy with a support link for the maintainer.
+inputs:
+  platform-url:
+    description: Potatoe Squeezy API base URL.
+    required: true
+  token:
+    description: Potatoe Squeezy bearer token for the creator account.
+    required: true
+  message:
+    description: Optional support message to store with the release.
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        PLATFORM_URL: ${{ inputs.platform-url }}
+        POTATOE_TOKEN: ${{ inputs.token }}
+        SUPPORT_MESSAGE: ${{ inputs.message }}
+        RELEASE_TAG: ${{ github.event.release.tag_name || github.ref_name }}
+        RELEASE_NAME: ${{ github.event.release.name || github.ref_name }}
+        RELEASE_URL: ${{ github.event.release.html_url }}
+        ACTION_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        REPOSITORY: ${{ github.repository }}
+      run: |
+        node <<'NODE'
+        const platformUrl = process.env.PLATFORM_URL.replace(/\/+$/, "");
+        const payload = {
+          repo: process.env.REPOSITORY,
+          releaseTag: process.env.RELEASE_TAG || null,
+          releaseName: process.env.RELEASE_NAME || null,
+          releaseUrl: process.env.RELEASE_URL || null,
+          actionRunUrl: process.env.ACTION_RUN_URL || null,
+          message: process.env.SUPPORT_MESSAGE || null
+        };
+
+        const response = await fetch(`${platformUrl}/github/release-pings`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${process.env.POTATOE_TOKEN}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const body = await response.text();
+
+        if (!response.ok) {
+          throw new Error(`Potatoe Squeezy release ping failed: ${response.status} ${body}`);
+        }
+
+        console.log(body);
+        NODE

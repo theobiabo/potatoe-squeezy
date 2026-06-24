@@ -7,6 +7,7 @@ import {
   numeric,
   boolean,
   uniqueIndex,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -20,6 +21,7 @@ export const users = pgTable("users", {
   avatarUrl: text("avatar_url"),
   twitterUrl: text("twitter_url"),
   tippersPublic: boolean("tippers_public").notNull().default(false),
+  leaderboardOptIn: boolean("leaderboard_opt_in").notNull().default(false),
   notificationsClearedAt: timestamp("notifications_cleared_at"),
   network: text("network"),
   walletAddress: text("wallet_address"),
@@ -67,6 +69,23 @@ export const addresses = pgTable(
   }),
 );
 
+export const sponsorshipTiers = pgTable("sponsorship_tiers", {
+  id: serial("id").primaryKey(),
+  creatorId: integer("creator_id")
+    .notNull()
+    .references(() => users.id),
+  label: text("label").notNull(),
+  description: text("description").notNull(),
+  perk: text("perk"),
+  amount: numeric("amount").notNull(),
+  currency: text("currency").notNull().default("SOL"),
+  rail: text("rail").notNull().default("solana"),
+  active: boolean("active").notNull().default(true),
+  sortOrder: integer("sort_order").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export const transactionRecords = pgTable("transaction_records", {
   id: serial("id").primaryKey(),
   amount: numeric("amount").notNull(),
@@ -78,8 +97,117 @@ export const transactionRecords = pgTable("transaction_records", {
   paymentProtocol: text("payment_protocol"),
   recipientAddress: text("recipient_address").notNull(),
   recipientId: integer("recipient_id").references(() => users.id),
+  tierId: integer("tier_id").references(() => sponsorshipTiers.id),
+  rail: text("rail").notNull().default("solana"),
+  currency: text("currency").notNull().default("SOL"),
   txHash: text("tx_hash"),
   note: text("note"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const tipReceipts = pgTable(
+  "tip_receipts",
+  {
+    id: text("id").primaryKey(),
+    transactionRecordId: integer("transaction_record_id")
+      .notNull()
+      .references(() => transactionRecords.id),
+    rail: text("rail").notNull(),
+    receiptType: text("receipt_type").notNull(),
+    receiptRef: text("receipt_ref"),
+    receiptData: jsonb("receipt_data").$type<Record<string, unknown>>(),
+    payerAddress: text("payer_address").notNull(),
+    recipientAddress: text("recipient_address").notNull(),
+    amount: numeric("amount").notNull(),
+    currency: text("currency").notNull(),
+    status: text("status").notNull().default("recorded"),
+    mintedAt: timestamp("minted_at"),
+    createdAt: timestamp("created_at").defaultNow(),
+  },
+  (table) => ({
+    transactionReceiptUnique: uniqueIndex(
+      "tip_receipts_transaction_record_unique",
+    ).on(table.transactionRecordId),
+  }),
+);
+
+export const recurringSubscriptions = pgTable("recurring_subscriptions", {
+  id: text("id").primaryKey(),
+  supporterId: integer("supporter_id").references(() => users.id),
+  creatorId: integer("creator_id")
+    .notNull()
+    .references(() => users.id),
+  tierId: integer("tier_id").references(() => sponsorshipTiers.id),
+  rail: text("rail").notNull(),
+  provider: text("provider").notNull(),
+  providerRef: text("provider_ref"),
+  status: text("status").notNull().default("pending"),
+  amount: numeric("amount").notNull(),
+  currency: text("currency").notNull(),
+  interval: text("interval").notNull().default("month"),
+  payerAddress: text("payer_address").notNull(),
+  recipientAddress: text("recipient_address").notNull(),
+  startedAt: timestamp("started_at").defaultNow(),
+  nextBillingAt: timestamp("next_billing_at"),
+  cancelledAt: timestamp("cancelled_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const widgetEvents = pgTable("widget_events", {
+  id: text("id").primaryKey(),
+  creatorId: integer("creator_id")
+    .notNull()
+    .references(() => users.id),
+  eventType: text("event_type").notNull(),
+  referrer: text("referrer"),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const gatedContents = pgTable("gated_contents", {
+  id: text("id").primaryKey(),
+  creatorId: integer("creator_id")
+    .notNull()
+    .references(() => users.id),
+  title: text("title").notNull(),
+  description: text("description"),
+  resourceType: text("resource_type").notNull().default("link"),
+  resourceUrl: text("resource_url").notNull(),
+  minAmount: numeric("min_amount").notNull(),
+  currency: text("currency").notNull().default("SOL"),
+  rail: text("rail").notNull().default("solana"),
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const gatedContentAccesses = pgTable("gated_content_accesses", {
+  id: text("id").primaryKey(),
+  contentId: text("content_id")
+    .notNull()
+    .references(() => gatedContents.id),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => users.id),
+  transactionRecordId: integer("transaction_record_id").references(
+    () => transactionRecords.id,
+  ),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const githubActionEvents = pgTable("github_action_events", {
+  id: text("id").primaryKey(),
+  creatorId: integer("creator_id")
+    .notNull()
+    .references(() => users.id),
+  repo: text("repo").notNull(),
+  releaseTag: text("release_tag"),
+  releaseName: text("release_name"),
+  releaseUrl: text("release_url"),
+  actionRunUrl: text("action_run_url"),
+  message: text("message").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -206,12 +334,20 @@ export const webhookEvents = pgTable("webhook_events", {
 export const usersRelations = relations(users, ({ many, one }) => ({
   wallets: many(wallets),
   addresses: many(addresses),
+  sponsorshipTiers: many(sponsorshipTiers),
   tipsSent: many(tips, { relationName: "sent_tips" }),
   tipsReceived: many(tips, { relationName: "received_tips" }),
   bountiesCreated: many(bounties),
   contributions: many(contributions),
   stats: one(developerStats),
   badges: many(userBadges),
+  subscriptionsCreated: many(recurringSubscriptions, {
+    relationName: "creator_subscriptions",
+  }),
+  subscriptionsSupported: many(recurringSubscriptions, {
+    relationName: "supporter_subscriptions",
+  }),
+  gatedContents: many(gatedContents),
 }));
 
 export const walletsRelations = relations(wallets, ({ one }) => ({
@@ -230,13 +366,103 @@ export const addressesRelations = relations(addresses, ({ one }) => ({
 
 export const transactionRecordsRelations = relations(
   transactionRecords,
-  ({ one }) => ({
+  ({ one, many }) => ({
     sender: one(users, {
       fields: [transactionRecords.senderId],
       references: [users.id],
     }),
     recipient: one(users, {
       fields: [transactionRecords.recipientId],
+      references: [users.id],
+    }),
+    tier: one(sponsorshipTiers, {
+      fields: [transactionRecords.tierId],
+      references: [sponsorshipTiers.id],
+    }),
+    receipts: many(tipReceipts),
+  }),
+);
+
+export const sponsorshipTiersRelations = relations(
+  sponsorshipTiers,
+  ({ one, many }) => ({
+    creator: one(users, {
+      fields: [sponsorshipTiers.creatorId],
+      references: [users.id],
+    }),
+    transactionRecords: many(transactionRecords),
+    subscriptions: many(recurringSubscriptions),
+  }),
+);
+
+export const tipReceiptsRelations = relations(tipReceipts, ({ one }) => ({
+  transactionRecord: one(transactionRecords, {
+    fields: [tipReceipts.transactionRecordId],
+    references: [transactionRecords.id],
+  }),
+}));
+
+export const recurringSubscriptionsRelations = relations(
+  recurringSubscriptions,
+  ({ one }) => ({
+    creator: one(users, {
+      relationName: "creator_subscriptions",
+      fields: [recurringSubscriptions.creatorId],
+      references: [users.id],
+    }),
+    supporter: one(users, {
+      relationName: "supporter_subscriptions",
+      fields: [recurringSubscriptions.supporterId],
+      references: [users.id],
+    }),
+    tier: one(sponsorshipTiers, {
+      fields: [recurringSubscriptions.tierId],
+      references: [sponsorshipTiers.id],
+    }),
+  }),
+);
+
+export const widgetEventsRelations = relations(widgetEvents, ({ one }) => ({
+  creator: one(users, {
+    fields: [widgetEvents.creatorId],
+    references: [users.id],
+  }),
+}));
+
+export const gatedContentsRelations = relations(
+  gatedContents,
+  ({ one, many }) => ({
+    creator: one(users, {
+      fields: [gatedContents.creatorId],
+      references: [users.id],
+    }),
+    accesses: many(gatedContentAccesses),
+  }),
+);
+
+export const gatedContentAccessesRelations = relations(
+  gatedContentAccesses,
+  ({ one }) => ({
+    content: one(gatedContents, {
+      fields: [gatedContentAccesses.contentId],
+      references: [gatedContents.id],
+    }),
+    user: one(users, {
+      fields: [gatedContentAccesses.userId],
+      references: [users.id],
+    }),
+    transactionRecord: one(transactionRecords, {
+      fields: [gatedContentAccesses.transactionRecordId],
+      references: [transactionRecords.id],
+    }),
+  }),
+);
+
+export const githubActionEventsRelations = relations(
+  githubActionEvents,
+  ({ one }) => ({
+    creator: one(users, {
+      fields: [githubActionEvents.creatorId],
       references: [users.id],
     }),
   }),

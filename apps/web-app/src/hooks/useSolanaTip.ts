@@ -4,9 +4,11 @@ import {
   PublicKey,
   Transaction,
   SystemProgram,
+  Connection,
 } from "@solana/web3.js";
 import { useState } from "react";
 import { toast } from "sonner";
+import { RPC_URL } from "@/constant";
 
 export function useSolanaTip() {
   const { publicKey, sendTransaction } = useWallet();
@@ -20,6 +22,8 @@ export function useSolanaTip() {
 
     try {
       setIsSending(true);
+      // RAIL: Solana — replace with adapter pattern when multi-chain is added
+      const connection = new Connection(RPC_URL, "confirmed");
       const recipientAddress = new PublicKey(recipientWalletAddress);
       const transaction = new Transaction().add(
         SystemProgram.transfer({

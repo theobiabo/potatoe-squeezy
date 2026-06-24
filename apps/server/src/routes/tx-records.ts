@@ -1,14 +1,23 @@
 import { Hono } from 'hono';
 import { db } from '../db';
-import { addresses, transactionRecords, users } from '../db/schema';
+import {
+  addresses,
+  sponsorshipTiers,
+  tipReceipts,
+  transactionRecords,
+  users,
+} from '../db/schema';
 import { desc, eq, or, sql } from 'drizzle-orm';
-import { validateSolanaAddress } from '@potatoe/shared';
 import { broadcastNotification } from '../services/realtime-notifications';
 import type { Env } from '../types/env';
 import type { User } from '../types';
 import communicationChannel from '../services/communication';
 import { TELEGRAM_CHAT_ID } from '../constants';
 import { sendTelegramMessage } from '../utils/telegram-notification';
+import {
+  getPaymentRailAdapter,
+  normalizePaymentRail,
+} from '../services/payment-rails';
 
 const txRecordsRoute = new Hono<{
   Bindings: Env;
@@ -75,6 +84,11 @@ const normalizePaymentProtocol = (value: unknown) => {
   return null;
 };
 
+const normalizeCurrency = (value: unknown) => {
+  const raw = normalizeOptionalText(value);
+  return raw ? raw.toUpperCase() : 'SOL';
+};
+
 const normalizeUrl = (value: unknown) => {
   const raw = normalizeOptionalText(value);
 
@@ -98,6 +112,11 @@ const normalizeOptionalInteger = (value: unknown) => {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
 };
 
+const normalizePositiveAmount = (value: unknown) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+};
+
 const getPrimaryAddressForUser = async (userId: number) => {
   const addressMatch = await db
     .select({ address: addresses.address })
@@ -116,6 +135,28 @@ const getPrimaryAddressForUser = async (userId: number) => {
     .limit(1);
 
   return userMatch[0]?.walletAddress ?? null;
+};
+
+const addressBelongsToUser = async (userId: number, address: string) => {
+  const addressMatch = await db
+    .select({ id: addresses.id })
+    .from(addresses)
+    .where(
+      sql`${addresses.userId} = ${userId} and ${addresses.address} = ${address}`,
+    )
+    .limit(1);
+
+  if (addressMatch[0]) {
+    return true;
+  }
+
+  const userMatch = await db
+    .select({ id: users.id })
+    .from(users)
+    .where(sql`${users.id} = ${userId} and ${users.walletAddress} = ${address}`)
+    .limit(1);
+
+  return Boolean(userMatch[0]);
 };
 
 const findUserByUsername = async (username: string) => {
@@ -187,7 +228,7 @@ const notifyRecipientOfTip = async ({
   broadcastNotification(record.recipientId, {
     id: record.id,
     title: 'Wallet funded',
-    message: `You received ${record.amount} SOL in your wallet.`,
+    message: `You received ${record.amount} ${record.currency} in your wallet.`,
     amount: String(record.amount),
     senderAddress: record.senderAddress,
     recipientAddress: record.recipientAddress,
@@ -202,6 +243,7 @@ const notifyRecipientOfTip = async ({
         recipient: recipientUser,
         sender,
         amount: String(record.amount),
+        currency: record.currency,
         txHash: record.txHash ?? null,
         note: record.note ?? null,
       })
@@ -221,10 +263,13 @@ const insertTransactionRecord = async ({
   paymentProtocol,
   recipientAddress,
   recipientId,
+  tierId,
+  rail,
+  currency,
   txHash,
   note,
 }: {
-  amount: unknown;
+  amount: string;
   senderAddress: string;
   senderId: number | null;
   senderType: 'human' | 'agent' | null;
@@ -233,6 +278,9 @@ const insertTransactionRecord = async ({
   paymentProtocol: 'wallet' | 'x402' | 'mpp';
   recipientAddress: string;
   recipientId: number | null;
+  tierId: number | null;
+  rail: string;
+  currency: string;
   txHash: unknown;
   note: unknown;
 }) => {
@@ -248,6 +296,9 @@ const insertTransactionRecord = async ({
       paymentProtocol,
       recipientAddress,
       recipientId,
+      tierId,
+      rail,
+      currency,
       txHash: typeof txHash === 'string' ? txHash : null,
       note:
         typeof note === 'string' && note.trim().length > 0 ? note.trim() : null,
@@ -255,6 +306,44 @@ const insertTransactionRecord = async ({
     .returning();
 
   return newRecord[0];
+};
+
+const recordTipReceipt = async (
+  record: typeof transactionRecords.$inferSelect,
+) => {
+  const adapter = getPaymentRailAdapter(record.rail);
+  const receipt = await adapter.receipt({
+    rail: record.rail,
+    transactionRecordId: record.id,
+    txHash: record.txHash,
+    senderAddress: record.senderAddress,
+    recipientAddress: record.recipientAddress,
+    amount: record.amount,
+    currency: record.currency,
+    note: record.note,
+    tierId: record.tierId,
+  });
+
+  const inserted = await db
+    .insert(tipReceipts)
+    .values({
+      id: crypto.randomUUID(),
+      transactionRecordId: record.id,
+      rail: record.rail,
+      receiptType: receipt.receiptType,
+      receiptRef: receipt.receiptRef,
+      receiptData: receipt.data,
+      payerAddress: record.senderAddress,
+      recipientAddress: record.recipientAddress,
+      amount: record.amount,
+      currency: record.currency,
+      status: receipt.status,
+      mintedAt: receipt.mintedAt,
+    })
+    .onConflictDoNothing()
+    .returning();
+
+  return inserted[0] ?? null;
 };
 
 txRecordsRoute.get('/', async (c) => {
@@ -277,6 +366,9 @@ txRecordsRoute.get('/', async (c) => {
         paymentProtocol: transactionRecords.paymentProtocol,
         recipientAddress: transactionRecords.recipientAddress,
         recipientId: transactionRecords.recipientId,
+        tierId: transactionRecords.tierId,
+        rail: transactionRecords.rail,
+        currency: transactionRecords.currency,
         txHash: transactionRecords.txHash,
         note: transactionRecords.note,
         createdAt: transactionRecords.createdAt,
@@ -383,8 +475,13 @@ txRecordsRoute.post('/agent-settlements', async (c) => {
       txHash,
       note,
       paymentProtocol,
+      rail,
+      currency,
     } = await c.req.json();
 
+    const normalizedRail = normalizePaymentRail(rail);
+    const normalizedCurrency = normalizeCurrency(currency);
+    const parsedAmount = normalizePositiveAmount(amount);
     const normalizedSenderName = normalizeOptionalText(senderName);
     const normalizedSenderAvatarUrl = normalizeUrl(senderAvatarUrl);
     const normalizedRecipientUsername =
@@ -393,12 +490,8 @@ txRecordsRoute.post('/agent-settlements', async (c) => {
     const normalizedPaymentProtocol = normalizePaymentProtocol(paymentProtocol);
     const normalizedRecipientAddress = normalizeOptionalText(recipientAddress);
 
-    if (!amount || !senderAddress) {
+    if (!parsedAmount || !senderAddress) {
       return c.json({ error: 'Amount and sender address are required' }, 400);
-    }
-
-    if (!validateSolanaAddress(senderAddress)) {
-      return c.json({ error: 'Invalid Solana sender wallet address' }, 400);
     }
 
     if (!normalizedSenderName) {
@@ -442,13 +535,6 @@ txRecordsRoute.post('/agent-settlements', async (c) => {
         },
         400,
       );
-    }
-
-    if (
-      normalizedRecipientAddress &&
-      !validateSolanaAddress(normalizedRecipientAddress)
-    ) {
-      return c.json({ error: 'Invalid Solana recipient wallet address' }, 400);
     }
 
     let resolvedRecipientId = normalizedRecipientId;
@@ -500,9 +586,32 @@ txRecordsRoute.post('/agent-settlements', async (c) => {
       );
     }
 
-    if (!validateSolanaAddress(resolvedRecipientAddress)) {
+    if (
+      resolvedRecipientId &&
+      !(await addressBelongsToUser(
+        resolvedRecipientId,
+        resolvedRecipientAddress,
+      ))
+    ) {
       return c.json(
-        { error: 'Resolved recipient wallet address is invalid' },
+        { error: 'Recipient address does not belong to the recipient user' },
+        400,
+      );
+    }
+
+    const adapter = getPaymentRailAdapter(normalizedRail);
+    const verification = await adapter.verify_payment({
+      rail: normalizedRail,
+      txHash,
+      senderAddress,
+      recipientAddress: resolvedRecipientAddress,
+      amount: parsedAmount,
+      currency: normalizedCurrency,
+    });
+
+    if (!verification.verified) {
+      return c.json(
+        { error: verification.reason ?? 'Payment not verified' },
         400,
       );
     }
@@ -513,7 +622,7 @@ txRecordsRoute.post('/agent-settlements', async (c) => {
 
     const senderId = await findUserIdByAddress(senderAddress);
     const record = await insertTransactionRecord({
-      amount,
+      amount: parsedAmount.toString(),
       senderAddress,
       senderId,
       senderType: senderId ? 'human' : 'agent',
@@ -522,9 +631,13 @@ txRecordsRoute.post('/agent-settlements', async (c) => {
       paymentProtocol: normalizedPaymentProtocol,
       recipientAddress: resolvedRecipientAddress,
       recipientId: resolvedRecipientId,
+      tierId: null,
+      rail: normalizedRail,
+      currency: normalizedCurrency,
       txHash,
       note,
     });
+    const receipt = await recordTipReceipt(record);
 
     const senderUser = senderId
       ? ((
@@ -549,6 +662,7 @@ txRecordsRoute.post('/agent-settlements', async (c) => {
 
     return c.json({
       ...record,
+      receipt,
       recipientUsername: recipientUser?.username ?? null,
       settlement: {
         protocol: normalizedPaymentProtocol,
@@ -576,9 +690,17 @@ txRecordsRoute.post('/', async (c) => {
       recipientId,
       txHash,
       note,
+      tierId,
+      rail,
+      currency,
     } = await c.req.json();
 
-    if (!amount || !senderAddress || !recipientAddress) {
+    const normalizedRail = normalizePaymentRail(rail);
+    const normalizedCurrency = normalizeCurrency(currency);
+    const normalizedTierId = normalizeOptionalInteger(tierId);
+    const parsedAmount = normalizePositiveAmount(amount);
+
+    if (!parsedAmount || !senderAddress || !recipientAddress) {
       return c.json(
         {
           error: 'Amount, sender address, and recipient address are required',
@@ -587,21 +709,42 @@ txRecordsRoute.post('/', async (c) => {
       );
     }
 
-    if (
-      !validateSolanaAddress(senderAddress) ||
-      !validateSolanaAddress(recipientAddress)
-    ) {
-      return c.json({ error: 'Invalid Solana wallet address' }, 400);
-    }
-
     const resolvedSenderId =
       authUser?.id ?? senderId ?? (await findUserIdByAddress(senderAddress));
-    const resolvedRecipientId =
+    let resolvedRecipientId =
       recipientId ?? (await findUserIdByAddress(recipientAddress));
     const normalizedSenderType = normalizeSenderType(senderType);
     const normalizedSenderName = normalizeOptionalText(senderName);
     const normalizedSenderAvatarUrl = normalizeUrl(senderAvatarUrl);
     const normalizedPaymentProtocol = normalizePaymentProtocol(paymentProtocol);
+    let effectiveAmount = parsedAmount.toString();
+    let effectiveRail = normalizedRail;
+    let effectiveCurrency = normalizedCurrency;
+
+    if (normalizedTierId) {
+      const tierRows = await db
+        .select()
+        .from(sponsorshipTiers)
+        .where(eq(sponsorshipTiers.id, normalizedTierId))
+        .limit(1);
+      const tier = tierRows[0];
+
+      if (!tier || !tier.active) {
+        return c.json({ error: 'Sponsorship tier not found' }, 404);
+      }
+
+      if (resolvedRecipientId && tier.creatorId !== resolvedRecipientId) {
+        return c.json(
+          { error: 'Sponsorship tier does not belong to this recipient' },
+          400,
+        );
+      }
+
+      resolvedRecipientId = resolvedRecipientId ?? tier.creatorId;
+      effectiveAmount = String(tier.amount);
+      effectiveRail = normalizePaymentRail(tier.rail);
+      effectiveCurrency = normalizeCurrency(tier.currency);
+    }
 
     if (
       senderType !== undefined &&
@@ -648,8 +791,35 @@ txRecordsRoute.post('/', async (c) => {
       return c.json({ error: 'Sender avatar URL must be a valid URL' }, 400);
     }
 
+    if (
+      resolvedRecipientId &&
+      !(await addressBelongsToUser(resolvedRecipientId, recipientAddress))
+    ) {
+      return c.json(
+        { error: 'Recipient address does not belong to the recipient user' },
+        400,
+      );
+    }
+
+    const adapter = getPaymentRailAdapter(effectiveRail);
+    const verification = await adapter.verify_payment({
+      rail: effectiveRail,
+      txHash,
+      senderAddress,
+      recipientAddress,
+      amount: effectiveAmount,
+      currency: effectiveCurrency,
+    });
+
+    if (!verification.verified) {
+      return c.json(
+        { error: verification.reason ?? 'Payment not verified' },
+        400,
+      );
+    }
+
     const newRecord = await insertTransactionRecord({
-      amount,
+      amount: effectiveAmount,
       senderAddress,
       senderId: resolvedSenderId,
       senderType: resolvedSenderId
@@ -660,9 +830,13 @@ txRecordsRoute.post('/', async (c) => {
       paymentProtocol: normalizedPaymentProtocol ?? 'wallet',
       recipientAddress,
       recipientId: resolvedRecipientId,
+      tierId: normalizedTierId,
+      rail: effectiveRail,
+      currency: effectiveCurrency,
       txHash,
       note,
     });
+    const receipt = await recordTipReceipt(newRecord);
 
     const senderUser = resolvedSenderId
       ? await db
@@ -689,8 +863,11 @@ txRecordsRoute.post('/', async (c) => {
           .limit(1)
       : [];
 
-      console.log(" Checking notification for new transaction record: ", newRecord);
-    await sendTelegramMessage(TELEGRAM_CHAT_ID, "New transaction record created: ");
+    console.log('Checking notification for new transaction record:', newRecord);
+    await sendTelegramMessage(
+      TELEGRAM_CHAT_ID,
+      'New transaction record created.',
+    );
 
     await notifyRecipientOfTip({
       record: newRecord,
@@ -698,7 +875,7 @@ txRecordsRoute.post('/', async (c) => {
       recipientUser: recipientUser[0] ?? null,
     });
 
-    return c.json(newRecord);
+    return c.json({ ...newRecord, receipt });
   } catch (error) {
     console.error('Error creating transaction record:', error);
     return c.json({ error: 'Internal server error' }, 500);

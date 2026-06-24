@@ -7,6 +7,8 @@ import ModalLayout from "@/components/popups/modals";
 import { DialogDescription } from "@/components/ui/dialog.tsx";
 import useAuth from "@/hooks/useAuth.ts";
 import { Button } from "@/components/ui/button.tsx";
+import { buildReadmeBadgeMarkdown } from "@potatoe/utils";
+import { BASE_API_URL } from "@/constant";
 
 const SettingsDrawerView = () => {
   const { user } = useUserStore() || {};
@@ -16,17 +18,10 @@ const SettingsDrawerView = () => {
   const { logout } = useAuth();
 
   const copyBadgeCode = () => {
-    const badgeCode = `
-        <a href="${window.location.origin}/app/profile?user=${profile_name}" target="_blank" rel="noopener noreferrer">
-          <img
-            src="https://coffee-major-wallaby-86.mypinata.cloud/ipfs/bafkreiaskbvndui55ycmqdu6ui6arfkhxmqgjvjcaw26myp4y76mmqtbyi"
-            width="350"
-            height="54"
-            style="width: 250px; height: 54px;"
-            alt="Potatoe Squeezy - Support GitHub contributors with crypto"
-          />
-        </a>
-      `.trim();
+    const badgeCode = buildReadmeBadgeMarkdown(profile_name, {
+      apiOrigin: BASE_API_URL,
+      appOrigin: window.location.origin,
+    });
     navigator.clipboard.writeText(badgeCode);
     toast.success("Badge code copied to clipboard!");
   };

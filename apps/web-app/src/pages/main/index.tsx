@@ -5,6 +5,9 @@ import WalletProfilePanel from "@/components/wallet/walletProfilePanel.";
 import ListTippers from "@/components/profile/list-tippers";
 import DashboardOnboardingCard from "@/components/dashboard/dashboard-onboarding-card";
 import ProfileShareCard from "@/components/share/profile-share-card";
+import SponsorshipTiersPanel from "@/components/dashboard/sponsorship-tiers-panel";
+import AnalyticsPanel from "@/components/dashboard/analytics-panel";
+import GatedContentPanel from "@/components/dashboard/gated-content-panel";
 import TransactionService from "@/services/transaction.service";
 import { useUserStore } from "@/store/user.store";
 
@@ -21,6 +24,9 @@ function IndexDashboardPage() {
         <WalletProfilePanel />
         <DashboardOnboardingCard hasTippers={tippers.length > 0} />
         {user?.username && <ProfileShareCard username={user.username} />}
+        <SponsorshipTiersPanel />
+        <AnalyticsPanel />
+        <GatedContentPanel />
         <ListTippers />
         <WalletTransactionTable />
       </div>

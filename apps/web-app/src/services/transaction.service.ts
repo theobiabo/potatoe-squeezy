@@ -12,9 +12,18 @@ interface TransactionRecord {
   paymentProtocol?: "wallet" | "x402" | "mpp" | null;
   recipientAddress: string;
   recipientId: number | null;
+  tierId?: number | null;
+  rail?: string;
+  currency?: string;
   txHash: string;
   note: string | null;
   createdAt: string;
+  receipt?: {
+    id: string;
+    status: string;
+    receiptType: string;
+    receiptRef: string | null;
+  } | null;
 }
 
 export interface TipperRecord {

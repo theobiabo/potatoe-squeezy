@@ -16,17 +16,20 @@ const UpdateProfile = () => {
   const [email, setEmail] = useState("");
   const [twitterUrl, setTwitterUrl] = useState("");
   const [tippersPublic, setTippersPublic] = useState(false);
+  const [leaderboardOptIn, setLeaderboardOptIn] = useState(false);
 
   useEffect(() => {
     setDisplayName(profile?.user?.displayName ?? "");
     setEmail(profile?.user?.email ?? "");
     setTwitterUrl(profile?.user?.twitterUrl ?? "");
     setTippersPublic(Boolean(profile?.user?.tippersPublic));
+    setLeaderboardOptIn(Boolean(profile?.user?.leaderboardOptIn));
   }, [
     profile?.user?.displayName,
     profile?.user?.email,
     profile?.user?.twitterUrl,
     profile?.user?.tippersPublic,
+    profile?.user?.leaderboardOptIn,
   ]);
 
   const updateProfileMutation = useMutation({
@@ -36,6 +39,7 @@ const UpdateProfile = () => {
         email: email.trim() || null,
         twitterUrl: twitterUrl.trim() || null,
         tippersPublic,
+        leaderboardOptIn,
       }),
     onSuccess: (response) => {
       setAuthUser(response.user);
@@ -80,6 +84,16 @@ const UpdateProfile = () => {
           type="checkbox"
           checked={tippersPublic}
           onChange={(e) => setTippersPublic(e.target.checked)}
+          className="h-4 w-4"
+        />
+      </label>
+
+      <label className="flex items-center justify-between gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-3 text-sm text-white">
+        <span>Include me on public leaderboards</span>
+        <input
+          type="checkbox"
+          checked={leaderboardOptIn}
+          onChange={(e) => setLeaderboardOptIn(e.target.checked)}
           className="h-4 w-4"
         />
       </label>

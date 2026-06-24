@@ -17,6 +17,7 @@ interface TipSolParams {
 }
 
 const FEE_PERCENTAGE = 0.005;
+// RAIL: Solana — replace with adapter pattern when multi-chain is added
 const FEE_WALLET = new PublicKey(
   "FFenFaL1e88RLGiG1AgSPuHDBGDPj4rqvtCNb6xrEwtY",
 );
@@ -53,6 +54,7 @@ export function useTipSol({ recipientAddress, recipientName }: TipSolParams) {
 
     setLoading(true);
     try {
+      // RAIL: Solana — replace with adapter pattern when multi-chain is added
       const connection = new Connection(RPC_URL, "confirmed");
 
       const recipient = new PublicKey(normalizedRecipientAddress);
