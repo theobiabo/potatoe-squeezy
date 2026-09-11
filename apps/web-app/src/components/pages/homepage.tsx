@@ -1,81 +1,137 @@
+import { ArrowUpRight, Github, WalletCards } from "lucide-react";
 import AuthButton from "@/button/auth";
 import ThemeToggle from "@/components/theme-toggle";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { WorkspaceLink } from "@/components/workspace/types";
 
-const steps = [
-  "Share your developer profile",
-  "Set the support that works for you",
-  "Keep building with your community",
+const supportFlow = [
+  {
+    number: "01",
+    title: "Claim your work",
+    description:
+      "Sign in with GitHub and turn your contribution history into a profile supporters can verify.",
+  },
+  {
+    number: "02",
+    title: "Connect a wallet",
+    description:
+      "Choose where direct SOL support should land. Your keys stay with your wallet.",
+  },
+  {
+    number: "03",
+    title: "Keep shipping",
+    description:
+      "Share one profile for tips, sponsorship tiers, badges, and public recognition.",
+  },
 ] as const;
 
 function Homepage() {
   return (
-    <main className="min-h-dvh bg-canvas text-content-primary">
-      <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col px-4 py-4 sm:px-6 sm:py-6">
-        <header className="flex items-center justify-between gap-3 border-2 border-black bg-surface-raised p-3 shadow-md">
-          <WorkspaceLink
-            to="/"
-            className="flex items-center gap-3 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action-primary"
-          >
-            <img
-              src="/logo/logo.png"
-              width={36}
-              height={36}
-              alt=""
-              className="size-9 border-2 border-black object-cover shadow-sm"
-            />
-            <span className="font-head text-base tracking-tight sm:text-lg">
-              Potatoe Squeezy
-            </span>
-          </WorkspaceLink>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <AuthButton size="sm" />
-          </div>
-        </header>
+    <main className="home-shell">
+      <header className="home-nav">
+        <WorkspaceLink to="/" className="home-wordmark">
+          <img src="/logo/logo.png" width={40} height={40} alt="" />
+          <span>Potatoe Squeezy</span>
+        </WorkspaceLink>
 
-        <section className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center py-16 text-center sm:py-24">
-          <Badge className="mb-6">Open-source rewards</Badge>
-          <h1 className="max-w-3xl font-head text-4xl leading-[0.98] tracking-tight sm:text-6xl">
-            Open-source work deserves open support.
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-content-secondary sm:text-lg">
-            Build a profile people can trust, give supporters clear ways to
-            contribute, and keep your momentum moving.
+        <nav className="home-nav-links" aria-label="Primary navigation">
+          <WorkspaceLink to="/app/explore">Explore</WorkspaceLink>
+          <WorkspaceLink to="/app/leaderboard">Leaderboard</WorkspaceLink>
+        </nav>
+
+        <div className="home-nav-actions">
+          <ThemeToggle />
+          <AuthButton size="sm" className="home-nav-auth" />
+        </div>
+      </header>
+
+      <section className="home-hero" aria-labelledby="home-title">
+        <div className="home-hero-copy">
+          <p className="home-kicker">Support the work behind your stack.</p>
+          <h1 id="home-title">Code gets used. Builders get paid.</h1>
+          <p className="home-lede">
+            Potatoe Squeezy gives open-source developers one credible place to
+            show their work and receive direct support from the people using it.
           </p>
-          <div className="mt-8 flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row">
-            <AuthButton className="w-full sm:w-auto" />
-            <Button asChild variant="outline" className="w-full sm:w-auto">
+          <div className="home-hero-actions">
+            <AuthButton className="home-primary-action" />
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="home-secondary-action"
+            >
               <WorkspaceLink to="/app/explore">
-                Discover developers
+                Explore developers
+                <ArrowUpRight aria-hidden="true" />
               </WorkspaceLink>
             </Button>
           </div>
-        </section>
+        </div>
 
-        <Card className="mb-6 bg-secondary">
-          <CardContent className="grid gap-3 p-4 sm:grid-cols-3 sm:p-5">
-            {steps.map((step, index) => (
-              <div
-                key={step}
-                className="border-2 border-black bg-surface-raised p-4 text-left shadow-sm"
-              >
-                <span className="font-head text-sm text-action-primary">
-                  0{index + 1}
-                </span>
-                <p className="mt-4 font-head text-sm leading-5">{step}</p>
+        <div className="home-proof" aria-label="How support moves">
+          <div className="home-proof-head">
+            <span>Direct support route</span>
+            <span>SOL</span>
+          </div>
+          <div className="home-proof-body">
+            <div className="home-proof-node">
+              <Github aria-hidden="true" />
+              <div>
+                <strong>GitHub identity</strong>
+                <span>Verified developer profile</span>
               </div>
-            ))}
-          </CardContent>
-        </Card>
+            </div>
+            <div className="home-proof-connector" aria-hidden="true">
+              <span>TIP</span>
+              <ArrowUpRight />
+            </div>
+            <div className="home-proof-node home-proof-node-accent">
+              <WalletCards aria-hidden="true" />
+              <div>
+                <strong>Connected wallet</strong>
+                <span>Funds arrive directly</span>
+              </div>
+            </div>
+          </div>
+          <p className="home-proof-note">
+            No platform balance. The wallet transaction is the receipt.
+          </p>
+        </div>
+      </section>
 
-        <footer className="pb-2 text-center text-xs text-content-tertiary">
-          Built for the people who keep open source moving.
-        </footer>
-      </div>
+      <section className="home-workflow" aria-labelledby="workflow-title">
+        <div className="home-workflow-intro">
+          <h2 id="workflow-title">One profile. Three clear steps.</h2>
+          <p>
+            Make contribution history legible, make support simple, and keep
+            ownership of the wallet that receives it.
+          </p>
+        </div>
+
+        <ol className="home-steps">
+          {supportFlow.map((step) => (
+            <li key={step.number}>
+              <span className="home-step-number">{step.number}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <footer className="home-footer">
+        <p>Open source moves because someone keeps showing up.</p>
+        <div className="home-footer-meta">
+          <span>Potatoe Squeezy</span>
+          <WorkspaceLink to="/app/explore">
+            Find a developer
+            <ArrowUpRight aria-hidden="true" />
+          </WorkspaceLink>
+        </div>
+      </footer>
     </main>
   );
 }

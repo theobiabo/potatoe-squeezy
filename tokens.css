@@ -1,0 +1,50 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Split Studio · tone: brutalist-technical · theme: Brutal · anchor hue: orange · enrichment: none · nav: N7 · footer: Ft5 · critique: P5 H5 E4 S5 R4 V5 */
+:root {
+  --home-color-paper: oklch(14% 0.008 55);
+  --home-color-paper-raised: oklch(19% 0.01 55);
+  --home-color-paper-inset: oklch(10% 0.008 55);
+  --home-color-ink: oklch(95% 0.008 70);
+  --home-color-muted: oklch(72% 0.012 65);
+  --home-color-rule: oklch(95% 0.008 70);
+  --home-color-accent: oklch(70% 0.19 48);
+  --home-color-accent-ink: oklch(14% 0.008 55);
+  --home-color-focus: oklch(82% 0.15 80);
+  --home-font-display: "Archivo Black", sans-serif;
+  --home-font-body: "Space Grotesk", sans-serif;
+  --home-font-mono: "IBM Plex Mono", monospace;
+  --home-space-3xs: 0.125rem;
+  --home-space-2xs: 0.25rem;
+  --home-space-xs: 0.5rem;
+  --home-space-sm: 0.75rem;
+  --home-space-md: 1rem;
+  --home-space-lg: 1.5rem;
+  --home-space-xl: 2.5rem;
+  --home-space-2xl: 4rem;
+  --home-space-3xl: 6rem;
+  --home-text-xs: 0.75rem;
+  --home-text-sm: 0.875rem;
+  --home-text-base: 1rem;
+  --home-text-md: 1.25rem;
+  --home-text-xl: 1.953rem;
+  --home-text-display: clamp(3rem, 8vw, 6rem);
+  --home-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --home-ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --home-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --home-dur-micro: 100ms;
+  --home-dur-short: 180ms;
+  --home-dur-long: 420ms;
+  --home-rule-heavy: 3px;
+  --home-radius-none: 0;
+}
+
+.light {
+  --home-color-paper: var(--canvas);
+  --home-color-paper-raised: oklch(100% 0.006 70);
+  --home-color-paper-inset: oklch(93% 0.025 70);
+  --home-color-ink: oklch(20% 0.014 55);
+  --home-color-muted: oklch(43% 0.018 55);
+  --home-color-rule: oklch(20% 0.014 55);
+  --home-color-accent: oklch(68% 0.2 48);
+  --home-color-accent-ink: oklch(16% 0.012 55);
+  --home-color-focus: oklch(48% 0.17 45);
+}

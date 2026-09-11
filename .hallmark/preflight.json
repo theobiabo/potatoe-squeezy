@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-11",
+  "framework": "React 19 + Vite 6 + Tailwind CSS 4",
+  "font_stack": ["Archivo Black", "Space Grotesk", "IBM Plex Mono"],
+  "palette": "Dark-first semantic tokens with orange action color and #fff9f2 light canvas",
+  "motion": "Framer Motion and Motion installed",
+  "spacing": "Tailwind 4pt utility scale",
+  "source_files": [
+    "apps/web-app/package.json",
+    "apps/web-app/src/App.css",
+    "apps/web-app/src/components/pages/homepage.tsx"
+  ]
+}
