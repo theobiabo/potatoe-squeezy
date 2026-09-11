@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 interface ProfileStatusBadgeProps {
@@ -6,22 +7,22 @@ interface ProfileStatusBadgeProps {
   tone?: "default" | "success" | "warning";
 }
 
+const toneClassNames = {
+  default: "border-line bg-surface-inset text-content-secondary",
+  success: "border-line-success bg-content-success/10 text-content-success",
+  warning: "border-line-warning bg-content-warning/10 text-content-warning",
+} as const;
+
 export default function ProfileStatusBadge({
   children,
   tone = "default",
 }: ProfileStatusBadgeProps) {
   return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium",
-        tone === "default" && "border-[#2b2933] bg-[#15131d] text-[#8f8a99]",
-        tone === "success" &&
-          "border-[#238636]/40 bg-[#238636]/10 text-[#7ee787]",
-        tone === "warning" &&
-          "border-orange-500/30 bg-orange-500/10 text-orange-300",
-      )}
+    <Badge
+      variant="outline"
+      className={cn("rounded-md px-2.5 py-1", toneClassNames[tone])}
     >
       {children}
-    </span>
+    </Badge>
   );
 }

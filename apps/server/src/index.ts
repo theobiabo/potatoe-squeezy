@@ -28,10 +28,13 @@ import { launchBot, telegram_bot } from './config/telegraf';
 import type { User } from './types';
 import { users } from './db/schema';
 import { verify } from 'hono/jwt';
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import {
   addNotificationSocket,
   removeNotificationSocket,
 } from './services/realtime-notifications';
+import { createTRPCContext } from './trpc/context';
+import { appRouter } from './trpc/router';
 const telegram_bot_config = { launchBot, telegram_bot };
 
 const normalizeOrigin = (value: string) => {
@@ -143,6 +146,19 @@ app.use('*', async (c, next) => {
   await next();
 });
 
+app.all('/trpc/*', (c) =>
+  fetchRequestHandler({
+    endpoint: '/trpc',
+    req: c.req.raw,
+    router: appRouter,
+    createContext: () =>
+      createTRPCContext({
+        req: c.req.raw,
+        user: c.get('user'),
+      }),
+  }),
+);
+
 app.get(
   '/ws/notifications',
   upgradeWebSocket((c) => {
@@ -177,6 +193,19 @@ app.get(
 );
 
 const PORT = process.env.PORT || 3000;
+
+app.get('/callback/github', (c) => {
+  const callbackUrl = new URL(c.req.url);
+  callbackUrl.pathname = '/callback';
+
+  return authRouter.fetch(
+    new Request(callbackUrl, {
+      method: c.req.method,
+      headers: c.req.raw.headers,
+    }),
+    c.env,
+  );
+});
 
 app.get('/status/error', (c) => {
   const state = c.req.query('state');

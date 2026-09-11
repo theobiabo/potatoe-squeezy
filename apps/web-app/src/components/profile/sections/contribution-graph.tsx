@@ -14,11 +14,11 @@ interface ContributionGraphProps {
 }
 
 const intensityClassName: Record<ContributionIntensity, string> = {
-  [ContributionIntensity.NONE]: "bg-[#171b22]",
-  [ContributionIntensity.LOW]: "bg-[#0e4429]",
-  [ContributionIntensity.MEDIUM]: "bg-[#006d32]",
-  [ContributionIntensity.HIGH]: "bg-[#26a641]",
-  [ContributionIntensity.PEAK]: "bg-[#39d353]",
+  [ContributionIntensity.NONE]: "border border-line bg-surface-inset",
+  [ContributionIntensity.LOW]: "bg-action-primary/25",
+  [ContributionIntensity.MEDIUM]: "bg-action-primary/50",
+  [ContributionIntensity.HIGH]: "bg-content-success/70",
+  [ContributionIntensity.PEAK]: "bg-content-success",
 };
 
 const visibleMonthIndexes = new Set([0, 9, 18, 27, 36, 45]);
@@ -68,7 +68,7 @@ export default function ContributionGraph({
                 key={week.key}
                 as="span"
                 variant="caption"
-                className="h-5 text-[#8f8a99]"
+                className="h-5 text-content-tertiary"
               >
                 {visibleMonthIndexes.has(index)
                   ? formatMonth(week.days[0].date)
@@ -84,7 +84,7 @@ export default function ContributionGraph({
                   key={index}
                   as="span"
                   variant="caption"
-                  className="h-[10px] w-7 leading-[10px] text-[#8f8a99] sm:h-[11px] sm:leading-[11px]"
+                  className="h-[10px] w-7 leading-[10px] text-content-tertiary sm:h-[11px] sm:leading-[11px]"
                 >
                   {index % 2 === 1 ? weekDayLabels[(index - 1) / 2] : ""}
                 </Typography>

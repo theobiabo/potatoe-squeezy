@@ -26,9 +26,15 @@ export default function ProfileSection({
   contentClassName,
 }: ProfileSectionProps) {
   return (
-    <Card className={className}>
+    <Card
+      className={cn(
+        "gap-3 border-line bg-surface-raised shadow-none",
+        className,
+      )}
+    >
+
       {(title || description || action) && (
-        <CardHeader className="flex-row items-start justify-between gap-4">
+        <CardHeader className="flex-row items-start justify-between gap-4 px-4 pt-4">
           <div className="min-w-0">
             {title && <CardTitle>{title}</CardTitle>}
             {description && <CardDescription>{description}</CardDescription>}
@@ -37,7 +43,11 @@ export default function ProfileSection({
         </CardHeader>
       )}
       <CardContent
-        className={cn(!title && !description && "pt-7", contentClassName)}
+        className={cn(
+          "px-4 pb-4",
+          !title && !description && "pt-4",
+          contentClassName,
+        )}
       >
         {children}
       </CardContent>

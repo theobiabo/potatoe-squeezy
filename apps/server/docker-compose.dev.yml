@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: potatoe-server-dev
     env_file:
-      - .env
+      - ../../.env
     ports:
       - '3000:3000'
     volumes:

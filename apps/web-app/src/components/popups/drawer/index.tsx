@@ -19,9 +19,9 @@ const Drawer = ({ trigger, children, title, side = "right" }: IDrawer) => {
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent side={side}>
         <SheetHeader>
-          <SheetTitle className="text-white">{title}</SheetTitle>
+          <SheetTitle>{title}</SheetTitle>
         </SheetHeader>
-        <div className="py-4">{children}</div>
+        <div className="py-3">{children}</div>
       </SheetContent>
     </Sheet>
   );

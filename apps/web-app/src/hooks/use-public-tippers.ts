@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 import type { PublicTippersResponse } from "@/types/developer-profile";
 
 export function usePublicTippers(username: string) {
@@ -13,9 +13,9 @@ export function usePublicTippers(username: string) {
       setLoading(true);
 
       try {
-        const response = await ApiClient.get<PublicTippersResponse>(
-          `/users/${username}/tippers`,
-        );
+        const response = (await trpc.public.tippers.query({
+          username,
+        })) as unknown as PublicTippersResponse;
         if (!cancelled) setData(response);
       } catch {
         if (!cancelled) setData(null);

@@ -1,0 +1,29 @@
+- generic [ref=e2]:
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "Potatoe Squeezy" [ref=e6] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e8]:
+          - button "Switch to light mode" [ref=e9] [cursor=pointer]: Light mode
+          - button "Continue with GitHub" [ref=e10] [cursor=pointer]
+      - generic [ref=e11]:
+        - generic [ref=e12]: Open-source rewards
+        - heading "Open-source work deserves open support." [level=1] [ref=e13]
+        - paragraph [ref=e14]: Build a profile people can trust, give supporters clear ways to contribute, and keep your momentum moving.
+        - generic [ref=e15]:
+          - button "Continue with GitHub" [ref=e16] [cursor=pointer]
+          - link "Discover developers" [ref=e17] [cursor=pointer]:
+            - /url: /app/explore
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]: "01"
+          - paragraph [ref=e22]: Share your developer profile
+        - generic [ref=e23]:
+          - generic [ref=e24]: "02"
+          - paragraph [ref=e25]: Set the support that works for you
+        - generic [ref=e26]:
+          - generic [ref=e27]: "03"
+          - paragraph [ref=e28]: Keep building with your community
+      - generic [ref=e29]: Built for the people who keep open source moving.
+  - region "Notifications alt+T"

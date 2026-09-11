@@ -1,5 +1,4 @@
-import API_ENDPOINTS from "@/enums/API_ENUM";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 
 export interface AnalyticsSummary {
   totalTips: string;
@@ -38,7 +37,8 @@ export interface AnalyticsSummary {
 
 class AnalyticsService {
   static async getSummary() {
-    return ApiClient.get<AnalyticsSummary>(API_ENDPOINTS.ANALYTICS_SUMMARY);
+    const response = await trpc.account.analytics.summary.query();
+    return response as unknown as AnalyticsSummary;
   }
 }
 

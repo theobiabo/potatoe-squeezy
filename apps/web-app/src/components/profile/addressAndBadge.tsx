@@ -13,15 +13,13 @@ interface AddressAndBadgeProps {
 
 const AddressAndBadge = ({ username, onCopyBadge }: AddressAndBadgeProps) => {
   return (
-    <div className="flex flex-col gap-6 mt-6">
+    <div className="mt-6 flex flex-col gap-2">
       <ModalLayout
         title="Update Wallet Address"
         trigger={
-          <div className="flex cursor-pointer items-center justify-between rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 transition-colors hover:border-[#4b465a] hover:bg-[#1c1925]">
-            <h4 className="text-sm text-[#c9d1d9]">
-              Add/Update Wallet Address
-            </h4>
-            <ChevronRight className="text-[#8f8a99]" />
+          <div className="flex cursor-pointer items-center justify-between rounded-[10px] border border-line bg-surface-raised px-3 py-2.5 text-content-primary transition-colors hover:border-line-strong hover:bg-surface">
+            <h4 className="text-sm font-medium">Add/Update Wallet Address</h4>
+            <ChevronRight className="size-4 text-content-tertiary" />
           </div>
         }
       >
@@ -31,20 +29,20 @@ const AddressAndBadge = ({ username, onCopyBadge }: AddressAndBadgeProps) => {
       <ModalLayout
         title="Your Badge"
         trigger={
-          <div className="flex cursor-pointer items-center justify-between rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 transition-colors hover:border-[#4b465a] hover:bg-[#1c1925]">
-            <h4 className="text-sm text-[#c9d1d9]">Generate Badge</h4>
-            <ChevronRight className="text-[#8f8a99]" />
+          <div className="flex cursor-pointer items-center justify-between rounded-[10px] border border-line bg-surface-raised px-3 py-2.5 text-content-primary transition-colors hover:border-line-strong hover:bg-surface">
+            <h4 className="text-sm font-medium">Generate Badge</h4>
+            <ChevronRight className="size-4 text-content-tertiary" />
           </div>
         }
       >
-        <div className="pt-4 space-y-4">
+        <div className="space-y-3 pt-3">
           <Typography
             variant="h6"
-            className="text-sm text-center text-gray-300"
+            className="text-center text-content-secondary"
           >
             Your Tip Badge
           </Typography>
-          <div className="flex justify-center rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4">
+          <div className="flex justify-center rounded-[10px] border border-line bg-surface-inset p-3">
             <TipBadge username={username} />
           </div>
           <Button onClick={onCopyBadge} className="w-full">
@@ -56,9 +54,9 @@ const AddressAndBadge = ({ username, onCopyBadge }: AddressAndBadgeProps) => {
       <ModalLayout
         title="Update Profile"
         trigger={
-          <div className="flex cursor-pointer items-center justify-between rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 transition-colors hover:border-[#4b465a] hover:bg-[#1c1925]">
-            <h4 className="text-sm text-[#c9d1d9]">Update Profile</h4>
-            <ChevronRight className="text-[#8f8a99]" />
+          <div className="flex cursor-pointer items-center justify-between rounded-[10px] border border-line bg-surface-raised px-3 py-2.5 text-content-primary transition-colors hover:border-line-strong hover:bg-surface">
+            <h4 className="text-sm font-medium">Update Profile</h4>
+            <ChevronRight className="size-4 text-content-tertiary" />
           </div>
         }
       >

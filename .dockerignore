@@ -6,8 +6,8 @@
 **/.next
 **/dist
 **/.env
+**/.env.*
 
 pnpm-debug.log
 npm-debug.log
 yarn-error.log
-

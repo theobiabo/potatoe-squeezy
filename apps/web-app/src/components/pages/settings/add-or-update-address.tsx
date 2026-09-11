@@ -99,7 +99,7 @@ const AddOrUpdateAddress = ({ onUpdateAddress }: AddOrUpdateAddressProps) => {
   };
 
   return (
-    <div className="pt-4 space-y-4">
+    <div className="space-y-3 pt-3">
       <div className="flex gap-2">
         {CHAIN_OPTIONS.map((option) => {
           const isActive = chain === option.value;
@@ -110,17 +110,13 @@ const AddOrUpdateAddress = ({ onUpdateAddress }: AddOrUpdateAddressProps) => {
               key={option.value}
               type="button"
               onClick={() => handleSelectChain(option.value)}
-              className={`flex items-center gap-2 rounded-md w-full border px-3 py-2 text-sm transition-colors ${
+              className={`flex w-full items-center gap-2 rounded-[10px] border px-3 py-2 text-sm transition-colors ${
                 isActive
-                  ? "border-orange-500/50 bg-orange-500/10 text-white"
-                  : "border-[#2b2933] bg-[#15131d] text-[#8f8a99] hover:border-[#4b465a] hover:text-white"
+                  ? "border-action-primary bg-action-primary/15 text-content-primary"
+                  : "border-line bg-surface-raised text-content-secondary hover:border-line-strong hover:bg-surface hover:text-content-primary"
               }`}
             >
-              <Icon
-                size={20}
-                variant="Bulk"
-                color={isActive ? "#FFFFFF" : "#9CA3AF"}
-              />
+              <Icon size={20} variant="Bulk" color="currentColor" />
               <span>{option.label}</span>
             </button>
           );
@@ -131,7 +127,7 @@ const AddOrUpdateAddress = ({ onUpdateAddress }: AddOrUpdateAddressProps) => {
         placeholder={`Enter your ${chain} wallet address`}
         value={address}
         onChange={(e) => setAddress(e.target.value)}
-        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
+        className="border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-action-primary focus-visible:ring-focus"
       />
 
       <div className="flex flex-col justify-end gap-3">

@@ -28,14 +28,19 @@ export default function ProfileShareCard({
     <ProfileSection
       title={compact ? "Share profile" : "Grow your supporter page"}
       description="Share a public profile, README badge, or short post that points supporters to your developer page."
+      className="border-line bg-surface-raised shadow-none"
     >
-      <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] px-3 py-2">
-        <Typography as="p" variant="code" className="break-all">
+      <div className="rounded-xl border border-line bg-surface-inset p-3">
+        <Typography
+          as="p"
+          variant="code"
+          className="block break-all rounded-md bg-transparent p-0 text-content-primary"
+        >
           {profileUrl}
         </Typography>
       </div>
 
-      <div className="mt-4 grid gap-2 sm:grid-cols-3">
+      <div className="mt-3 grid gap-2 sm:grid-cols-3">
         {shareActions.map((action) => (
           <Button
             key={action.kind}
@@ -50,6 +55,7 @@ export default function ProfileShareCard({
                 `${action.label} copied`,
               )
             }
+            className="border-line bg-surface-inset text-content-primary hover:bg-surface-raised hover:text-content-primary focus-visible:ring-focus"
           >
             {action.label}
           </Button>

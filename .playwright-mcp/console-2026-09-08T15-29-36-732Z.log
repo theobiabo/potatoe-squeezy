@@ -1,0 +1,370 @@
+[     481ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:20102
+[     497ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[     520ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[     539ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:22
+[     561ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     561ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app/dev/0514B0 color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app/dev/0514B0, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1788881377293} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     740ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <SafeFragment>
+      <SafeFragment fallback={null}>
+        <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+          <SafeFragment fallback={function fallback}>
+            <MatchInnerImpl matchId="/app/dev/$...">
+              <Lazy>
+                <RouteComponent>
+                  <DeveloperProfilePage username="0514B0">
+                    <DefaultDashboard>
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2155
+[     740ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2162
+[    1848ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[    3854ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[    7860ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[  189082ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[  189085ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/@vite/client:1034
+[  190667ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:20102
+[  190671ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[  190678ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[  190685ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:22
+[  190725ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[  190725ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app/dev/0514B0 color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app/dev/0514B0, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1788881567457} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[  191106ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <SafeFragment>
+      <SafeFragment fallback={null}>
+        <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+          <SafeFragment fallback={function fallback}>
+            <MatchInnerImpl matchId="/app/dev/$...">
+              <Lazy>
+                <RouteComponent>
+                  <DeveloperProfilePage username="0514B0">
+                    <DefaultDashboard>
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2155
+[  191106ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2162
+[  192220ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[  194225ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[  198236ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[ 1963461ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[ 1964241ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:20102
+[ 1964288ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[ 1964324ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[ 1964373ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:22
+[ 1964404ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[ 1964404ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app/dev/0514B0 color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app/dev/0514B0, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1788883341136} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[ 1964654ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <SafeFragment>
+      <SafeFragment fallback={null}>
+        <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+          <SafeFragment fallback={function fallback}>
+            <MatchInnerImpl matchId="/app/dev/$...">
+              <Lazy>
+                <RouteComponent>
+                  <DeveloperProfilePage username="0514B0">
+                    <DefaultDashboard>
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2155
+[ 1964655ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2162
+[ 1966339ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[ 1968545ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[ 3971303ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[ 4893215ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[ 4897225ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[ 4910914ms] [ERROR] Failed to load resource: net::ERR_NETWORK_CHANGED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[ 4912086ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[ 4914099ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[ 4918110ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[10717078ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[10717194ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[10718102ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[10718111ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[10718227ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[10720129ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[10720138ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[10720235ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[11761379ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[11761381ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[19458801ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[19459461ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:20102
+[19459506ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[19459561ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[19459615ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:22
+[19459659ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[19459659ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app/dev/0514B0 color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app/dev/0514B0, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1788900836391} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[19459958ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <SafeFragment>
+      <SafeFragment fallback={null}>
+        <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+          <SafeFragment fallback={function fallback}>
+            <MatchInnerImpl matchId="/app/dev/$...">
+              <Lazy>
+                <RouteComponent>
+                  <DeveloperProfilePage username="0514B0">
+                    <DefaultDashboard>
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2155
+[19459958ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2162
+[19461609ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[19463726ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[20059083ms] [ERROR] Failed to load resource: net::ERR_NETWORK_CHANGED @ https://www.google-analytics.com/g/collect?v=2&tid=G-77T5G9L8N7&gtm=45je6930v9208774840za200zd9208774840&_p=1788900835978&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&cid=1629498736.1787377289&frm=0&ngs=1&pscdl=noapi&rcb=8&sr=1512x982&uaa=arm&uab=64&uafvl=Chromium%3B152.0.7977.76%7CNot%253FA_Brand%3B24.0.0.0%7CGoogle%2520Chrome%3B152.0.7977.76&uam=&uamb=0&uap=macOS&uapv=27.0.0&uaw=0&ul=en-us&_s=2&tag_exp=115616985~115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153&sid=1788900835&sct=8&seg=1&dl=http%3A%2F%2Flocalhost%2Fapp%2Fdev%2F0514B0&dr=http%3A%2F%2Flocalhost%3A5173%2Fapp%2Fdev%2F0514B0&dt=Potatoe%20-%20Support%20GitHub%20Contributors%20with%20Crypto&en=scroll&epn.percent_scrolled=90&_et=14&tfd=6423:0
+[20059234ms] [ERROR] Failed to load resource: net::ERR_INTERNET_DISCONNECTED @ https://www.google.com/g/collect?v=2&tid=G-77T5G9L8N7&gtm=45je6930v9208774840za200zd9208774840&_p=1788900835978&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&cid=1629498736.1787377289&frm=0&ngs=1&pscdl=noapi&rcb=8&sr=1512x982&uaa=arm&uab=64&uafvl=Chromium%3B152.0.7977.76%7CNot%253FA_Brand%3B24.0.0.0%7CGoogle%2520Chrome%3B152.0.7977.76&uam=&uamb=0&uap=macOS&uapv=27.0.0&uaw=0&ul=en-us&_s=2&tag_exp=115616985~115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153&sid=1788900835&sct=8&seg=1&dl=http%3A%2F%2Flocalhost%2Fapp%2Fdev%2F0514B0&dr=http%3A%2F%2Flocalhost%3A5173%2Fapp%2Fdev%2F0514B0&dt=Potatoe%20-%20Support%20GitHub%20Contributors%20with%20Crypto&en=scroll&epn.percent_scrolled=90&_et=14&tfd=6423&gaf=1:0
+[25786863ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[25786868ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[25787880ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[25787883ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[25787896ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[25789896ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[25789899ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[25789902ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[25874243ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[25874734ms] [ERROR] Failed to load resource: net::ERR_NETWORK_CHANGED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[25874738ms] [ERROR] Failed to load resource: net::ERR_NETWORK_CHANGED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[36210822ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[36211225ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:20102
+[36211244ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[36211274ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[36211297ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:22
+[36211320ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[36211320ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app/dev/0514B0 color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app/dev/0514B0, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1788917588051} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[36211465ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <SafeFragment>
+      <SafeFragment fallback={null}>
+        <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+          <SafeFragment fallback={function fallback}>
+            <MatchInnerImpl matchId="/app/dev/$...">
+              <Lazy>
+                <RouteComponent>
+                  <DeveloperProfilePage username="0514B0">
+                    <DefaultDashboard>
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2155
+[36211465ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2162
+[36212801ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[36214972ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[36811800ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[37594795ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[37595051ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:20102
+[37595060ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[37595070ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[37595078ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:22
+[37595089ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[37595089ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app/dev/0514B0 color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app/dev/0514B0, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1788918971821} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[37595233ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <SafeFragment>
+      <SafeFragment fallback={null}>
+        <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+          <SafeFragment fallback={function fallback}>
+            <MatchInnerImpl matchId="/app/dev/$...">
+              <Lazy>
+                <RouteComponent>
+                  <DeveloperProfilePage username="0514B0">
+                    <DefaultDashboard>
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2155
+[37595233ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2162
+[37596663ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[37598865ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[37910252ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[39470379ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[39470387ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[39471391ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[39471392ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[39471601ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[39473401ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[39473403ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[39473606ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[39477618ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[58557635ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[58557637ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[58558653ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[58558653ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[58558815ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[58560664ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[58560667ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[58560823ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[59457328ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[59457404ms] [ERROR] Failed to load resource: net::ERR_NETWORK_CHANGED @ https://api.github.com/users/0514B0/events/public?per_page=100:0
+[59457870ms] [ERROR] Failed to load resource: net::ERR_NETWORK_CHANGED @ https://api.github.com/users/0514B0/repos?sort=updated&direction=desc&per_page=6&type=owner:0
+[60341855ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[60342543ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:20102
+[60342570ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[60342604ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[60342630ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:22
+[60342661ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[60342661ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app/dev/0514B0 color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app/dev/0514B0, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1788941719393} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[60342924ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <SafeFragment>
+      <SafeFragment fallback={null}>
+        <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+          <SafeFragment fallback={function fallback}>
+            <MatchInnerImpl matchId="/app/dev/$...">
+              <Lazy>
+                <RouteComponent>
+                  <DeveloperProfilePage username="0514B0">
+                    <DefaultDashboard>
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2155
+[60342924ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2162
+[60344241ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[60346448ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[60436719ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0

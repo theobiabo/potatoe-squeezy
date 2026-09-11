@@ -9,4 +9,4 @@ cmds = [
 ]
 
 [start]
-cmd = "export PATH=\"$HOME/.bun/bin:$PATH\" && cd apps/server && bun run src/index.ts"
+cmd = "export PATH=\"$HOME/.bun/bin:$PATH\" && bun --env-file=.env run apps/server/src/index.ts"

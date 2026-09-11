@@ -7,12 +7,15 @@ import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { readMigrationFiles } from 'drizzle-orm/migrator';
 
 const serverRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const workspaceRoot = resolve(serverRoot, '../..');
 
-config({ path: resolve(serverRoot, '.env') });
-config({ path: resolve(serverRoot, '.env.local') });
+config({ path: resolve(workspaceRoot, '.env') });
+config({ path: resolve(workspaceRoot, '.env.local') });
 
 if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL is not set (apps/server/.env or .env.local).');
+  throw new Error(
+    'DATABASE_URL is not set (.env or .env.local at the repository root).',
+  );
 }
 
 const databaseUrl = process.env.DATABASE_URL;

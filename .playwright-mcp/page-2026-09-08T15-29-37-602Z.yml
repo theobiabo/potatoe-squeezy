@@ -1,0 +1,46 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - complementary [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: PO
+        - generic [ref=e9]:
+          - generic [ref=e10]: Potatoe Squeezy
+          - generic [ref=e11]: Developer workspace
+      - navigation "Workspace navigation" [ref=e12]:
+        - region "Workspace" [ref=e14]:
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - link "Overview" [ref=e18] [cursor=pointer]:
+                - /url: /app
+            - listitem [ref=e25]:
+              - link "Explore" [ref=e26] [cursor=pointer]:
+                - /url: /app/explore
+            - listitem [ref=e31]:
+              - link "Bounties" [ref=e32] [cursor=pointer]:
+                - /url: /app/bounties
+            - listitem [ref=e37]:
+              - link "Company" [ref=e38] [cursor=pointer]:
+                - /url: /app/company
+            - listitem [ref=e44]:
+              - link "Leaderboard" [ref=e45] [cursor=pointer]:
+                - /url: /app/leaderboard
+    - generic [ref=e53]:
+      - banner [ref=e54]:
+        - link "Potatoe Squeezy" [ref=e56] [cursor=pointer]:
+          - /url: /app
+        - link "Search for anything" [ref=e59] [cursor=pointer]:
+          - /url: /app/explore
+        - generic [ref=e64]:
+          - button "Switch to light mode" [ref=e65] [cursor=pointer]: Light mode
+          - button [ref=e66]
+          - button "Open settings" [ref=e71] [cursor=pointer]
+      - main [ref=e72]:
+        - generic [ref=e73]:
+          - status [ref=e74]:
+            - generic [ref=e77]:
+              - generic [ref=e78]: Add a receiving wallet
+              - generic [ref=e79]: Connect a Solana address to receive tips and unlock payouts.
+          - button [ref=e80]:
+            - button "Add wallet" [ref=e81] [cursor=pointer]
+        - paragraph [ref=e85]: Loading profile.
+  - region "Notifications alt+T"

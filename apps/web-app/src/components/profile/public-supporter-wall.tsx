@@ -43,14 +43,14 @@ export default function PublicSupporterWall({
           No public supporters yet.
         </Typography>
       ) : (
-        <div className="divide-y divide-[#2b2933] overflow-hidden rounded-[18px] border border-[#2b2933]">
+        <div className="divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface-inset">
           {data.tippers.map((tipper) => {
             const displayName = getDisplayName(
               tipper.displayName,
               tipper.username,
             );
             const content = (
-              <div className="flex items-center justify-between gap-4 bg-[#0f0d16] px-4 py-3 transition-colors hover:bg-[#15131d]">
+              <div className="flex items-center justify-between gap-4 bg-surface-inset px-4 py-3 transition-colors hover:bg-surface-raised">
                 <div className="flex min-w-0 items-center gap-3">
                   <img
                     src={
@@ -58,13 +58,21 @@ export default function PublicSupporterWall({
                       "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
                     }
                     alt={displayName}
-                    className="h-9 w-9 rounded-full border border-[#2b2933] object-cover"
+                    className="size-9 rounded-full border border-line bg-surface object-cover"
                   />
                   <div className="min-w-0">
-                    <Typography as="p" variant="h6" className="truncate">
+                    <Typography
+                      as="p"
+                      variant="h6"
+                      className="truncate text-content-primary"
+                    >
                       {displayName}
                     </Typography>
-                    <Typography as="p" variant="caption" className="truncate">
+                    <Typography
+                      as="p"
+                      variant="caption"
+                      className="truncate text-content-secondary"
+                    >
                       {tipper.senderType === "agent"
                         ? "Agent supporter"
                         : "Supporter"}
@@ -72,10 +80,18 @@ export default function PublicSupporterWall({
                   </div>
                 </div>
                 <div className="shrink-0 text-right">
-                  <Typography as="p" variant="h6">
+                  <Typography
+                    as="p"
+                    variant="h6"
+                    className="font-mono tabular-nums text-content-primary"
+                  >
                     {tipper.totalAmount} SOL
                   </Typography>
-                  <Typography as="p" variant="caption" className="mt-1">
+                  <Typography
+                    as="p"
+                    variant="caption"
+                    className="mt-1 text-content-tertiary"
+                  >
                     {tipper.tipCount} tip{tipper.tipCount === 1 ? "" : "s"}
                     {tipper.lastTippedAt
                       ? ` · ${formatDistanceToNow(
@@ -98,6 +114,7 @@ export default function PublicSupporterWall({
               <a
                 key={tipper.identityKey}
                 href={`/app/dev/${tipper.profileUsername}`}
+                className="block rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-inset"
               >
                 {content}
               </a>

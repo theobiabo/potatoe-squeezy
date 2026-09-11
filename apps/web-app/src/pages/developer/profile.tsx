@@ -80,7 +80,7 @@ function DeveloperProfilePage({ username }: { username: string }) {
       )}
 
       {!loading && data && (
-        <div className="space-y-4">
+        <div className="space-y-5">
           <ProfileHero
             user={data.user}
             onShare={handleShare}

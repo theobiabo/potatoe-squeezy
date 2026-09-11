@@ -6,6 +6,8 @@ import { GithubUserCard } from "@/components/github/GithubUserCard";
 import { GithubUserSearch } from "@/components/search/GithubUserSearch";
 import GithubService, { type GitHubUser } from "@/services/github.service";
 
+const userCardSkeletons = Array.from({ length: 6 }, (_, index) => index);
+
 const GeneralGithubUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
@@ -57,7 +59,7 @@ const GeneralGithubUsers = () => {
   }, [submittedQuery, users, isFetching, error]);
 
   return (
-    <div>
+    <section className="space-y-4">
       <GithubUserSearch
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
@@ -65,18 +67,19 @@ const GeneralGithubUsers = () => {
         loading={isFetching}
       />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {isFetching ? (
-          <>
-            {Array.from({ length: 6 }).map((_, index) => (
+      <div
+        className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3"
+        aria-live="polite"
+      >
+        {isFetching
+          ? userCardSkeletons.map((index) => (
               <GithubUserCardSkeleton key={index} />
+            ))
+          : users.map((user) => (
+              <GithubUserCard key={user.login} user={user} />
             ))}
-          </>
-        ) : (
-          users?.map((user) => <GithubUserCard key={user.login} user={user} />)
-        )}
       </div>
-    </div>
+    </section>
   );
 };
 

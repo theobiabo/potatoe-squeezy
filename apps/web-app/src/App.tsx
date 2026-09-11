@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import "./App.css";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { Analytics } from "@vercel/analytics/react";
+import FullScreenLoader from "@/components/full-screen-loader";
 
 if (typeof window !== "undefined") {
   try {
@@ -30,7 +32,9 @@ function App() {
   return (
     <>
       <Analytics />
-      <RouterProvider router={router} />
+      <Suspense fallback={<FullScreenLoader />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </>
   );
 }

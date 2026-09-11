@@ -43,23 +43,36 @@ export default function SponsorGatedContent({
         {items.map((item) => (
           <div
             key={item.id}
-            className="flex flex-col gap-3 rounded-[8px] border border-[#2b2933] bg-[#15131d] p-3 sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col gap-3 rounded-xl border border-line bg-surface-inset p-3.5 sm:flex-row sm:items-center sm:justify-between"
           >
-            <div>
-              <Typography as="p" variant="h6">
+            <div className="min-w-0">
+              <Typography as="p" variant="h6" className="text-content-primary">
                 {item.title}
               </Typography>
               {item.description && (
-                <Typography as="p" variant="caption" className="mt-1">
+                <Typography
+                  as="p"
+                  variant="caption"
+                  className="mt-1 text-content-secondary"
+                >
                   {item.description}
                 </Typography>
               )}
-              <Typography as="p" variant="caption" className="mt-1">
+              <Typography
+                as="p"
+                variant="caption"
+                className="mt-2 font-mono text-content-tertiary"
+              >
                 Requires {Number(item.minAmount).toLocaleString()}{" "}
                 {item.currency}
               </Typography>
             </div>
-            <Button variant="outline" onClick={() => unlock(item.id)}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => unlock(item.id)}
+              className="border-line bg-surface-raised text-content-primary hover:border-line-strong hover:bg-surface hover:text-content-primary focus-visible:ring-focus"
+            >
               Unlock
             </Button>
           </div>

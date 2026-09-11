@@ -1,5 +1,4 @@
-import API_ENDPOINTS from "@/enums/API_ENUM";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 
 export interface UserNotification {
   id: number;
@@ -18,18 +17,16 @@ export interface UserNotification {
 
 class NotificationService {
   static async getUserNotifications(): Promise<UserNotification[]> {
-    const response = await ApiClient.get<UserNotification[]>(
-      API_ENDPOINTS.USER_NOTIFICATIONS,
-    );
-    return response;
+    const response = await trpc.account.notifications.list.query();
+    return response as unknown as UserNotification[];
   }
 
   static async clearUserNotifications() {
-    const response = await ApiClient.delete<{
+    const response = await trpc.account.notifications.clear.mutate();
+    return response as unknown as {
       success: boolean;
       notificationsClearedAt: string;
-    }>(API_ENDPOINTS.USER_NOTIFICATIONS);
-    return response;
+    };
   }
 }
 

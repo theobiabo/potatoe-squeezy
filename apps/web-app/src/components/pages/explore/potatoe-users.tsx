@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { UserService } from "@/services";
+import { useQuery } from "@tanstack/react-query";
 import { GithubUserCardSkeleton } from "@/components/github/GithubUserCardSkeleton";
 import { GithubUserCard } from "@/components/github/GithubUserCard";
 import { GithubUserSearch } from "@/components/search/GithubUserSearch";
-import { useQuery } from "@tanstack/react-query";
-import { IPotatoeUserData } from "@/interface/users.interface";
+import { Card, CardContent } from "@/components/ui/card";
+
+import { UserService } from "@/services";
+
+const userCardSkeletons = Array.from({ length: 6 }, (_, index) => index);
 
 const fetchPotatoeUsers = async () => {
   const response = await UserService.fetchAllPotatoeUsers();
@@ -24,12 +27,13 @@ const PotatoeUsers = () => {
     staleTime: 1000 * 60 * 5,
   });
 
-  const filteredUsers = users?.filter(({ users: user }) =>
-    user.username.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const filteredUsers =
+    users?.filter(({ users: user }) =>
+      user.username.toLowerCase().includes(searchQuery.toLowerCase()),
+    ) ?? [];
 
   return (
-    <div>
+    <section className="space-y-4">
       <GithubUserSearch
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
@@ -37,23 +41,35 @@ const PotatoeUsers = () => {
         loading={isLoading}
       />
 
-      <div className="grid grid-cols-1 gap-4 py-4 lg:grid-cols-3">
+      <div
+        className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3"
+        aria-live="polite"
+      >
         {isLoading ? (
-          Array.from({ length: 6 }).map((_, index) => (
+          userCardSkeletons.map((index) => (
             <GithubUserCardSkeleton key={index} />
           ))
         ) : isError ? (
-          <p className="text-center text-red-500">Failed to load users</p>
+          <Card className="col-span-full">
+            <CardContent className="py-12 text-center">
+              <p className="text-sm font-medium text-content-critical">
+                Failed to load users
+              </p>
+              <p className="mt-1 text-sm text-content-secondary">
+                Please try again shortly.
+              </p>
+            </CardContent>
+          </Card>
         ) : filteredUsers?.length > 0 ? (
-          filteredUsers?.map((data: IPotatoeUserData, index: number) => {
-            const users = data.users;
-
+          filteredUsers.map((data, index) => {
+            const user = data.users;
             const userData = {
-              name: users.name,
-              avatar_url: users.avatarUrl,
-              login: users.username,
-              email: users.email,
+              name: user.name,
+              avatar_url: user.avatarUrl,
+              login: user.username,
+              email: user.email,
             };
+
             return (
               <GithubUserCard
                 key={index}
@@ -63,10 +79,14 @@ const PotatoeUsers = () => {
             );
           })
         ) : (
-          <p className="text-center text-gray-500">No users found</p>
+          <Card className="col-span-full">
+            <CardContent className="py-12 text-center">
+              <p className="text-sm text-content-secondary">No users found.</p>
+            </CardContent>
+          </Card>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

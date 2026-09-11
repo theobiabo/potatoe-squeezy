@@ -1,5 +1,4 @@
-import API_ENDPOINTS from "@/enums/API_ENUM";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 
 export interface UpdateUserProfilePayload {
   displayName?: string | null;
@@ -48,35 +47,26 @@ export interface PublicTippersResponse {
 
 class UserService {
   static async fetchUserProfile(): Promise<UserProfileResponse> {
-    const response = await ApiClient.get<UserProfileResponse>(
-      API_ENDPOINTS.USER_PROFILE,
-    );
-    return response;
+    const response = await trpc.account.profile.get.query();
+    return response as unknown as UserProfileResponse;
   }
 
   static async fetchUserWallets() {
-    const response = await ApiClient.get(API_ENDPOINTS.USER_WALLET);
-    return response;
+    return trpc.account.wallets.list.query();
   }
 
   static async fetchAllPotatoeUsers() {
-    const response = await ApiClient.get(API_ENDPOINTS.USER_ALL);
-    return response;
+    return trpc.account.users.list.query();
   }
 
   static async updateUserProfile(data: UpdateUserProfilePayload) {
-    const response = await ApiClient.put<UserProfileResponse>(
-      API_ENDPOINTS.USER_PROFILE,
-      data,
-    );
-    return response;
+    const response = await trpc.account.profile.update.mutate(data);
+    return response as unknown as UserProfileResponse;
   }
 
   static async fetchPublicTippers(username: string) {
-    const response = await ApiClient.get<PublicTippersResponse>(
-      `${API_ENDPOINTS.USER_PUBLIC_TIPPERS}/${username}/tippers`,
-    );
-    return response;
+    const response = await trpc.public.tippers.query({ username });
+    return response as unknown as PublicTippersResponse;
   }
 }
 export default UserService;

@@ -1,5 +1,14 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
+import Typography from "@/components/typography";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 
 const AuthErrorPage = () => {
   const params = new URLSearchParams(window.location.search);
@@ -12,27 +21,69 @@ const AuthErrorPage = () => {
       : "We encountered an unexpected error. Please try again or return to the home page.";
 
   return (
-    <div className="h-[100vh] w-[80%] lg:w-[520px] mx-auto text-center flex flex-col items-center justify-center text-white">
-      <h1 className="text-4xl mb-4">ERROR</h1>
-      <p className="mb-6 text-sm text-[#8f8a99]">{message}</p>
+    <main className="flex min-h-dvh items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
+      <Card className="w-full max-w-md gap-0 border-line bg-surface shadow-none">
+        <CardHeader className="items-center gap-3 border-b border-line px-5 py-6 text-center sm:px-6">
+          <Badge
+            variant="secondary"
+            className="border-line-critical bg-surface-raised text-content-critical"
+          >
+            Sign-in error
+          </Badge>
+          <Typography as="h1" variant="h2" className="text-content-primary">
+            Unable to continue
+          </Typography>
+          <CardDescription className="max-w-sm text-content-secondary">
+            {message}
+          </CardDescription>
+        </CardHeader>
 
-      <div className="w-full rounded-[24px] border border-[#2b2933] bg-[#0f0d16] p-4 text-left">
-        <p className="text-xs text-[#8f8a99]">CODE:</p>
-        <p className="font-mono text-sm break-all">{error}</p>
-        {description ? (
-          <>
-            <p className="mt-3 text-xs text-[#8f8a99]">DETAILS:</p>
-            <p className="font-mono text-sm break-all">{description}</p>
-          </>
-        ) : null}
-      </div>
+        <CardContent className="px-5 py-5 sm:px-6">
+          <div className="space-y-4 rounded-xl border border-line bg-surface-inset p-4 text-left">
+            <div>
+              <Typography
+                as="p"
+                variant="label"
+                className="text-content-tertiary"
+              >
+                Code
+              </Typography>
+              <Typography
+                as="p"
+                variant="code"
+                className="mt-1 block break-all bg-surface text-content-primary"
+              >
+                {error}
+              </Typography>
+            </div>
+            {description ? (
+              <div className="border-t border-line pt-4">
+                <Typography
+                  as="p"
+                  variant="label"
+                  className="text-content-tertiary"
+                >
+                  Details
+                </Typography>
+                <Typography
+                  as="p"
+                  variant="code"
+                  className="mt-1 block break-all bg-surface text-content-primary"
+                >
+                  {description}
+                </Typography>
+              </div>
+            ) : null}
+          </div>
+        </CardContent>
 
-      <div className="pt-6 w-full">
-        <Link to="/" className="w-full block">
-          <Button className="w-full">Go Home</Button>
-        </Link>
-      </div>
-    </div>
+        <CardFooter className="px-5 pb-5 pt-0 sm:px-6 sm:pb-6">
+          <Button asChild className="w-full" size="lg">
+            <Link to="/">Go Home</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    </main>
   );
 };
 

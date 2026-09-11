@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 import type { DeveloperProfileResponse } from "@/types/developer-profile";
 
 export function useDeveloperProfile(username: string) {
@@ -18,9 +18,9 @@ export function useDeveloperProfile(username: string) {
       setLoading(true);
 
       try {
-        const result = await ApiClient.get<DeveloperProfileResponse>(
-          `/users/${username}/profile`,
-        );
+        const result = (await trpc.public.developerProfile.query({
+          username,
+        })) as unknown as DeveloperProfileResponse;
         if (!cancelled) setData(result);
       } catch {
         if (!cancelled) setData(null);

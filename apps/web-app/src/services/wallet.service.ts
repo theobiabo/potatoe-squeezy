@@ -1,5 +1,4 @@
-import API_ENDPOINTS from "@/enums/API_ENUM";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 
 interface WalletPayload {
   chain: string;
@@ -17,26 +16,18 @@ interface WalletResponse {
 
 class WalletService {
   static async getWalletAddress() {
-    const response = await ApiClient.get<WalletResponse[]>(
-      API_ENDPOINTS.USER_WALLET,
-    );
-    return response;
+    const response = await trpc.account.wallets.list.query();
+    return response as unknown as WalletResponse[];
   }
 
   static async addWallet(payload: WalletPayload) {
-    const response = await ApiClient.post<WalletResponse>(
-      API_ENDPOINTS.USER_WALLET,
-      payload,
-    );
-    return response;
+    const response = await trpc.account.wallets.upsert.mutate(payload);
+    return response as unknown as WalletResponse;
   }
 
   static async updateWallet(payload: WalletPayload) {
-    const response = await ApiClient.put<WalletResponse>(
-      API_ENDPOINTS.USER_WALLET,
-      payload,
-    );
-    return response;
+    const response = await trpc.account.wallets.upsert.mutate(payload);
+    return response as unknown as WalletResponse;
   }
 }
 

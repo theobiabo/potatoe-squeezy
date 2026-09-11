@@ -1,8 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { GithubIcon } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import useAuth from "@/hooks/useAuth";
 import { AuthService } from "@/services/auth.service";
-import { useNavigate } from "@tanstack/react-router";
-function AuthButton() {
+
+interface AuthButtonProps {
+  className?: string;
+  size?: "default" | "sm" | "lg";
+}
+
+function AuthButton({ className, size = "lg" }: AuthButtonProps) {
   const { isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
   const [isStartingOAuth, setIsStartingOAuth] = useState(false);
@@ -16,9 +26,11 @@ function AuthButton() {
 
   const signInWithGithub = async () => {
     if (oauthInFlightRef.current) return;
+
     oauthInFlightRef.current = true;
+    setIsStartingOAuth(true);
+
     try {
-      setIsStartingOAuth(true);
       const callbackURL = `${window.location.origin}/app`;
       const errorCallbackURL = `${window.location.origin}/status/error`;
       const { url } = await AuthService.signInWithGithub({
@@ -26,28 +38,30 @@ function AuthButton() {
         newUserCallbackURL: callbackURL,
         errorCallbackURL,
       });
+
       window.location.href = url;
-    } catch (err) {
-      console.error("Unexpected error during sign-in:", err);
-      alert("An unexpected error occurred. Please try again.");
+    } catch (error) {
+      console.error("Unexpected error during sign-in:", error);
       setIsStartingOAuth(false);
       oauthInFlightRef.current = false;
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return null;
+  }
 
   return (
-    <div>
-      <button
-        className="mx-auto flex w-fit items-center justify-center gap-2 rounded-[12px] border border-[#2b2933] bg-[#15131d] px-4 py-2 text-[#c9d1d9] transition-colors hover:bg-[#1c1925] hover:text-white"
-        type="button"
-        disabled={isStartingOAuth}
-        onClick={signInWithGithub}
-      >
-        Sign in with Github
-      </button>
-    </div>
+    <Button
+      type="button"
+      size={size}
+      disabled={isStartingOAuth}
+      onClick={signInWithGithub}
+      className={cn("justify-center", className)}
+    >
+      <GithubIcon className="size-4" />
+      {isStartingOAuth ? "Connecting..." : "Continue with GitHub"}
+    </Button>
   );
 }
 

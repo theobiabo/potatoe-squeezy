@@ -1,5 +1,4 @@
-import API_ENDPOINTS from "@/enums/API_ENUM";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 
 export interface GitHubUser {
   login: string;
@@ -32,15 +31,8 @@ export interface GitHubRepository {
 
 class GithubService {
   static async searchUsers(query = "", limit = 10): Promise<GitHubUser[]> {
-    const response = await ApiClient.get<GitHubUser[]>(
-      API_ENDPOINTS.GITHUB_USER_SEARCH,
-      {
-        q: query,
-        limit: String(limit),
-      },
-    );
-
-    return response;
+    const response = await trpc.public.githubSearch.query({ query, limit });
+    return response as GitHubUser[];
   }
 
   static async fetchPublicEvents(

@@ -17,4 +17,4 @@ WORKDIR /app/apps/server
 
 EXPOSE 3000
 
-CMD ["bun", "run", "src/index.ts"]
+CMD ["bun", "--env-file=/app/.env", "run", "src/index.ts"]

@@ -1,4 +1,5 @@
 import Typography from "@/components/typography";
+import { Badge } from "@/components/ui/badge";
 import type { DeveloperBadge } from "@/types/developer-profile";
 import ProfileSection from "./profile-section";
 
@@ -8,7 +9,10 @@ interface ProfileBadgesProps {
 
 export default function ProfileBadges({ badges }: ProfileBadgesProps) {
   return (
-    <ProfileSection title="Badges" description="Milestones earned through public activity.">
+    <ProfileSection
+      title="Badges"
+      description="Milestones earned through public activity."
+    >
       {badges.length === 0 ? (
         <Typography as="p" variant="muted">
           No badges earned yet.
@@ -16,13 +20,14 @@ export default function ProfileBadges({ badges }: ProfileBadgesProps) {
       ) : (
         <div className="flex flex-wrap gap-2">
           {badges.map((badge) => (
-            <div
+            <Badge
               key={badge.id}
+              variant="secondary"
               title={badge.description}
-              className="rounded-md border border-[#2b2933] bg-[#15131d] px-3 py-2 text-sm font-medium text-[#c9d1d9]"
+              className="rounded-md px-2.5 py-1 text-xs"
             >
               {badge.name}
-            </div>
+            </Badge>
           ))}
         </div>
       )}

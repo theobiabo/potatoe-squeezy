@@ -1,5 +1,4 @@
-import API_ENDPOINTS from "@/enums/API_ENUM";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 
 interface TransactionRecord {
   id: number;
@@ -42,27 +41,20 @@ export interface TipperRecord {
 
 class TransactionService {
   static async getTransactionRecords(): Promise<TransactionRecord[]> {
-    const response = await ApiClient.get<TransactionRecord[]>(
-      API_ENDPOINTS.TRANSACTION_RECORDS,
-    );
-    return response;
+    const response = await trpc.transactions.list.query();
+    return response as unknown as TransactionRecord[];
   }
 
   static async getTippers(): Promise<TipperRecord[]> {
-    const response = await ApiClient.get<TipperRecord[]>(
-      API_ENDPOINTS.TRANSACTION_TIPPERS,
-    );
-    return response;
+    const response = await trpc.transactions.tippers.query();
+    return response as unknown as TipperRecord[];
   }
 
   static async createTransactionRecord(
     data: Omit<TransactionRecord, "id" | "createdAt">,
   ) {
-    const response = await ApiClient.post<TransactionRecord>(
-      API_ENDPOINTS.TRANSACTION_RECORDS,
-      data as any,
-    );
-    return response;
+    const response = await trpc.transactions.create.mutate(data);
+    return response as unknown as TransactionRecord;
   }
 }
 

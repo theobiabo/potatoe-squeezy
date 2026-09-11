@@ -1,5 +1,4 @@
-import API_ENDPOINTS from "@/enums/API_ENUM";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 
 export interface SponsorshipTier {
   id: number;
@@ -28,28 +27,31 @@ export interface SponsorshipTierPayload {
 
 class SponsorshipService {
   static async getMyTiers() {
-    return ApiClient.get<SponsorshipTier[]>(API_ENDPOINTS.TIERS);
+    const response = await trpc.account.sponsorshipTiers.list.query();
+    return response as unknown as SponsorshipTier[];
   }
 
   static async getCreatorTiers(username: string) {
-    return ApiClient.get<SponsorshipTier[]>(
-      `${API_ENDPOINTS.TIER_CREATOR}/${encodeURIComponent(username)}`,
-    );
+    const response = await trpc.public.creatorTiers.query({ username });
+    return response as unknown as SponsorshipTier[];
   }
 
   static async createTier(data: SponsorshipTierPayload) {
-    return ApiClient.post<SponsorshipTier>(API_ENDPOINTS.TIERS, data as any);
+    const response = await trpc.account.sponsorshipTiers.create.mutate(data);
+    return response as unknown as SponsorshipTier;
   }
 
   static async updateTier(id: number, data: Partial<SponsorshipTierPayload>) {
-    return ApiClient.put<SponsorshipTier>(
-      `${API_ENDPOINTS.TIERS}/${id}`,
-      data as any,
-    );
+    const response = await trpc.account.sponsorshipTiers.update.mutate({
+      id,
+      ...data,
+    });
+    return response as unknown as SponsorshipTier;
   }
 
   static async deleteTier(id: number) {
-    return ApiClient.delete<SponsorshipTier>(`${API_ENDPOINTS.TIERS}/${id}`);
+    const response = await trpc.account.sponsorshipTiers.archive.mutate({ id });
+    return response as unknown as SponsorshipTier;
   }
 }
 

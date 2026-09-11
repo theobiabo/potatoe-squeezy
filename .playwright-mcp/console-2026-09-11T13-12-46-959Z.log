@@ -1,0 +1,47 @@
+[     557ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:20102
+[     578ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[     602ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=89858270:13
+[     624ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:22
+[     646ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     646ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app/dev/0514B0 color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app/dev/0514B0, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1789132367605} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     834ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <SafeFragment>
+      <SafeFragment fallback={null}>
+        <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+          <SafeFragment fallback={function fallback}>
+            <MatchInnerImpl matchId="/app/dev/$...">
+              <Lazy>
+                <RouteComponent>
+                  <DeveloperProfilePage username="0514B0">
+                    <DefaultDashboard>
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2155
+[     834ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=89858270:2162
+[    2072ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[    4077ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[    8138ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
+[   42735ms] [WARNING] You are using a deprecated chain ID for Solana Devnet, please use solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1 instead. @ http://localhost:5173/node_modules/.vite/deps/chunk-DJW4BNCC.js?v=89858270:31224
+[   42788ms] [WARNING] Element w3m-connecting-wc-qrcode scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:1051
