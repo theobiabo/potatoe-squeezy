@@ -747,6 +747,13 @@ txRecordsRoute.post('/', async (c) => {
     }
 
     if (
+      (resolvedSenderId && resolvedSenderId === resolvedRecipientId) ||
+      senderAddress.trim() === recipientAddress.trim()
+    ) {
+      return c.json({ error: 'You cannot tip your own profile' }, 400);
+    }
+
+    if (
       senderType !== undefined &&
       senderType !== null &&
       normalizedSenderType === null

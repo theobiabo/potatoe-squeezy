@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   AppRail,
   FloatingNavigationDock,
+  WalletConnectionPrompt,
   WorkspaceNotice,
 } from "@/components/workspace";
 import {
@@ -36,6 +37,8 @@ const DefaultDashboard = ({
 
   return (
     <div className="min-h-dvh bg-canvas text-content-primary lg:flex">
+      <WalletConnectionPrompt />
+
       {showTabs ? (
         <AppRail
           brand={{
@@ -58,7 +61,6 @@ const DefaultDashboard = ({
       ) : null}
 
       <div className="min-w-0 flex-1">
-
         <DashboardHeader title={title} />
         <main className="mx-auto w-full max-w-[1180px] px-4 py-6 pb-28 sm:px-6 sm:py-8 sm:pb-32 lg:px-8">
           {!wallet ? (
@@ -68,19 +70,11 @@ const DefaultDashboard = ({
                 tone="warning"
                 title="Add a receiving wallet"
               >
-
                 Connect a Solana address to receive tips and unlock payouts.
               </WorkspaceNotice>
               <ModalLayout
                 title="Add a wallet address to continue"
-                trigger={
-                  <Button
-                    type="button"
-
-                  >
-                    Add wallet
-                  </Button>
-                }
+                trigger={<Button type="button">Add wallet</Button>}
               >
                 <AddOrUpdateAddress />
               </ModalLayout>

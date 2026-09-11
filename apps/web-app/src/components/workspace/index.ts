@@ -21,6 +21,7 @@ export {
   type WorkspaceNoticeTone,
 } from "./workspace-notice";
 export { WorkspaceTopbar, type WorkspaceTopbarProps } from "./workspace-topbar";
+export { WalletConnectionPrompt } from "./wallet-connection-prompt";
 export {
   isWorkspaceNavigationItemActive,
   type WorkspaceAction,

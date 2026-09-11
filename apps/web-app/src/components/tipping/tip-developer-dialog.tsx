@@ -23,6 +23,7 @@ import SponsorshipService, {
 } from "@/services/sponsorship.service";
 import type { DeveloperUser } from "@/types/developer-profile";
 import { cn } from "@/lib/utils";
+import { useUserStore } from "@/store/user.store";
 
 interface TipDeveloperDialogProps {
   developer: DeveloperUser;
@@ -70,7 +71,13 @@ export default function TipDeveloperDialog({
   const [recording, setRecording] = useState(false);
   const { publicKey, connected } = useWallet();
   const { connectWallet, connecting } = useWalletConnection();
+  const currentUser = useUserStore((state) => state.user ?? state.authUser);
   const recipientAddress = developer.walletAddress ?? "";
+  const isOwnProfile = Boolean(
+    currentUser &&
+    (currentUser.id === developer.id ||
+      currentUser.username?.toLowerCase() === developer.username.toLowerCase()),
+  );
   const displayName = getDisplayName(developer.displayName, developer.username);
   const { sendTip, loading } = useTipSol({
     recipientAddress,
@@ -96,8 +103,18 @@ export default function TipDeveloperDialog({
   };
 
   const handleTip = async () => {
+    if (isOwnProfile) {
+      toast.error("You cannot tip your own profile");
+      return;
+    }
+
     if (!connected || !publicKey) {
       await connectWallet();
+      return;
+    }
+
+    if (publicKey.toBase58() === recipientAddress) {
+      toast.error("You cannot tip your own wallet");
       return;
     }
 
@@ -150,6 +167,8 @@ export default function TipDeveloperDialog({
       setRecording(false);
     }
   };
+
+  if (isOwnProfile) return null;
 
   return (
     <>

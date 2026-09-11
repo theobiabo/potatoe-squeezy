@@ -1,0 +1,168 @@
+- generic [active] [ref=f8e1]:
+  - generic [ref=f8e2]:
+    - generic [ref=f8e3]:
+      - complementary [ref=f8e19]:
+        - generic [ref=f8e21]:
+          - generic [ref=f8e22]: PO
+          - generic [ref=f8e24]:
+            - generic [ref=f8e25]: Potatoe Squeezy
+            - generic [ref=f8e26]: Developer workspace
+        - navigation "Workspace navigation" [ref=f8e27]:
+          - region "Workspace" [ref=f8e29]:
+            - list [ref=f8e31]:
+              - listitem [ref=f8e32]:
+                - link "Overview" [ref=f8e33] [cursor=pointer]:
+                  - /url: /app
+              - listitem [ref=f8e40]:
+                - link "Explore" [ref=f8e41] [cursor=pointer]:
+                  - /url: /app/explore
+              - listitem [ref=f8e46]:
+                - link "Bounties" [ref=f8e47] [cursor=pointer]:
+                  - /url: /app/bounties
+              - listitem [ref=f8e52]:
+                - link "Company" [ref=f8e53] [cursor=pointer]:
+                  - /url: /app/company
+              - listitem [ref=f8e59]:
+                - link "Leaderboard" [ref=f8e60] [cursor=pointer]:
+                  - /url: /app/leaderboard
+      - generic [ref=f8e68]:
+        - banner [ref=f8e69]:
+          - link "Potatoe Squeezy" [ref=f8e71] [cursor=pointer]:
+            - /url: /app
+          - link "Search for anything" [ref=f8e74] [cursor=pointer]:
+            - /url: /app/explore
+          - generic [ref=f8e79]:
+            - button "Switch to light mode" [ref=f8e80] [cursor=pointer]: Light mode
+            - button [ref=f8e81]
+            - button "Open settings" [ref=f8e86] [cursor=pointer]
+        - main [ref=f8e87]:
+          - generic [ref=f8e88]:
+            - status [ref=f8e89]:
+              - generic [ref=f8e92]:
+                - generic [ref=f8e93]: Add a receiving wallet
+                - generic [ref=f8e94]: Connect a Solana address to receive tips and unlock payouts.
+            - button [ref=f8e95]:
+              - button "Add wallet" [ref=f8e96] [cursor=pointer]
+          - generic [ref=f8e98]:
+            - region [ref=f8e99]:
+              - generic [ref=f8e101]:
+                - generic [ref=f8e102]:
+                  - generic [ref=f8e103]: Overview
+                  - heading "Welcome back, there" [level=1] [ref=f8e104]
+                  - generic [ref=f8e105]: Monitor your supporter activity, configure reward options, and keep your developer profile ready to receive.
+                - link "Explore developers" [ref=f8e107] [cursor=pointer]:
+                  - /url: /app/explore
+            - generic [ref=f8e108]:
+              - generic [ref=f8e113]:
+                - generic [ref=f8e115]:
+                  - generic [ref=f8e116]: DE
+                  - heading "Developer" [level=2] [ref=f8e119]
+                - generic [ref=f8e122]:
+                  - paragraph [ref=f8e123]: Total received
+                  - paragraph [ref=f8e124]: 0 SOL
+                  - generic [ref=f8e125]:
+                    - generic [ref=f8e126]:
+                      - term [ref=f8e127]: Received
+                      - definition [ref=f8e128]: 0 SOL
+                    - generic [ref=f8e130]:
+                      - term [ref=f8e131]: Sent
+                      - definition [ref=f8e132]: 0 SOL
+              - generic [ref=f8e139]:
+                - generic [ref=f8e140]:
+                  - generic [ref=f8e142]:
+                    - generic [ref=f8e143]: Start earning
+                    - generic [ref=f8e144]: Complete these steps to make your Potatoe Squeezy profile reward-ready.
+                  - generic [ref=f8e146]:
+                    - article [ref=f8e147]:
+                      - generic [ref=f8e148]:
+                        - paragraph [ref=f8e149]: Step 1
+                        - generic [ref=f8e150]: Pending
+                      - paragraph [ref=f8e151]: Connect a receiving wallet
+                    - article [ref=f8e152]:
+                      - generic [ref=f8e153]:
+                        - paragraph [ref=f8e154]: Step 2
+                        - generic [ref=f8e155]: Pending
+                      - paragraph [ref=f8e156]: Share your developer profile
+                    - article [ref=f8e157]:
+                      - generic [ref=f8e158]:
+                        - paragraph [ref=f8e159]: Step 3
+                        - generic [ref=f8e160]: Pending
+                      - paragraph [ref=f8e161]: Receive your first supporter tip
+                - region [ref=f8e162]:
+                  - generic [ref=f8e163]:
+                    - heading "List Tippers" [level=2] [ref=f8e164]
+                    - paragraph [ref=f8e165]: People who have tipped you recently.
+                  - paragraph [ref=f8e168]: No tippers yet.
+            - generic [ref=f8e169]:
+              - generic [ref=f8e170]:
+                - generic [ref=f8e172]:
+                  - generic [ref=f8e173]: Sponsorship tiers
+                  - generic [ref=f8e174]: Create reusable amounts supporters can pick when tipping.
+                - generic [ref=f8e175]:
+                  - generic [ref=f8e176]:
+                    - paragraph [ref=f8e177]: Quick start
+                    - generic [ref=f8e178]:
+                      - button "Buy me a coffee 0.05 SOL" [ref=f8e179]:
+                        - generic [ref=f8e180]: Buy me a coffee
+                        - generic [ref=f8e181]: 0.05 SOL
+                      - button "Support a feature 0.25 SOL" [ref=f8e182]:
+                        - generic [ref=f8e183]: Support a feature
+                        - generic [ref=f8e184]: 0.25 SOL
+                      - button "Sponsor a sprint 1 SOL" [ref=f8e185]:
+                        - generic [ref=f8e186]: Sponsor a sprint
+                        - generic [ref=f8e187]: 1 SOL
+                  - group "Create sponsorship tier" [ref=f8e188]:
+                    - generic [ref=f8e189]:
+                      - textbox "Sponsorship tier label" [ref=f8e190]:
+                        - /placeholder: Coffee
+                      - textbox "Sponsorship tier description" [ref=f8e191]:
+                        - /placeholder: Short description
+                      - spinbutton "Sponsorship tier amount" [ref=f8e192]
+                    - generic [ref=f8e193]:
+                      - textbox "Sponsorship tier perk" [ref=f8e194]:
+                        - /placeholder: Optional perk
+                      - button "Add tier" [disabled]
+                  - paragraph [ref=f8e196]: No sponsorship tiers yet.
+              - generic [ref=f8e197]:
+                - generic [ref=f8e199]:
+                  - generic [ref=f8e200]: Sponsor-gated content
+                  - generic [ref=f8e201]: Share a link or file URL that unlocks after a qualifying recorded tip.
+                - generic [ref=f8e202]:
+                  - group "Create sponsor-gated content" [ref=f8e203]:
+                    - generic [ref=f8e204]:
+                      - textbox "Gated content title" [ref=f8e205]:
+                        - /placeholder: Content title
+                      - spinbutton "Minimum tip in SOL" [ref=f8e206]
+                      - textbox "Gated content description" [ref=f8e207]:
+                        - /placeholder: Description
+                      - textbox "Gated content resource URL" [ref=f8e208]:
+                        - /placeholder: https://...
+                    - button "Add gated link" [disabled]
+                  - paragraph [ref=f8e210]: No gated content yet.
+            - paragraph [ref=f8e214]: Failed to load transactions
+    - region "Notifications alt+T"
+  - dialog [ref=f8e215]:
+    - generic [ref=f8e217]:
+      - button [ref=f8e218] [cursor=pointer]
+      - heading "Connect a wallet on Solana to continue" [level=1] [ref=f8e221]
+      - list [ref=f8e222]:
+        - listitem [ref=f8e223]:
+          - button [ref=f8e224] [cursor=pointer]:
+            - img "Phantom icon" [ref=f8e226]
+            - text: Phantom
+        - listitem [ref=f8e227]:
+          - button [ref=f8e228] [cursor=pointer]:
+            - img "Coinbase Wallet icon" [ref=f8e230]
+            - text: Coinbase Wallet
+        - listitem [ref=f8e231]:
+          - button [ref=f8e232] [cursor=pointer]:
+            - img "Solflare icon" [ref=f8e234]
+            - text: Solflare
+        - listitem [ref=f8e235]:
+          - button [ref=f8e236] [cursor=pointer]:
+            - img "Torus icon" [ref=f8e238]
+            - text: Torus
+        - listitem [ref=f8e239]:
+          - button [ref=f8e240] [cursor=pointer]:
+            - img "WalletConnect icon" [ref=f8e242]
+            - text: WalletConnect

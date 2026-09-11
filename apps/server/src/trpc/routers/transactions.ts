@@ -482,6 +482,16 @@ export const transactionsRouter = router({
         }
 
         if (
+          (resolvedSenderId && resolvedSenderId === resolvedRecipientId) ||
+          senderAddress.trim() === recipientAddress.trim()
+        ) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'You cannot tip your own profile',
+          });
+        }
+
+        if (
           senderType !== undefined &&
           senderType !== null &&
           normalizedSenderType === null

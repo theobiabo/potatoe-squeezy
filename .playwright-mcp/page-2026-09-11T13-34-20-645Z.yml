@@ -1,0 +1,93 @@
+- generic [ref=f10e2]:
+  - generic [ref=f10e210]:
+    - dialog [ref=f10e213]:
+      - button "Close modal" [ref=f10e214]:
+        - generic [aria-hidden] [ref=f10e215]: ×
+      - generic [ref=f10e216]:
+        - generic [ref=f10e217]:
+          - heading "Connect your wallet" [level=2] [ref=f10e218]
+          - paragraph [ref=f10e219]: Choose a Solana wallet to send tips, support developers, and approve transactions securely.
+        - button "Choose wallet" [ref=f10e220] [cursor=pointer]
+    - complementary [ref=f10e221]:
+      - generic [ref=f10e223]:
+        - generic [ref=f10e224]: PO
+        - generic [ref=f10e226]:
+          - generic [ref=f10e227]: Potatoe Squeezy
+          - generic [ref=f10e228]: Developer workspace
+      - navigation "Workspace navigation" [ref=f10e229]:
+        - region "Workspace" [ref=f10e231]:
+          - list [ref=f10e233]:
+            - listitem [ref=f10e234]:
+              - link "Overview" [ref=f10e235] [cursor=pointer]:
+                - /url: /app
+            - listitem [ref=f10e242]:
+              - link "Explore" [ref=f10e243] [cursor=pointer]:
+                - /url: /app/explore
+            - listitem [ref=f10e248]:
+              - link "Bounties" [ref=f10e249] [cursor=pointer]:
+                - /url: /app/bounties
+            - listitem [ref=f10e254]:
+              - link "Company" [ref=f10e255] [cursor=pointer]:
+                - /url: /app/company
+            - listitem [ref=f10e261]:
+              - link "Leaderboard" [ref=f10e262] [cursor=pointer]:
+                - /url: /app/leaderboard
+    - generic [ref=f10e270]:
+      - banner [ref=f10e271]:
+        - link "Potatoe Squeezy" [ref=f10e273] [cursor=pointer]:
+          - /url: /app
+        - link "Search for anything" [ref=f10e276] [cursor=pointer]:
+          - /url: /app/explore
+        - generic [ref=f10e281]:
+          - button "Switch to light mode" [ref=f10e282] [cursor=pointer]
+          - button [ref=f10e283]
+          - button "Open settings" [ref=f10e288] [cursor=pointer]
+      - main [ref=f10e289]:
+        - generic [ref=f10e290]:
+          - status [ref=f10e291]:
+            - generic [ref=f10e294]:
+              - generic [ref=f10e295]: Add a receiving wallet
+              - generic [ref=f10e296]: Connect a Solana address to receive tips and unlock payouts.
+          - button [ref=f10e297]:
+            - button "Add wallet" [ref=f10e298] [cursor=pointer]
+        - generic [ref=f10e300]:
+          - region [ref=f10e301]:
+            - generic [ref=f10e304]:
+              - generic [ref=f10e305]: Developer directory
+              - heading "Find GitHub users" [level=1] [ref=f10e306]
+              - generic [ref=f10e307]: Search and tip your favorite GitHub contributors.
+          - region "Developer search" [ref=f10e308]:
+            - generic [ref=f10e309]:
+              - tablist [ref=f10e310]:
+                - tab "Potatoe users" [selected] [ref=f10e311] [cursor=pointer]
+                - tab "General" [ref=f10e312] [cursor=pointer]
+              - tabpanel "Potatoe users" [ref=f10e313]:
+                - generic [ref=f10e314]:
+                  - generic [ref=f10e317]:
+                    - textbox "Search GitHub username" [ref=f10e319]:
+                      - /placeholder: Search GitHub username...
+                    - button "Search" [ref=f10e320] [cursor=pointer]
+                  - generic [ref=f10e321]:
+                    - generic [ref=f10e323]:
+                      - generic [ref=f10e325]:
+                        - img "0514B0" [ref=f10e326]
+                        - generic [ref=f10e327]:
+                          - generic [ref=f10e328]:
+                            - generic [ref=f10e329]: .
+                            - generic [ref=f10e330]: GitHub
+                          - link "@0514B0" [ref=f10e331] [cursor=pointer]:
+                            - /url: https://github.com/0514B0
+                      - link "View profile" [ref=f10e333] [cursor=pointer]:
+                        - /url: /app/dev/0514B0
+                    - generic [ref=f10e335]:
+                      - generic [ref=f10e337]:
+                        - img "theobiabo" [ref=f10e338]
+                        - generic [ref=f10e339]:
+                          - generic [ref=f10e340]:
+                            - generic [ref=f10e341]: WoodenKbd
+                            - generic [ref=f10e342]: GitHub
+                          - link "@theobiabo" [ref=f10e343] [cursor=pointer]:
+                            - /url: https://github.com/theobiabo
+                      - link "View profile" [ref=f10e345] [cursor=pointer]:
+                        - /url: /app/dev/theobiabo
+  - region "Notifications alt+T"

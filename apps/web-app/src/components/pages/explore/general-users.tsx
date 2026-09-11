@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { GithubUserCardSkeleton } from "@/components/github/GithubUserCardSkeleton";
 import { GithubUserCard } from "@/components/github/GithubUserCard";
 import { GithubUserSearch } from "@/components/search/GithubUserSearch";
 import GithubService, { type GitHubUser } from "@/services/github.service";
+import { useUserStore } from "@/store/user.store";
 
 const userCardSkeletons = Array.from({ length: 6 }, (_, index) => index);
 
 const GeneralGithubUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
+  const currentUsername = useUserStore(
+    (state) => (state.user ?? state.authUser)?.username,
+  );
   const {
     data: users = [],
     isFetching,
@@ -24,6 +28,14 @@ const GeneralGithubUsers = () => {
     retry: 1,
     refetchOnWindowFocus: false,
   });
+
+  const visibleUsers = useMemo(
+    () =>
+      users.filter(
+        (user) => user.login.toLowerCase() !== currentUsername?.toLowerCase(),
+      ),
+    [currentUsername, users],
+  );
 
   const searchGithubUser = async () => {
     const trimmedQuery = searchQuery.trim();
@@ -50,13 +62,13 @@ const GeneralGithubUsers = () => {
       return;
     }
 
-    if (users.length > 0) {
-      toast.success(`Found ${users.length} users!`);
+    if (visibleUsers.length > 0) {
+      toast.success(`Found ${visibleUsers.length} users!`);
       return;
     }
 
     toast.error("No users found");
-  }, [submittedQuery, users, isFetching, error]);
+  }, [submittedQuery, visibleUsers, isFetching, error]);
 
   return (
     <section className="space-y-4">
@@ -75,7 +87,7 @@ const GeneralGithubUsers = () => {
           ? userCardSkeletons.map((index) => (
               <GithubUserCardSkeleton key={index} />
             ))
-          : users.map((user) => (
+          : visibleUsers.map((user) => (
               <GithubUserCard key={user.login} user={user} />
             ))}
       </div>

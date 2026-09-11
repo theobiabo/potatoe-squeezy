@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 export const useWalletConnection = () => {
   const { setVisible } = useWalletModal();
-  const { connected, connecting, wallet, connect } = useWallet();
+  const { connected, connecting, wallet, connect, select } = useWallet();
   const awaitingWalletSelection = useRef(false);
 
   const connectSelectedWallet = useCallback(async () => {
@@ -14,10 +14,11 @@ export const useWalletConnection = () => {
       awaitingWalletSelection.current = false;
     } catch {
       awaitingWalletSelection.current = false;
+      select(null);
+      setVisible(false);
       toast.error("Could not connect. Unlock your wallet and try again.");
-      setVisible(true);
     }
-  }, [connect, setVisible]);
+  }, [connect, select, setVisible]);
 
   useEffect(() => {
     if (
@@ -33,6 +34,16 @@ export const useWalletConnection = () => {
     void connectSelectedWallet();
   }, [wallet, connected, connecting, connectSelectedWallet, setVisible]);
 
+  const openWalletSelector = () => {
+    if (connecting) {
+      return;
+    }
+
+    awaitingWalletSelection.current = true;
+    select(null);
+    setVisible(true);
+  };
+
   const connectWallet = async () => {
     if (connected || connecting) {
       return;
@@ -43,12 +54,12 @@ export const useWalletConnection = () => {
       return;
     }
 
-    awaitingWalletSelection.current = true;
-    setVisible(true);
+    openWalletSelector();
   };
 
   return {
     connectWallet,
+    openWalletSelector,
     connected,
     connecting,
   };

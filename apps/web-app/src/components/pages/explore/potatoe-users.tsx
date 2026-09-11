@@ -6,6 +6,7 @@ import { GithubUserSearch } from "@/components/search/GithubUserSearch";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { UserService } from "@/services";
+import { useUserStore } from "@/store/user.store";
 
 const userCardSkeletons = Array.from({ length: 6 }, (_, index) => index);
 
@@ -16,6 +17,7 @@ const fetchPotatoeUsers = async () => {
 
 const PotatoeUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const currentUser = useUserStore((state) => state.user ?? state.authUser);
 
   const {
     data: users,
@@ -28,9 +30,17 @@ const PotatoeUsers = () => {
   });
 
   const filteredUsers =
-    users?.filter(({ users: user }) =>
-      user.username.toLowerCase().includes(searchQuery.toLowerCase()),
-    ) ?? [];
+    users?.filter(({ users: user }) => {
+      const isCurrentUser =
+        currentUser &&
+        (currentUser.id === user.id ||
+          currentUser.username?.toLowerCase() === user.username.toLowerCase());
+
+      return (
+        !isCurrentUser &&
+        user.username.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }) ?? [];
 
   return (
     <section className="space-y-4">

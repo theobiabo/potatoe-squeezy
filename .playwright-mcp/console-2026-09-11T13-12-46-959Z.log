@@ -45,3 +45,37 @@ See this log for the ancestor stack trace. button <button> @ http://localhost:51
 [    8138ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list?batch=1&input=%7B%7D:0
 [   42735ms] [WARNING] You are using a deprecated chain ID for Solana Devnet, please use solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1 instead. @ http://localhost:5173/node_modules/.vite/deps/chunk-DJW4BNCC.js?v=89858270:31224
 [   42788ms] [WARNING] Element w3m-connecting-wc-qrcode scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=89858270:1051
+[  213636ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[  215645ms] [WARNING] i18next is maintained with support from locize.com — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com @ http://localhost:5173/node_modules/.vite/deps/i18next.js?v=8fd168af:1761
+[  215648ms] [LOG] i18next: languageChanged en-US @ http://localhost:5173/node_modules/.vite/deps/i18next.js?v=8fd168af:207
+[  215648ms] [LOG] i18next: initialized {debug: true, initAsync: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:5173/node_modules/.vite/deps/i18next.js?v=8fd168af:207
+[  215675ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-TCUISLUZ.js?v=8fd168af:21608
+[  215809ms] [ERROR] Warning: Cannot update a component (`%s`) while rendering a different component (`%s`). To locate the bad setState() call inside `%s`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render%s Transitioner Component Component 
+    at Component (http://localhost:5173/src/pages/not-found.tsx:21:22)
+    at OutletImpl (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:7948:18)
+    at div
+    at component
+    at MatchInnerImpl (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:7859:3)
+    at CatchBoundaryImpl (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:6347:5)
+    at CatchBoundary (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:6327:32)
+    at CatchNotFound (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:7655:20)
+    at SafeFragment (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:7689:87)
+    at SafeFragment (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:7689:87)
+    at SafeFragment (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:7689:87)
+    at MatchImpl (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:7766:3)
+    at CatchBoundaryImpl (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:6347:5)
+    at CatchBoundary (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:6327:32)
+    at MatchesInner (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:8004:18)
+    at Suspense
+    at Matches (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:7992:18)
+    at RouterContextProvider (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:8116:3)
+    at RouterProvider (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=8fd168af:8137:27)
+    at LoginConfirmationProvider (http://localhost:5173/@fs/Users/obiabo/Desktop/work/K-polygone-application/packages/web-shared/src/modules/auth/login-confirmation-context.tsx:26:3)
+    at ApolloProvider (http://localhost:5173/node_modules/.vite/deps/@apollo_client.js?v=8fd168af:6382:19)
+    at _a (http://localhost:5173/node_modules/.vite/deps/react-helmet-async.js?v=8fd168af:624:5)
+    at App (http://localhost:5173/src/app.tsx?t=1789123463249:45:3)
+    at TourProvider (http://localhost:5173/node_modules/.vite/deps/@reactour_tour.js?v=8fd168af:1995:5)
+    at TourGuildProvider (http://localhost:5173/src/providers/tour-guild-provider.tsx:139:37) @ http://localhost:5173/node_modules/.vite/deps/chunk-TCUISLUZ.js?v=8fd168af:520
+[  216223ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:5173/onboarding/login:0
+[  216834ms] [LOG] i18next: languageChanged en @ http://localhost:5173/node_modules/.vite/deps/i18next.js?v=8fd168af:207
+[  225717ms] [LOG] Download the Apollo DevTools for a better development experience: %s https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm @ https://us-assets.i.posthog.com/static/1.425.1/posthog-recorder.js:0

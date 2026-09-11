@@ -18,10 +18,18 @@ import ProfileBadges from "@/components/profile/sections/profile-badges";
 import RecentContributions from "@/components/profile/sections/recent-contributions";
 import ContributionGraph from "@/components/profile/sections/contribution-graph";
 import GitHubRepositoryGraph from "@/components/profile/sections/github-repository-graph";
+import { useUserStore } from "@/store/user.store";
 
 function DeveloperProfilePage({ username }: { username: string }) {
   const { data, loading, refresh } = useDeveloperProfile(username);
   const github = useGitHubProfileData(username);
+  const currentUser = useUserStore((state) => state.user ?? state.authUser);
+  const isOwnProfile = Boolean(
+    data &&
+    currentUser &&
+    (currentUser.id === data.user.id ||
+      currentUser.username?.toLowerCase() === data.user.username.toLowerCase()),
+  );
 
   const graphContributions = github.data?.contributions.length
     ? github.data.contributions
@@ -85,7 +93,9 @@ function DeveloperProfilePage({ username }: { username: string }) {
             user={data.user}
             onShare={handleShare}
             tipAction={
-              <TipDeveloperDialog developer={data.user} onSuccess={refresh} />
+              isOwnProfile ? undefined : (
+                <TipDeveloperDialog developer={data.user} onSuccess={refresh} />
+              )
             }
             companyAction={
               <CompanyInviteDialog developer={data.user} onSuccess={refresh} />

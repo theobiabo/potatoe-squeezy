@@ -8,7 +8,7 @@ import ProfileStatusBadge from "./profile-status-badge";
 interface ProfileHeroProps {
   user: DeveloperUser;
   onShare: () => void;
-  tipAction: ReactNode;
+  tipAction?: ReactNode;
   companyAction?: ReactNode;
 }
 

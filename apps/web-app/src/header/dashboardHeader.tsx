@@ -1,5 +1,6 @@
-import { Search, Settings } from "lucide-react";
+import { Search, Settings, Wallet } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useWallet } from "@solana/wallet-adapter-react";
 import Drawer from "@/components/popups/drawer";
 import SettingsDrawerView from "@/components/views/settings-drawer-view";
 import ThemeToggle from "@/components/theme-toggle";
@@ -12,6 +13,12 @@ interface DashboardHeaderProps {
 }
 
 function DashboardHeader({ title = "Overview" }: DashboardHeaderProps) {
+  const { publicKey, connected } = useWallet();
+  const walletAddress = publicKey?.toBase58();
+  const shortenedAddress = walletAddress
+    ? `${walletAddress.slice(0, 4)}...${walletAddress.slice(-4)}`
+    : null;
+
   return (
     <WorkspaceTopbar
       className="sticky top-0 z-30 min-h-20 border-0 bg-canvas/90 backdrop-blur"
@@ -30,6 +37,19 @@ function DashboardHeader({ title = "Overview" }: DashboardHeaderProps) {
       }
       actions={
         <>
+          {connected && walletAddress && shortenedAddress && (
+            <div
+              className="flex h-9 items-center gap-2 rounded-lg border border-line bg-surface-raised px-3 font-mono text-xs font-semibold text-content-primary"
+              title={walletAddress}
+              aria-label={`Connected wallet ${walletAddress}`}
+            >
+              <Wallet
+                className="size-4 text-action-primary"
+                aria-hidden="true"
+              />
+              <span>{shortenedAddress}</span>
+            </div>
+          )}
           <ThemeToggle />
           <Notification />
           <Drawer
