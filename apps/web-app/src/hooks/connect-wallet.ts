@@ -1,29 +1,65 @@
+import { useCallback, useEffect, useRef } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { toast } from "sonner";
 
 export const useWalletConnection = () => {
   const { setVisible } = useWalletModal();
-  const { connected, connecting } = useWallet();
+  const { connected, connecting, wallet, connect, select } = useWallet();
+  const awaitingWalletSelection = useRef(false);
 
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const connectSelectedWallet = useCallback(async () => {
+    try {
+      await connect();
+      awaitingWalletSelection.current = false;
+    } catch {
+      awaitingWalletSelection.current = false;
+      select(null);
+      setVisible(false);
+      toast.error("Could not connect. Unlock your wallet and try again.");
+    }
+  }, [connect, select, setVisible]);
 
-  const connectWallet = async () => {
-    if (isMobile) {
-      const isSolanaAvailable =
-        !!(window as any).solana || !!(window as any).solflare;
-
-      if (!isSolanaAvailable) {
-        const universalLink = `https://solana.com/portal`;
-        window.location.href = universalLink;
-        return;
-      }
+  useEffect(() => {
+    if (
+      !awaitingWalletSelection.current ||
+      !wallet ||
+      connected ||
+      connecting
+    ) {
+      return;
     }
 
+    setVisible(false);
+    void connectSelectedWallet();
+  }, [wallet, connected, connecting, connectSelectedWallet, setVisible]);
+
+  const openWalletSelector = () => {
+    if (connecting) {
+      return;
+    }
+
+    awaitingWalletSelection.current = true;
+    select(null);
     setVisible(true);
+  };
+
+  const connectWallet = async () => {
+    if (connected || connecting) {
+      return;
+    }
+
+    if (wallet) {
+      await connectSelectedWallet();
+      return;
+    }
+
+    openWalletSelector();
   };
 
   return {
     connectWallet,
+    openWalletSelector,
     connected,
     connecting,
   };

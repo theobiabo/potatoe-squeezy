@@ -1,0 +1,142 @@
+- generic [ref=f10e2]:
+  - generic [ref=f10e3]:
+    - complementary [ref=f10e14]:
+      - generic [ref=f10e16]:
+        - generic [ref=f10e17]: PO
+        - generic [ref=f10e19]:
+          - generic [ref=f10e20]: Potatoe Squeezy
+          - generic [ref=f10e21]: Developer workspace
+      - navigation "Workspace navigation" [ref=f10e22]:
+        - region "Workspace" [ref=f10e24]:
+          - list [ref=f10e26]:
+            - listitem [ref=f10e27]:
+              - link "Overview" [ref=f10e28] [cursor=pointer]:
+                - /url: /app
+            - listitem [ref=f10e35]:
+              - link "Explore" [ref=f10e36] [cursor=pointer]:
+                - /url: /app/explore
+            - listitem [ref=f10e41]:
+              - link "Bounties" [ref=f10e42] [cursor=pointer]:
+                - /url: /app/bounties
+            - listitem [ref=f10e47]:
+              - link "Company" [ref=f10e48] [cursor=pointer]:
+                - /url: /app/company
+            - listitem [ref=f10e54]:
+              - link "Leaderboard" [ref=f10e55] [cursor=pointer]:
+                - /url: /app/leaderboard
+    - generic [ref=f10e63]:
+      - banner [ref=f10e64]:
+        - link "Potatoe Squeezy" [ref=f10e66] [cursor=pointer]:
+          - /url: /app
+        - link "Search for anything" [ref=f10e69] [cursor=pointer]:
+          - /url: /app/explore
+        - generic [ref=f10e74]:
+          - button "Switch to light mode" [ref=f10e75] [cursor=pointer]
+          - button [ref=f10e76]
+          - button "Open settings" [ref=f10e81] [cursor=pointer]
+      - main [ref=f10e82]:
+        - generic [ref=f10e83]:
+          - status [ref=f10e84]:
+            - generic [ref=f10e87]:
+              - generic [ref=f10e88]: Add a receiving wallet
+              - generic [ref=f10e89]: Connect a Solana address to receive tips and unlock payouts.
+          - button [ref=f10e90]:
+            - button "Add wallet" [ref=f10e91] [cursor=pointer]
+        - generic [ref=f10e93]:
+          - region [ref=f10e94]:
+            - generic [ref=f10e96]:
+              - generic [ref=f10e97]:
+                - generic [ref=f10e98]: Overview
+                - heading "Welcome back, there" [level=1] [ref=f10e99]
+                - generic [ref=f10e100]: Monitor your supporter activity, configure reward options, and keep your developer profile ready to receive.
+              - link "Explore developers" [ref=f10e102] [cursor=pointer]:
+                - /url: /app/explore
+          - generic [ref=f10e103]:
+            - generic [ref=f10e108]:
+              - generic [ref=f10e110]:
+                - generic [ref=f10e111]: DE
+                - heading "Developer" [level=2] [ref=f10e114]
+              - generic [ref=f10e117]:
+                - paragraph [ref=f10e118]: Total received
+                - paragraph [ref=f10e119]: 0 SOL
+                - generic [ref=f10e120]:
+                  - generic [ref=f10e121]:
+                    - term [ref=f10e122]: Received
+                    - definition [ref=f10e123]: 0 SOL
+                  - generic [ref=f10e125]:
+                    - term [ref=f10e126]: Sent
+                    - definition [ref=f10e127]: 0 SOL
+            - generic [ref=f10e134]:
+              - generic [ref=f10e135]:
+                - generic [ref=f10e137]:
+                  - generic [ref=f10e138]: Start earning
+                  - generic [ref=f10e139]: Complete these steps to make your Potatoe Squeezy profile reward-ready.
+                - generic [ref=f10e141]:
+                  - article [ref=f10e142]:
+                    - generic [ref=f10e143]:
+                      - paragraph [ref=f10e144]: Step 1
+                      - generic [ref=f10e145]: Pending
+                    - paragraph [ref=f10e146]: Connect a receiving wallet
+                  - article [ref=f10e147]:
+                    - generic [ref=f10e148]:
+                      - paragraph [ref=f10e149]: Step 2
+                      - generic [ref=f10e150]: Pending
+                    - paragraph [ref=f10e151]: Share your developer profile
+                  - article [ref=f10e152]:
+                    - generic [ref=f10e153]:
+                      - paragraph [ref=f10e154]: Step 3
+                      - generic [ref=f10e155]: Pending
+                    - paragraph [ref=f10e156]: Receive your first supporter tip
+              - region [ref=f10e157]:
+                - generic [ref=f10e158]:
+                  - heading "List Tippers" [level=2] [ref=f10e159]
+                  - paragraph [ref=f10e160]: People who have tipped you recently.
+                - paragraph [ref=f10e163]: No tippers yet.
+          - generic [ref=f10e164]:
+            - generic [ref=f10e165]:
+              - generic [ref=f10e167]:
+                - generic [ref=f10e168]: Sponsorship tiers
+                - generic [ref=f10e169]: Create reusable amounts supporters can pick when tipping.
+              - generic [ref=f10e170]:
+                - generic [ref=f10e171]:
+                  - paragraph [ref=f10e172]: Quick start
+                  - generic [ref=f10e173]:
+                    - button "Buy me a coffee 0.05 SOL" [ref=f10e174]:
+                      - generic [ref=f10e175]: Buy me a coffee
+                      - generic [ref=f10e176]: 0.05 SOL
+                    - button "Support a feature 0.25 SOL" [ref=f10e177]:
+                      - generic [ref=f10e178]: Support a feature
+                      - generic [ref=f10e179]: 0.25 SOL
+                    - button "Sponsor a sprint 1 SOL" [ref=f10e180]:
+                      - generic [ref=f10e181]: Sponsor a sprint
+                      - generic [ref=f10e182]: 1 SOL
+                - group "Create sponsorship tier" [ref=f10e183]:
+                  - generic [ref=f10e184]:
+                    - textbox "Sponsorship tier label" [ref=f10e185]:
+                      - /placeholder: Coffee
+                    - textbox "Sponsorship tier description" [ref=f10e186]:
+                      - /placeholder: Short description
+                    - spinbutton "Sponsorship tier amount" [ref=f10e187]
+                  - generic [ref=f10e188]:
+                    - textbox "Sponsorship tier perk" [ref=f10e189]:
+                      - /placeholder: Optional perk
+                    - button "Add tier" [disabled]
+                - paragraph [ref=f10e191]: No sponsorship tiers yet.
+            - generic [ref=f10e192]:
+              - generic [ref=f10e194]:
+                - generic [ref=f10e195]: Sponsor-gated content
+                - generic [ref=f10e196]: Share a link or file URL that unlocks after a qualifying recorded tip.
+              - generic [ref=f10e197]:
+                - group "Create sponsor-gated content" [ref=f10e198]:
+                  - generic [ref=f10e199]:
+                    - textbox "Gated content title" [ref=f10e200]:
+                      - /placeholder: Content title
+                    - spinbutton "Minimum tip in SOL" [ref=f10e201]
+                    - textbox "Gated content description" [ref=f10e202]:
+                      - /placeholder: Description
+                    - textbox "Gated content resource URL" [ref=f10e203]:
+                      - /placeholder: https://...
+                  - button "Add gated link" [disabled]
+                - paragraph [ref=f10e205]: No gated content yet.
+          - paragraph [ref=f10e209]: Failed to load transactions
+  - region "Notifications alt+T"

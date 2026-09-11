@@ -54,13 +54,13 @@ const UpdateProfile = () => {
   });
 
   return (
-    <div className="space-y-4 pt-4">
+    <div className="space-y-3 pt-3">
       <Input
         placeholder="Display name"
         value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
         maxLength={80}
-        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
+        className="border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-action-primary focus-visible:ring-focus"
       />
 
       <Input
@@ -68,33 +68,33 @@ const UpdateProfile = () => {
         placeholder="Email address"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
+        className="border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-action-primary focus-visible:ring-focus"
       />
 
       <Input
         placeholder="Twitter/X profile URL or @handle"
         value={twitterUrl}
         onChange={(e) => setTwitterUrl(e.target.value)}
-        className="border-[#2b2933] bg-[#0f0d16] text-white !py-4"
+        className="border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-action-primary focus-visible:ring-focus"
       />
 
-      <label className="flex items-center justify-between gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-3 text-sm text-white">
+      <label className="flex items-center justify-between gap-3 rounded-[10px] border border-line bg-surface-raised px-3 py-2.5 text-[13px] text-content-primary">
         <span>Show my tippers on my public profile</span>
         <input
           type="checkbox"
           checked={tippersPublic}
           onChange={(e) => setTippersPublic(e.target.checked)}
-          className="h-4 w-4"
+          className="size-4 shrink-0 accent-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
         />
       </label>
 
-      <label className="flex items-center justify-between gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-3 text-sm text-white">
+      <label className="flex items-center justify-between gap-3 rounded-[10px] border border-line bg-surface-raised px-3 py-2.5 text-[13px] text-content-primary">
         <span>Include me on public leaderboards</span>
         <input
           type="checkbox"
           checked={leaderboardOptIn}
           onChange={(e) => setLeaderboardOptIn(e.target.checked)}
-          className="h-4 w-4"
+          className="size-4 shrink-0 accent-action-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
         />
       </label>
 

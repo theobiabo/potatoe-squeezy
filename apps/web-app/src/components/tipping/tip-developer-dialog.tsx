@@ -1,4 +1,11 @@
-import { useMemo, useState, type ReactNode } from "react";
+import {
+  cloneElement,
+  isValidElement,
+  useMemo,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -16,6 +23,7 @@ import SponsorshipService, {
 } from "@/services/sponsorship.service";
 import type { DeveloperUser } from "@/types/developer-profile";
 import { cn } from "@/lib/utils";
+import { useUserStore } from "@/store/user.store";
 
 interface TipDeveloperDialogProps {
   developer: DeveloperUser;
@@ -23,7 +31,33 @@ interface TipDeveloperDialogProps {
   onSuccess?: () => void;
 }
 
+interface ModalTriggerProps {
+  trigger: ReactNode;
+  onOpen: () => void;
+}
+
 const normalizeAmount = (value: string) => Number(value.trim());
+
+function ModalTrigger({ trigger, onOpen }: ModalTriggerProps) {
+  if (
+    isValidElement<{
+      onClick?: (event: MouseEvent<HTMLElement>) => void;
+    }>(trigger)
+  ) {
+    return cloneElement(trigger, {
+      onClick: (event: MouseEvent<HTMLElement>) => {
+        trigger.props.onClick?.(event);
+        if (!event.isPropagationStopped()) onOpen();
+      },
+    });
+  }
+
+  return (
+    <button type="button" onClick={onOpen} className="contents">
+      {trigger}
+    </button>
+  );
+}
 
 export default function TipDeveloperDialog({
   developer,
@@ -37,7 +71,13 @@ export default function TipDeveloperDialog({
   const [recording, setRecording] = useState(false);
   const { publicKey, connected } = useWallet();
   const { connectWallet, connecting } = useWalletConnection();
+  const currentUser = useUserStore((state) => state.user ?? state.authUser);
   const recipientAddress = developer.walletAddress ?? "";
+  const isOwnProfile = Boolean(
+    currentUser &&
+    (currentUser.id === developer.id ||
+      currentUser.username?.toLowerCase() === developer.username.toLowerCase()),
+  );
   const displayName = getDisplayName(developer.displayName, developer.username);
   const { sendTip, loading } = useTipSol({
     recipientAddress,
@@ -63,8 +103,18 @@ export default function TipDeveloperDialog({
   };
 
   const handleTip = async () => {
+    if (isOwnProfile) {
+      toast.error("You cannot tip your own profile");
+      return;
+    }
+
     if (!connected || !publicKey) {
       await connectWallet();
+      return;
+    }
+
+    if (publicKey.toBase58() === recipientAddress) {
+      toast.error("You cannot tip your own wallet");
       return;
     }
 
@@ -101,7 +151,6 @@ export default function TipDeveloperDialog({
         recipientAddress,
         recipientId: developer.id,
         tierId: selectedTier?.id ?? null,
-        // RAIL: Solana — replace with adapter pattern when multi-chain is added
         rail,
         currency,
         txHash: result.transactionHash,
@@ -119,16 +168,12 @@ export default function TipDeveloperDialog({
     }
   };
 
+  if (isOwnProfile) return null;
+
   return (
     <>
       {trigger ? (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className="contents"
-        >
-          {trigger}
-        </button>
+        <ModalTrigger trigger={trigger} onOpen={() => setOpen(true)} />
       ) : (
         <Button onClick={() => setOpen(true)} className="w-full sm:w-auto">
           Tip developer
@@ -140,39 +185,54 @@ export default function TipDeveloperDialog({
         onClose={() => setOpen(false)}
         labelledBy="tip-developer-title"
       >
-        <div className="space-y-5 pr-8">
-          <div>
-            <Typography as="h2" variant="h5" id="tip-developer-title">
-              Tip @{developer.username}
-            </Typography>
-            <Typography as="p" variant="muted" className="mt-1">
-              Send a SOL tip directly to this developer's connected wallet.
-            </Typography>
-          </div>
+        <div className="space-y-1 pr-8">
+          <Typography
+            as="h2"
+            variant="h5"
+            id="tip-developer-title"
+            className="text-content-primary"
+          >
+            Tip @{developer.username}
+          </Typography>
+          <Typography as="p" variant="muted" className="text-content-secondary">
+            Send a SOL tip directly to this developer's connected wallet.
+          </Typography>
         </div>
 
-        <div className="mt-5 space-y-5">
-          <div className="flex items-center gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] p-3">
+        <div className="mt-4 space-y-4">
+          <div className="flex items-center gap-3 rounded-xl border border-line bg-surface-inset p-3">
             <img
               src={
                 developer.avatarUrl ||
                 "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
               }
               alt={displayName}
-              className="h-10 w-10 rounded-full border border-[#2b2933] object-cover"
+              className="size-10 rounded-full border border-line bg-surface object-cover"
             />
             <div className="min-w-0">
-              <Typography as="p" variant="h6" className="truncate">
+              <Typography
+                as="p"
+                variant="h6"
+                className="truncate text-content-primary"
+              >
                 {displayName}
               </Typography>
-              <Typography as="p" variant="caption" className="truncate">
+              <Typography
+                as="p"
+                variant="caption"
+                className="truncate font-mono text-content-tertiary"
+              >
                 {recipientAddress || "No receiving wallet connected"}
               </Typography>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Typography as="p" variant="label">
+            <Typography
+              as="p"
+              variant="label"
+              className="text-content-tertiary"
+            >
               Sponsorship tier
             </Typography>
             {tiers.length > 0 ? (
@@ -183,25 +243,25 @@ export default function TipDeveloperDialog({
                     type="button"
                     onClick={() => selectTier(tier)}
                     className={cn(
-                      "rounded-md border p-3 text-left transition-colors",
+                      "rounded-xl border p-3 text-left transition-[background-color,border-color,color,box-shadow] outline-none focus-visible:ring-2 focus-visible:ring-focus",
                       selectedTierId === tier.id
-                        ? "border-orange-500/50 bg-orange-500/15"
-                        : "border-[#2b2933] bg-[#15131d] hover:bg-[#1c1925]",
+                        ? "border-action-primary/50 bg-action-primary/15"
+                        : "border-line bg-surface-inset hover:border-line-strong hover:bg-surface-raised",
                     )}
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-sm font-semibold text-white">
+                      <span className="text-sm font-semibold text-content-primary">
                         {tier.label}
                       </span>
-                      <span className="text-sm font-semibold text-orange-300">
+                      <span className="font-mono text-sm font-semibold tabular-nums text-content-secondary">
                         {Number(tier.amount).toLocaleString()} {tier.currency}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-[#8b949e]">
+                    <p className="mt-1 text-xs text-content-tertiary">
                       {tier.description}
                     </p>
                     {tier.perk && (
-                      <p className="mt-1 text-xs text-[#c9d1d9]">
+                      <p className="mt-1 text-xs text-content-secondary">
                         Perk: {tier.perk}
                       </p>
                     )}
@@ -209,14 +269,22 @@ export default function TipDeveloperDialog({
                 ))}
               </div>
             ) : (
-              <Typography as="p" variant="caption">
+              <Typography
+                as="p"
+                variant="caption"
+                className="text-content-secondary"
+              >
                 No tiers yet. Send a custom one-time tip.
               </Typography>
             )}
           </div>
 
           <div className="space-y-2">
-            <Typography as="p" variant="label">
+            <Typography
+              as="p"
+              variant="label"
+              className="text-content-tertiary"
+            >
               Amount
             </Typography>
             <div className="grid grid-cols-4 gap-2">
@@ -229,10 +297,10 @@ export default function TipDeveloperDialog({
                     setAmount(String(tipAmount));
                   }}
                   className={cn(
-                    "rounded-md border px-3 py-2 text-sm font-medium transition-colors",
+                    "rounded-xl border px-3 py-2 text-sm font-medium transition-[background-color,border-color,color,box-shadow] outline-none focus-visible:ring-2 focus-visible:ring-focus",
                     amount === String(tipAmount)
-                      ? "border-orange-500/50 bg-orange-500/15 text-orange-300"
-                      : "border-[#2b2933] bg-[#15131d] text-[#c9d1d9] hover:bg-[#1c1925]",
+                      ? "border-action-primary/50 bg-action-primary/15 text-content-primary"
+                      : "border-line bg-surface-inset text-content-secondary hover:border-line-strong hover:bg-surface-raised hover:text-content-primary",
                   )}
                 >
                   {tipAmount}
@@ -249,16 +317,20 @@ export default function TipDeveloperDialog({
                   setSelectedTierId(null);
                   setAmount(event.target.value);
                 }}
-                className="border-[#2b2933] bg-[#0f0d16] text-white"
+                className="border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-focus focus-visible:ring-focus"
               />
-              <span className="rounded-[12px] border border-[#2b2933] bg-[#15131d] px-3 py-2 text-sm text-[#c9d1d9]">
+              <span className="rounded-xl border border-line bg-surface-raised px-3 py-2 font-mono text-sm text-content-secondary">
                 {SupportedTipToken.SOL}
               </span>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Typography as="p" variant="label">
+            <Typography
+              as="p"
+              variant="label"
+              className="text-content-tertiary"
+            >
               Note
             </Typography>
             <Input
@@ -266,12 +338,12 @@ export default function TipDeveloperDialog({
               maxLength={160}
               onChange={(event) => setNote(event.target.value)}
               placeholder="Thanks for your open-source work"
-              className="border-[#2b2933] bg-[#0f0d16] text-white"
+              className="border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-focus focus-visible:ring-focus"
             />
           </div>
 
           {!recipientAddress && (
-            <div className="rounded-[18px] border border-orange-500/30 bg-orange-500/10 p-3 text-sm text-orange-200">
+            <div className="rounded-xl border border-line-warning bg-surface-raised p-3 text-sm text-content-warning">
               This developer needs to connect a wallet before receiving direct
               tips.
             </div>
@@ -279,7 +351,7 @@ export default function TipDeveloperDialog({
 
           <Button onClick={handleTip} disabled={busy} className="w-full">
             {busy && (
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-black/30 border-t-black" />
+              <span className="size-4 animate-spin rounded-full border-2 border-action-primary-foreground/30 border-t-action-primary-foreground" />
             )}
             {connected ? "Send tip" : "Connect wallet"}
           </Button>

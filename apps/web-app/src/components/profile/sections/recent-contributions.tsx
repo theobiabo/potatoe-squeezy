@@ -21,14 +21,14 @@ export default function RecentContributions({
           No contributions yet.
         </Typography>
       ) : (
-        <div className="divide-y divide-[#2b2933] overflow-hidden rounded-[18px] border border-[#2b2933]">
+        <div className="divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface-inset">
           {contributions.map((contribution) => (
             <a
               key={contribution.id}
               href={`https://github.com/${contribution.repo}/pull/${contribution.prNumber}`}
               target="_blank"
               rel="noreferrer"
-              className="block bg-[#0f0d16] px-4 py-3 transition-colors hover:bg-[#15131d]"
+              className="block px-4 py-3 transition-colors hover:bg-surface-raised focus-visible:bg-surface-raised focus-visible:outline-none"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
@@ -36,7 +36,8 @@ export default function RecentContributions({
                     {contribution.repo}
                   </Typography>
                   <Typography as="p" variant="caption" className="mt-1">
-                    PR #{contribution.prNumber} on issue #{contribution.issueNumber}
+                    PR #{contribution.prNumber} on issue #
+                    {contribution.issueNumber}
                   </Typography>
                 </div>
                 <div className="shrink-0 text-right">

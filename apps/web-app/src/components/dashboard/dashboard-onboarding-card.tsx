@@ -1,4 +1,5 @@
 import Typography from "@/components/typography";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/store/user.store";
 import ProfileSection from "@/components/profile/sections/profile-section";
@@ -30,35 +31,53 @@ export default function DashboardOnboardingCard({
     <ProfileSection
       title="Start earning"
       description="Complete these steps to make your Potatoe Squeezy profile reward-ready."
+      className="border-line bg-surface-raised shadow-none"
       action={
         user?.username ? (
-          <Button asChild variant="outline" size="sm">
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="border-line bg-surface-inset text-content-primary hover:bg-surface-raised hover:text-content-primary focus-visible:ring-focus"
+          >
             <a href={`/app/dev/${user.username}`}>View profile</a>
           </Button>
         ) : null
       }
     >
-      <div className="grid gap-3 md:grid-cols-3">
+      <div className="grid gap-2 md:grid-cols-2">
         {steps.map((step, index) => (
-          <div
+          <article
             key={step.label}
-            className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-3"
+            className="rounded-xl border border-line bg-surface-inset p-3.5"
           >
-            <Typography as="p" variant="caption">
-              Step {index + 1}
-            </Typography>
-            <Typography as="p" variant="h6" className="mt-1">
-              {step.label}
-            </Typography>
+            <div className="flex items-center justify-between gap-3">
+              <Typography
+                as="p"
+                variant="label"
+                className="text-content-tertiary"
+              >
+                Step {index + 1}
+              </Typography>
+              <Badge
+                variant="outline"
+                className={
+                  step.complete
+                    ? "border-line-success bg-surface-raised text-content-success"
+                    : "border-line bg-surface-raised text-content-secondary"
+                }
+              >
+                {step.complete ? "Completed" : "Pending"}
+              </Badge>
+            </div>
             <Typography
               as="p"
-              variant="caption"
-              color={step.complete ? "success" : "muted"}
-              className="mt-2"
+              variant="h5"
+              className="mt-5 text-content-primary"
             >
-              {step.complete ? "Completed" : "Pending"}
+              {step.label}
             </Typography>
-          </div>
+          </article>
         ))}
       </div>
     </ProfileSection>

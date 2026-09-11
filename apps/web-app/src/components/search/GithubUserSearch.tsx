@@ -1,7 +1,8 @@
 import React from "react";
-import { SearchIcon, Loader2 } from "lucide-react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 interface GithubUserSearchProps {
   searchQuery: string;
@@ -16,36 +17,47 @@ export function GithubUserSearch({
   onSearch,
   loading,
 }: GithubUserSearchProps) {
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
       onSearch();
     }
   };
 
   return (
-    <div className="">
-      <div className="flex gap-3 !my-4">
-        <div className=" flex-1 ">
-          <Input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Search GitHub username..."
-            className="w-full rounded-[18px] border border-[#2b2933] bg-[#0f0d16] !p-5 pl-11 text-white transition-colors placeholder:text-[#8f8a99] focus:border-[#4b465a] focus:outline-none focus:ring-2 focus:ring-orange-500/30"
-          />
+    <Card className="gap-0 bg-surface-raised">
+      <CardContent className="p-3">
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="relative min-w-0 flex-1">
+            <Input
+              type="text"
+              value={searchQuery}
+              onChange={(event) => onSearchChange(event.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Search GitHub username..."
+              aria-label="Search GitHub username"
+              className="h-10 border-line bg-surface-inset px-3 text-content-primary placeholder:text-content-tertiary focus-visible:border-action-primary focus-visible:ring-focus"
+            />
+          </div>
+          <Button
+            variant="default"
+            onClick={onSearch}
+            disabled={loading}
+            className="shrink-0"
+          >
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <span
+                  className="size-3.5 animate-spin rounded-full border-2 border-current border-t-transparent"
+                  aria-hidden="true"
+                />
+                Searching...
+              </span>
+            ) : (
+              "Search"
+            )}
+          </Button>
         </div>
-        <Button variant="default" onClick={onSearch} disabled={loading}>
-          {loading ? (
-            <span className="flex items-center gap-2">
-              <Loader2 className="animate-spin" size={18} />
-              Searching...
-            </span>
-          ) : (
-            "Search"
-          )}
-        </Button>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

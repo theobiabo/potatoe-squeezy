@@ -1,0 +1,57 @@
+[     416ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=8fd2e094:20102
+[     432ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=8fd2e094:13
+[     455ms] [WARNING] Module "buffer" has been externalized for browser compatibility. Cannot access "buffer.Buffer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details. @ http://localhost:5173/node_modules/.vite/deps/chunk-M5ITTEFL.js?v=8fd2e094:13
+[     475ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-3B7LI3Q6.js?v=8fd2e094:22
+[     495ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     495ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:5173/app color: rgb(120, 120, 120) color: inherit {o: http://localhost:5173/app, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 1.6.1, ts: 1788731164092} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     610ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <button> button 
+
+  ...
+    <MatchImpl matchId="/app//app/">
+      <SafeFragment>
+        <SafeFragment fallback={null}>
+          <SafeFragment getResetKey={function getResetKey} errorComponent={function ErrorComponent} ...>
+            <SafeFragment fallback={function fallback}>
+              <MatchInnerImpl matchId="/app//app/">
+                <Lazy>
+                  <IndexDashboardPage>
+                    <DefaultDashboard title="Welcome, t...">
+                      <div className="min-h-dvh ...">
+                        <AppRail>
+                        <div className="min-w-0 fl...">
+                          <DashboardHeader>
+                          <main className="mx-auto w-...">
+                            <div className="mx-auto mb...">
+                              <WorkspaceNotice>
+                              <ModalLayout title="Add a wall..." trigger={<Button>}>
+>                               <button type="button" className="contents" onClick={function onClick}>
+                                  <Button type="button">
+>                                   <button
+>                                     data-slot="button"
+>                                     data-variant="default"
+>                                     data-size="default"
+>                                     className={"group/button inline-flex cursor-pointer items-center justify-center..."}
+>                                     type="button"
+>                                   >
+                                ...
+                            ...
+                        ...
+ @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=8fd2e094:2155
+[     610ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. button <button> @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=8fd2e094:2162
+[     677ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list,account.analytics.summary,transactions.tippers,account.sponsorshipTiers.list,account.gatedContent.list,transactions.list,transactions.tippers,transactions.list?batch=1&input=%7B%7D:0
+[     678ms] [ERROR] Error fetching transactions: TRPCClientError: Unauthorized
+    at TRPCClientError2.from (http://localhost:5173/node_modules/.vite/deps/@trpc_client.js?v=8fd2e094:2057:44)
+    at http://localhost:5173/node_modules/.vite/deps/@trpc_client.js?v=8fd2e094:2454:44 @ http://localhost:5173/src/components/tables/transactionTable.tsx:58
+[     678ms] [ERROR] Error fetching transactions: TRPCClientError: Unauthorized
+    at TRPCClientError2.from (http://localhost:5173/node_modules/.vite/deps/@trpc_client.js?v=8fd2e094:2057:44)
+    at http://localhost:5173/node_modules/.vite/deps/@trpc_client.js?v=8fd2e094:2454:44 @ http://localhost:5173/src/components/tables/transactionTable.tsx:58
+[    1688ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list,account.analytics.summary,transactions.tippers,account.sponsorshipTiers.list?batch=1&input=%7B%7D:0
+[    1691ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.gatedContent.list,transactions.tippers?batch=1&input=%7B%7D:0
+[    3695ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list,account.analytics.summary,transactions.tippers,account.sponsorshipTiers.list?batch=1&input=%7B%7D:0
+[    3695ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.gatedContent.list,transactions.tippers?batch=1&input=%7B%7D:0
+[    7699ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.notifications.list,account.analytics.summary,transactions.tippers,account.sponsorshipTiers.list?batch=1&input=%7B%7D:0
+[    7700ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.gatedContent.list,transactions.tippers?batch=1&input=%7B%7D:0
+[   19510ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.wallets.list?batch=1&input=%7B%7D:0
+[   20514ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3000/trpc/account.wallets.list?batch=1&input=%7B%7D:0

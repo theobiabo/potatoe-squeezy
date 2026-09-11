@@ -8,6 +8,7 @@ import { getCookie, setCookie, deleteCookie } from 'hono/cookie';
 import {
   FRONTEND_APP_URL,
   GITHUB_CALLBACK_URL,
+  JWT_SECRET,
   TELEGRAM_CHAT_ID,
 } from '../constants';
 import { sendTelegramNotification } from '../utils/telegram-notification';
@@ -21,6 +22,7 @@ const github = githubAuth({
   client_id: process.env.GITHUB_CLIENT_ID!,
   client_secret: process.env.GITHUB_CLIENT_SECRET!,
   redirect_uri: `${GITHUB_CALLBACK_URL}`,
+  oauthApp: true,
   scope: ['read:user', 'user:email'],
 });
 
@@ -167,12 +169,17 @@ authRouter.get('/callback', async (c) => {
       user = result[0];
     }
 
+    if (!JWT_SECRET) {
+      return c.json({ error: 'Server auth configuration is incomplete' }, 500);
+    }
+
     const token = await sign(
       {
         userId: user.id,
         username: user.username,
       },
-      c.env.JWT_SECRET,
+      JWT_SECRET,
+      'HS256',
     );
 
     setCookie(c, 'github-token', githubToken.access_token, {

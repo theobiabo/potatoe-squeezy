@@ -1,2 +1,9 @@
 import { createRootRoute } from "@tanstack/react-router";
-export const Route = createRootRoute();
+
+import FullScreenLoader from "@/components/full-screen-loader";
+
+export const Route = createRootRoute({
+  pendingComponent: FullScreenLoader,
+  pendingMs: 0,
+  pendingMinMs: 300,
+});

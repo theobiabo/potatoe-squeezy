@@ -1,17 +1,27 @@
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { formatDistanceToNow } from "date-fns";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { validateSolanaAddress } from "@potatoe/shared";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useTipSol } from "@/hooks/useTipSol";
 import { toast } from "sonner";
 import ConnectWalletButton from "@/button/connectWalletButton";
+import Typography from "@/components/typography";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useTipSol } from "@/hooks/useTipSol";
 import TransactionService from "@/services/transaction.service";
-import { validateSolanaAddress } from "@potatoe/shared";
-import { useUserStore } from "@/store/user.store";
 import UserService from "@/services/user.service";
+import { useUserStore } from "@/store/user.store";
 
 interface CelebrateUserProps {
   username: string;
@@ -150,187 +160,282 @@ function CelebrateUser({
   );
 
   return (
-    <div className="w-full rounded-[24px] border border-[#2b2933] bg-[#0f0d16] px-4 py-4 lg:w-[450px]">
-      <div className="py-4">
-        <h2 className="font-semibold text-center">
-          Select or Enter Amount to Zap
-        </h2>
-
-        <div className="flex items-center gap-4 mx-4 my-4 justify-evenly">
-          {predefinedAmount.map((amount) => (
-            <button
-              key={amount}
-              className={`
-                flex h-10 w-10 items-center justify-center rounded-[12px]
-                border border-[#2b2933] bg-[#15131d]
-                transition-colors
-                ${amount === quantity ? "border-orange-500/50 bg-orange-500/15 text-orange-300" : ""}
-                ${!connected ? "cursor-not-allowed opacity-50" : "hover:bg-[#1c1925]"}
-              `}
-              onClick={() => handleAmountSelect(amount)}
-              disabled={!connected}
-            >
-              {amount}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="my-4">
-        <input
-          type="number"
-          value={customAmount}
-          onChange={handleCustomAmountChange}
-          min={MIN_AMOUNT}
-          max={MAX_AMOUNT}
-          step="0.000001"
-          placeholder={`Enter custom amount (${MIN_AMOUNT}-${MAX_AMOUNT} SOL)`}
-          className="w-full rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-sm text-white outline-none transition-colors placeholder:text-[#8f8a99] focus:border-[#4b465a] focus:ring-2 focus:ring-orange-500/30"
-          disabled={!connected}
-        />
-      </div>
-
-      <div>
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Hey, I just squashed potato to SOL, enjoy!"
-          maxLength={200}
-          className="h-24 w-full resize-none rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-sm text-white outline-none transition-colors placeholder:text-[#8f8a99] focus:border-[#4b465a] focus:ring-2 focus:ring-orange-500/30"
-          disabled={!connected}
-        />
-      </div>
-
-      <Button
-        className="w-full"
-        onClick={handleZap}
-        disabled={
-          !hasValidAmount ||
-          !connected ||
-          isOwnProfile ||
-          !hasValidRecipientWallet ||
-          loading ||
-          isProcessing
-        }
-      >
-        {isProcessing || loading ? "Processing..." : "Send tip"}
-      </Button>
-
-      {!connected && (
-        <>
-          <p className="text-sm text-center mt-2 text-[#8f8a99]">
-            Connect your wallet to send tips
-          </p>
-          <div className="mt-3 flex justify-center">
-            <ConnectWalletButton>Connect Wallet</ConnectWalletButton>
+    <Card className="w-full gap-0 border-line bg-surface shadow-none">
+      <CardHeader className="gap-3 border-b border-line px-4 py-4 sm:px-5">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <Typography as="h2" variant="h5" className="text-content-primary">
+              Send a tip
+            </Typography>
+            <CardDescription className="mt-1 text-content-secondary">
+              Select or enter an amount in SOL for @{username}.
+            </CardDescription>
           </div>
-        </>
-      )}
+          <Badge
+            variant="secondary"
+            className="border-line bg-surface-raised font-mono text-content-secondary"
+          >
+            SOL
+          </Badge>
+        </div>
+      </CardHeader>
 
-      {connected && !hasValidRecipientWallet && (
-        <p className="mt-2 text-sm text-center text-[#8f8a99]">
-          This developer has not added a valid Solana wallet yet.
-        </p>
-      )}
+      <CardContent className="space-y-5 px-4 py-4 sm:px-5 sm:py-5">
+        <section aria-labelledby="tip-amount-label" className="space-y-3">
+          <Typography
+            as="p"
+            variant="label"
+            id="tip-amount-label"
+            className="text-content-tertiary"
+          >
+            Amount in SOL
+          </Typography>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {predefinedAmount.map((amount) => (
+              <button
+                key={amount}
+                type="button"
+                className={`inline-flex h-10 items-center justify-center rounded-xl border px-3 text-sm font-medium tabular-nums transition-[background-color,border-color,color,box-shadow] outline-none focus-visible:ring-2 focus-visible:ring-focus disabled:cursor-not-allowed disabled:opacity-50 ${
+                  amount === quantity
+                    ? "border-action-primary/50 bg-action-primary/15 text-content-primary"
+                    : "border-line bg-surface-inset text-content-secondary hover:border-line-strong hover:bg-surface-raised hover:text-content-primary"
+                }`}
+                onClick={() => handleAmountSelect(amount)}
+                disabled={!connected}
+                aria-pressed={amount === quantity}
+              >
+                {amount}
+              </button>
+            ))}
+          </div>
 
-      {connected && isOwnProfile && (
-        <p className="mt-2 text-sm text-center text-[#8f8a99]">
-          You cannot zap yourself from your own profile.
-        </p>
-      )}
+          <div className="flex items-center gap-2">
+            <Input
+              type="number"
+              value={customAmount}
+              onChange={handleCustomAmountChange}
+              min={MIN_AMOUNT}
+              max={MAX_AMOUNT}
+              step="0.000001"
+              placeholder={`Enter custom amount (${MIN_AMOUNT}-${MAX_AMOUNT} SOL)`}
+              className="h-10 border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-focus focus-visible:ring-focus"
+              disabled={!connected}
+            />
+            <Badge
+              variant="secondary"
+              className="h-10 rounded-xl border-line bg-surface-raised px-3 py-0 font-mono text-content-secondary"
+            >
+              SOL
+            </Badge>
+          </div>
+        </section>
 
-      {!isOwnProfile && publicTippers?.isPublic ? (
-        <div className="mt-6 space-y-3">
-          <h3 className="text-center text-sm font-semibold text-white">
-            People who tipped @{username}
-          </h3>
+        <section aria-labelledby="tip-message-label" className="space-y-2">
+          <Typography
+            as="p"
+            variant="label"
+            id="tip-message-label"
+            className="text-content-tertiary"
+          >
+            Message
+          </Typography>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Hey, I just squashed potato to SOL, enjoy!"
+            maxLength={200}
+            className="flex min-h-24 w-full resize-none rounded-xl border border-line bg-surface-inset px-3 py-2 text-sm text-content-primary outline-none transition-[border-color,box-shadow] placeholder:text-content-tertiary focus-visible:border-focus focus-visible:ring-2 focus-visible:ring-focus/35 disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={!connected}
+          />
+        </section>
 
-          {isLoadingTippers ? (
-            <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-4 text-sm text-[#8f8a99]">
-              Loading tippers...
+        <Button
+          className="w-full"
+          size="lg"
+          onClick={handleZap}
+          disabled={
+            !hasValidAmount ||
+            !connected ||
+            isOwnProfile ||
+            !hasValidRecipientWallet ||
+            loading ||
+            isProcessing
+          }
+        >
+          {isProcessing || loading ? "Processing..." : "Send tip"}
+        </Button>
+
+        {!connected && (
+          <div className="space-y-3 rounded-xl border border-line bg-surface-raised p-4 text-center">
+            <Typography
+              as="p"
+              variant="body2"
+              className="text-content-secondary"
+            >
+              Connect your wallet to send tips
+            </Typography>
+            <div className="flex justify-center">
+              <ConnectWalletButton>Connect Wallet</ConnectWalletButton>
             </div>
-          ) : publicTippers.tippers.length === 0 ? (
-            <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] px-4 py-4 text-sm text-[#8f8a99]">
-              No public tippers yet.
+          </div>
+        )}
+
+        {connected && !hasValidRecipientWallet && (
+          <div className="rounded-xl border border-line-warning bg-surface-raised p-3 text-center">
+            <Typography as="p" variant="body2" className="text-content-warning">
+              This developer has not added a valid Solana wallet yet.
+            </Typography>
+          </div>
+        )}
+
+        {connected && isOwnProfile && (
+          <div className="rounded-xl border border-line bg-surface-raised p-3 text-center">
+            <Typography
+              as="p"
+              variant="body2"
+              className="text-content-secondary"
+            >
+              You cannot zap yourself from your own profile.
+            </Typography>
+          </div>
+        )}
+
+        {!isOwnProfile && publicTippers?.isPublic ? (
+          <section className="space-y-3 border-t border-line pt-5">
+            <div className="flex items-center justify-between gap-3">
+              <Typography as="h3" variant="h5" className="text-content-primary">
+                People who tipped @{username}
+              </Typography>
+              <Badge
+                variant="secondary"
+                className="border-line bg-surface-raised text-content-secondary"
+              >
+                Public
+              </Badge>
             </div>
-          ) : (
-            <div className="overflow-hidden rounded-[18px] border border-[#2b2933] bg-[#15131d]">
-              {publicTippers.tippers.map((tipper) => {
-                const displayName =
-                  tipper.displayName?.trim() || tipper.username;
-                const canOpenProfile = Boolean(tipper.profileUsername);
-                const rowContent = (
-                  <>
-                    <div className="flex min-w-0 items-center gap-3">
-                      <Avatar className="h-9 w-9">
-                        <AvatarImage
-                          src={tipper.avatarUrl ?? undefined}
-                          alt={displayName}
-                        />
-                        <AvatarFallback>
-                          {displayName.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-white">
-                          {displayName}
-                        </p>
-                        <p className="truncate text-xs text-[#8f8a99]">
-                          {canOpenProfile
-                            ? `@${tipper.profileUsername}`
-                            : tipper.senderType === "agent"
-                              ? "Agent tipper"
-                              : tipper.username}
-                        </p>
+
+            {isLoadingTippers ? (
+              <div
+                role="status"
+                className="flex items-center gap-3 rounded-xl border border-line bg-surface-inset px-4 py-3"
+              >
+                <Skeleton className="size-9 shrink-0 rounded-full" />
+                <div className="min-w-0 flex-1 space-y-2">
+                  <Skeleton className="h-3 w-1/3" />
+                  <Skeleton className="h-3 w-1/2" />
+                </div>
+                <Typography as="span" variant="caption" className="sr-only">
+                  Loading tippers...
+                </Typography>
+              </div>
+            ) : publicTippers.tippers.length === 0 ? (
+              <div className="rounded-xl border border-line bg-surface-inset px-4 py-4 text-center">
+                <Typography
+                  as="p"
+                  variant="body2"
+                  className="text-content-secondary"
+                >
+                  No public tippers yet.
+                </Typography>
+              </div>
+            ) : (
+              <div className="overflow-hidden rounded-xl border border-line bg-surface-inset">
+                {publicTippers.tippers.map((tipper) => {
+                  const displayName =
+                    tipper.displayName?.trim() || tipper.username;
+                  const canOpenProfile = Boolean(tipper.profileUsername);
+                  const rowContent = (
+                    <>
+                      <div className="flex min-w-0 items-center gap-3">
+                        <Avatar className="size-9 border border-line-strong">
+                          <AvatarImage
+                            src={tipper.avatarUrl ?? undefined}
+                            alt={displayName}
+                          />
+                          <AvatarFallback>
+                            {displayName.slice(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0">
+                          <Typography
+                            as="p"
+                            variant="body2"
+                            weight="medium"
+                            className="truncate text-content-primary"
+                          >
+                            {displayName}
+                          </Typography>
+                          <Typography
+                            as="p"
+                            variant="caption"
+                            className="truncate text-content-secondary"
+                          >
+                            {canOpenProfile
+                              ? `@${tipper.profileUsername}`
+                              : tipper.senderType === "agent"
+                                ? "Agent tipper"
+                                : tipper.username}
+                          </Typography>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="text-right">
-                      <p className="text-sm font-medium text-white">
-                        {tipper.totalAmount} SOL
-                      </p>
-                      <p className="text-xs text-[#8f8a99]">
-                        {tipper.tipCount} tip{tipper.tipCount === 1 ? "" : "s"}
-                        {tipper.lastTippedAt
-                          ? ` · ${formatDistanceToNow(
-                              new Date(tipper.lastTippedAt),
-                              {
-                                addSuffix: true,
-                              },
-                            )}`
-                          : ""}
-                      </p>
-                    </div>
-                  </>
-                );
+                      <div className="shrink-0 text-right">
+                        <Typography
+                          as="p"
+                          variant="body2"
+                          weight="medium"
+                          className="tabular-nums text-content-primary"
+                        >
+                          {tipper.totalAmount} SOL
+                        </Typography>
+                        <Typography
+                          as="p"
+                          variant="caption"
+                          className="text-content-secondary"
+                        >
+                          {tipper.tipCount} tip
+                          {tipper.tipCount === 1 ? "" : "s"}
+                          {tipper.lastTippedAt
+                            ? ` · ${formatDistanceToNow(
+                                new Date(tipper.lastTippedAt),
+                                {
+                                  addSuffix: true,
+                                },
+                              )}`
+                            : ""}
+                        </Typography>
+                      </div>
+                    </>
+                  );
 
-                if (canOpenProfile && tipper.profileUsername) {
+                  if (canOpenProfile && tipper.profileUsername) {
+                    return (
+                      <Link
+                        key={tipper.identityKey}
+                        to="/app/dev/$username"
+                        params={{ username: tipper.profileUsername }}
+                        className="flex items-center justify-between gap-3 border-b border-line px-4 py-3 outline-none transition-colors last:border-b-0 hover:bg-surface-raised focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus"
+                      >
+                        {rowContent}
+                      </Link>
+                    );
+                  }
+
                   return (
-                    <Link
+                    <div
                       key={tipper.identityKey}
-                      to="/app/dev/$username"
-                      params={{ username: tipper.profileUsername }}
-                      className="flex items-center justify-between gap-3 border-b border-[#2b2933] px-4 py-3 transition-colors last:border-b-0 hover:bg-[#1c1925]"
+                      className="flex items-center justify-between gap-3 border-b border-line px-4 py-3 last:border-b-0"
                     >
                       {rowContent}
-                    </Link>
+                    </div>
                   );
-                }
-
-                return (
-                  <div
-                    key={tipper.identityKey}
-                    className="flex items-center justify-between gap-3 border-b border-[#2b2933] px-4 py-3 last:border-b-0"
-                  >
-                    {rowContent}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      ) : null}
-    </div>
+                })}
+              </div>
+            )}
+          </section>
+        ) : null}
+      </CardContent>
+    </Card>
   );
 }
 

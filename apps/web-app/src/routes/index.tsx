@@ -1,16 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
 import Homepage from "@/components/pages/homepage";
-import ProductHuntBadge from "@/components/misc/product-hunt-badge";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  component: IndexRoute,
+  component: RouteComponent,
 });
 
-function IndexRoute() {
-  return (
-    <>
-      <Homepage />
-      <ProductHuntBadge />
-    </>
-  );
+function RouteComponent() {
+  return <Homepage/>;
 }

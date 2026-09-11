@@ -9,12 +9,11 @@ export const TAB_STATE = `cursor-pointer !rounded-none
 export const RPC_KEY = import.meta.env.VITE_RPC_KEY;
 export const SOLANA_NETWORK = import.meta.env.PROD
   ? WalletAdapterNetwork.Mainnet
-  : WalletAdapterNetwork.Testnet;
+  : WalletAdapterNetwork.Devnet;
 const RPC_ENDPOINT = `https://mainnet.helius-rpc.com/?api-key=${RPC_KEY}`;
-export const RPC_URL =
-  import.meta.env.PROD
-    ? RPC_ENDPOINT
-    : "https://api.devnet.solana.com";
+export const RPC_URL = import.meta.env.PROD
+  ? RPC_ENDPOINT
+  : "https://api.devnet.solana.com";
 export const SOLANA_EXPLORER_CLUSTER = import.meta.env.PROD
   ? "mainnet-beta"
-  : "testnet";
+  : "devnet";

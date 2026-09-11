@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import Typography from "@/components/typography";
 import ProfileSection from "@/components/profile/sections/profile-section";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import GatedContentService from "@/services/gated-content.service";
@@ -13,6 +14,33 @@ const initialForm = {
   resourceUrl: "",
   minAmount: "",
 };
+
+const gatedContentFields = [
+  {
+    name: "title",
+    placeholder: "Content title",
+    maxLength: 100,
+    ariaLabel: "Gated content title",
+  },
+  {
+    name: "minAmount",
+    type: "number",
+    min: "0",
+    step: "0.01",
+    placeholder: "Minimum tip in SOL",
+    ariaLabel: "Minimum tip in SOL",
+  },
+  {
+    name: "description",
+    placeholder: "Description",
+    ariaLabel: "Gated content description",
+  },
+  {
+    name: "resourceUrl",
+    placeholder: "https://...",
+    ariaLabel: "Gated content resource URL",
+  },
+] as const;
 
 export default function GatedContentPanel() {
   const queryClient = useQueryClient();
@@ -54,95 +82,94 @@ export default function GatedContentPanel() {
     <ProfileSection
       title="Sponsor-gated content"
       description="Share a link or file URL that unlocks after a qualifying recorded tip."
+      className="border-line bg-surface-raised shadow-none"
     >
-      <div className="grid gap-3 md:grid-cols-2">
-        <Input
-          placeholder="Content title"
-          value={form.title}
-          maxLength={100}
-          onChange={(event) =>
-            setForm((current) => ({ ...current, title: event.target.value }))
-          }
-          className="border-[#2b2933] bg-[#0f0d16] text-white"
-        />
-        <Input
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="Minimum tip in SOL"
-          value={form.minAmount}
-          onChange={(event) =>
-            setForm((current) => ({
-              ...current,
-              minAmount: event.target.value,
-            }))
-          }
-          className="border-[#2b2933] bg-[#0f0d16] text-white"
-        />
-        <Input
-          placeholder="Description"
-          value={form.description}
-          onChange={(event) =>
-            setForm((current) => ({
-              ...current,
-              description: event.target.value,
-            }))
-          }
-          className="border-[#2b2933] bg-[#0f0d16] text-white"
-        />
-        <Input
-          placeholder="https://..."
-          value={form.resourceUrl}
-          onChange={(event) =>
-            setForm((current) => ({
-              ...current,
-              resourceUrl: event.target.value,
-            }))
-          }
-          className="border-[#2b2933] bg-[#0f0d16] text-white"
-        />
+      <div
+        role="group"
+        aria-label="Create sponsor-gated content"
+        className="rounded-xl border border-line bg-surface-inset p-3"
+      >
+        <div className="grid gap-2 md:grid-cols-2">
+          {gatedContentFields.map(({ name, ariaLabel, ...field }) => (
+            <Input
+              key={name}
+              {...field}
+              aria-label={ariaLabel}
+              value={form[name]}
+              onChange={(event) =>
+                setForm((current) => ({
+                  ...current,
+                  [name]: event.target.value,
+                }))
+              }
+              className="border-line bg-surface-raised text-content-primary placeholder:text-content-tertiary focus-visible:border-action-primary focus-visible:ring-focus"
+            />
+          ))}
+        </div>
+
+        <Button
+          className="mt-2 bg-action-primary text-action-primary-foreground hover:bg-action-primary/90 focus-visible:ring-focus"
+          disabled={!canSubmit || createMutation.isPending}
+          onClick={() => createMutation.mutate()}
+        >
+          {createMutation.isPending ? "Saving..." : "Add gated link"}
+        </Button>
       </div>
 
-      <Button
-        className="mt-3"
-        disabled={!canSubmit || createMutation.isPending}
-        onClick={() => createMutation.mutate()}
-      >
-        {createMutation.isPending ? "Saving..." : "Add gated link"}
-      </Button>
-
-      <div className="mt-4 space-y-2">
-        {isLoading && (
-          <Typography as="p" variant="muted">
+      <div className="mt-3 overflow-hidden rounded-xl border border-line bg-surface-inset">
+        {isLoading ? (
+          <Typography
+            as="p"
+            variant="muted"
+            className="px-3.5 py-4 text-content-secondary"
+          >
             Loading gated content.
           </Typography>
-        )}
-        {!isLoading &&
-          items.map((item) => (
-            <div
-              key={item.id}
-              className="rounded-[8px] border border-[#2b2933] bg-[#15131d] p-3"
-            >
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <Typography as="p" variant="h6">
+        ) : items.length === 0 ? (
+          <Typography
+            as="p"
+            variant="muted"
+            className="px-3.5 py-4 text-content-secondary"
+          >
+            No gated content yet.
+          </Typography>
+        ) : (
+          <div className="divide-y divide-line">
+            {items.map((item) => (
+              <article
+                key={item.id}
+                className="flex flex-col gap-3 px-3.5 py-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="min-w-0">
+                  <Typography
+                    as="p"
+                    variant="h5"
+                    className="text-content-primary"
+                  >
                     {item.title}
                   </Typography>
-                  <Typography as="p" variant="caption" className="mt-1">
+                  <Typography
+                    as="p"
+                    variant="caption"
+                    className="mt-1 text-content-secondary"
+                  >
                     Unlocks at {Number(item.minAmount).toLocaleString()}{" "}
                     {item.currency}
                   </Typography>
                 </div>
-                <span className="text-xs text-[#8b949e]">
+                <Badge
+                  variant="outline"
+                  className={
+                    item.active === false
+                      ? "border-line bg-surface-raised text-content-tertiary"
+                      : "border-line-success bg-surface-raised text-content-success"
+                  }
+                >
                   {item.active === false ? "Archived" : "Active"}
-                </span>
-              </div>
-            </div>
-          ))}
-        {!isLoading && items.length === 0 && (
-          <Typography as="p" variant="muted">
-            No gated content yet.
-          </Typography>
+                </Badge>
+              </article>
+            ))}
+          </div>
         )}
       </div>
     </ProfileSection>

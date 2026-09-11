@@ -111,25 +111,25 @@ function Notification() {
       trigger={
         <button
           type="button"
-          className="relative rounded-[12px] border border-[#2b2933] bg-[#0f0d16] p-2 text-[#c9d1d9] transition-colors hover:border-[#4b465a] hover:bg-[#15131d] hover:text-white"
+          className="relative rounded-[10px] border border-line bg-surface-raised p-2 text-content-secondary transition-colors hover:border-line-strong hover:bg-surface hover:text-content-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
         >
           <NotificationIcon />
           {notifications.length > 0 ? (
-            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full border border-[#2b2933] bg-orange-500 px-1 text-[10px] font-semibold text-black">
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full border border-action-primary bg-action-primary px-1 text-[10px] font-semibold text-action-primary-foreground">
               {notifications.length}
             </span>
           ) : null}
         </button>
       }
     >
-      <div className="space-y-3 pt-4">
+      <div className="space-y-2 pt-3">
         {notifications.length > 0 ? (
           <div className="flex justify-end">
             <button
               type="button"
               onClick={() => clearNotificationsMutation.mutate()}
               disabled={clearNotificationsMutation.isPending}
-              className="text-xs font-medium text-red-300 transition-colors hover:text-red-200 disabled:cursor-not-allowed disabled:opacity-60"
+              className="text-xs font-medium text-content-critical transition-colors hover:text-destructive disabled:cursor-not-allowed disabled:opacity-60"
             >
               {clearNotificationsMutation.isPending
                 ? "Clearing..."
@@ -139,30 +139,34 @@ function Notification() {
         ) : null}
 
         {isLoading ? (
-          <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 text-sm text-[#8f8a99]">
+          <div className="rounded-[10px] border border-line bg-surface-inset px-3 py-2.5 text-[13px] text-content-tertiary">
             Loading notifications...
           </div>
         ) : notifications.length === 0 ? (
-          <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 text-sm text-[#8f8a99]">
+          <div className="rounded-[10px] border border-line bg-surface-inset px-3 py-2.5 text-[13px] text-content-tertiary">
             No notifications yet.
           </div>
         ) : (
           notifications.map((item) => (
             <div
               key={item.id}
-              className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4"
+              className="rounded-[10px] border border-line bg-surface-raised px-3 py-2.5"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1">
-                  <p className="text-sm font-medium text-white">{item.title}</p>
-                  <p className="text-sm text-[#c9d1d9]">{item.message}</p>
-                  <p className="text-xs text-[#8f8a99]">
+                  <p className="text-[13px] font-medium leading-5 text-content-primary">
+                    {item.title}
+                  </p>
+                  <p className="text-[13px] leading-5 text-content-secondary">
+                    {item.message}
+                  </p>
+                  <p className="text-xs text-content-tertiary">
                     {item.sender?.username
                       ? `From @${item.sender.username}`
                       : `${item.senderAddress.slice(0, 4)}...${item.senderAddress.slice(-4)}`}
                   </p>
                 </div>
-                <p className="shrink-0 text-xs text-[#8f8a99]">
+                <p className="shrink-0 text-xs text-content-tertiary">
                   {formatDistanceToNow(new Date(item.createdAt), {
                     addSuffix: true,
                   })}

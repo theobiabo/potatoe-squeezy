@@ -37,11 +37,10 @@ const CustomModal = ({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0f0d16]/80 px-4 py-6 backdrop-blur-sm">
-      <button
-        type="button"
-        aria-label="Close modal"
-        className="absolute inset-0 h-full w-full cursor-default"
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/85 px-3 py-3 backdrop-blur-sm sm:px-4 sm:py-6">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 cursor-default"
         onClick={closeOnOverlayClick ? onClose : undefined}
       />
       <section
@@ -49,14 +48,14 @@ const CustomModal = ({
         aria-modal="true"
         aria-labelledby={labelledBy}
         className={cn(
-          "relative z-10 w-full max-w-lg rounded-[24px] border border-[#2b2933] bg-[#15131d] p-7 text-[#c9d1d9] outline-none",
+          "relative z-10 max-h-[calc(100dvh-1.5rem)] w-full max-w-xl overflow-y-auto  border border-border bg-popover p-4 text-popover-foreground shadow-2xl shadow-background/40 outline-none sm:p-5",
           className,
         )}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-md border border-transparent text-[#8f8a99] transition-colors hover:border-[#2b2933] hover:bg-[#1c1925] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/40"
+          className="absolute right-3 top-3 inline-flex size-8 items-center justify-center rounded-lg border border-transparent text-muted-foreground transition-[background-color,border-color,color,box-shadow] hover:border-border hover:bg-accent hover:text-accent-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"
           aria-label="Close modal"
         >
           <span aria-hidden="true">×</span>

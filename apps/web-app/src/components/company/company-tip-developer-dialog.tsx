@@ -1,4 +1,11 @@
-import { useMemo, useState, type ReactNode } from "react";
+import {
+  cloneElement,
+  isValidElement,
+  useMemo,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { toast } from "sonner";
 import {
@@ -24,7 +31,33 @@ interface CompanyTipDeveloperDialogProps {
   onSuccess?: () => void;
 }
 
+interface ModalTriggerProps {
+  trigger: ReactNode;
+  onOpen: () => void;
+}
+
 const normalizeAmount = (value: string) => Number(value.trim());
+
+function ModalTrigger({ trigger, onOpen }: ModalTriggerProps) {
+  if (
+    isValidElement<{
+      onClick?: (event: MouseEvent<HTMLElement>) => void;
+    }>(trigger)
+  ) {
+    return cloneElement(trigger, {
+      onClick: (event: MouseEvent<HTMLElement>) => {
+        trigger.props.onClick?.(event);
+        if (!event.isPropagationStopped()) onOpen();
+      },
+    });
+  }
+
+  return (
+    <button type="button" className="contents" onClick={onOpen}>
+      {trigger}
+    </button>
+  );
+}
 
 export default function CompanyTipDeveloperDialog({
   developer,
@@ -92,13 +125,7 @@ export default function CompanyTipDeveloperDialog({
   return (
     <>
       {trigger ? (
-        <button
-          type="button"
-          className="contents"
-          onClick={() => setOpen(true)}
-        >
-          {trigger}
-        </button>
+        <ModalTrigger trigger={trigger} onOpen={() => setOpen(true)} />
       ) : (
         <Button onClick={() => setOpen(true)}>Tip as company</Button>
       )}
@@ -108,38 +135,54 @@ export default function CompanyTipDeveloperDialog({
         onClose={() => setOpen(false)}
         labelledBy="company-tip-title"
       >
-        <div className="space-y-5 pr-8">
-          <div>
-            <Typography as="h2" variant="h5" id="company-tip-title">
-              Tip @{developer.username}
-            </Typography>
-            <Typography as="p" variant="muted" className="mt-1">
-              Send a company reward directly to this developer's connected
-              wallet.
-            </Typography>
-          </div>
+        <div className="space-y-1 pr-8">
+          <Typography
+            as="h2"
+            variant="h5"
+            id="company-tip-title"
+            className="text-content-primary"
+          >
+            Tip @{developer.username}
+          </Typography>
+          <Typography as="p" variant="muted" className="text-content-secondary">
+            Send a company reward directly to this developer's connected wallet.
+          </Typography>
+        </div>
 
-          <div className="flex items-center gap-3 rounded-[18px] border border-[#2b2933] bg-[#15131d] p-3">
+        <div className="mt-4 space-y-4">
+          <div className="flex items-center gap-3 rounded-xl border border-line bg-surface-inset p-3">
             <img
               src={
                 developer.avatarUrl ||
                 "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
               }
               alt={displayName}
-              className="h-10 w-10 rounded-full border border-[#2b2933] object-cover"
+              className="size-10 rounded-full border border-line bg-surface object-cover"
             />
             <div className="min-w-0">
-              <Typography as="p" variant="h6" className="truncate">
+              <Typography
+                as="p"
+                variant="h6"
+                className="truncate text-content-primary"
+              >
                 {displayName}
               </Typography>
-              <Typography as="p" variant="caption" className="truncate">
+              <Typography
+                as="p"
+                variant="caption"
+                className="truncate font-mono text-content-tertiary"
+              >
                 {recipientAddress || "No receiving wallet connected"}
               </Typography>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Typography as="p" variant="label">
+            <Typography
+              as="p"
+              variant="label"
+              className="text-content-tertiary"
+            >
               Amount
             </Typography>
             <div className="grid grid-cols-4 gap-2">
@@ -149,10 +192,10 @@ export default function CompanyTipDeveloperDialog({
                   type="button"
                   onClick={() => setAmount(String(tipAmount))}
                   className={cn(
-                    "rounded-md border px-3 py-2 text-sm font-medium transition-colors",
+                    "rounded-xl border px-3 py-2 text-sm font-medium transition-[background-color,border-color,color,box-shadow] outline-none focus-visible:ring-2 focus-visible:ring-focus",
                     amount === String(tipAmount)
-                      ? "border-orange-500/50 bg-orange-500/15 text-orange-300"
-                      : "border-[#2b2933] bg-[#15131d] text-[#c9d1d9] hover:bg-[#1c1925]",
+                      ? "border-action-primary/50 bg-action-primary/15 text-content-primary"
+                      : "border-line bg-surface-inset text-content-secondary hover:border-line-strong hover:bg-surface-raised hover:text-content-primary",
                   )}
                 >
                   {tipAmount}
@@ -166,16 +209,20 @@ export default function CompanyTipDeveloperDialog({
                 step="0.01"
                 value={amount}
                 onChange={(event) => setAmount(event.target.value)}
-                className="border-[#2b2933] bg-[#0f0d16] text-white"
+                className="border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-focus focus-visible:ring-focus"
               />
-              <span className="rounded-md border border-[#2b2933] bg-[#15131d] px-3 py-2 text-sm text-[#c9d1d9]">
+              <span className="rounded-xl border border-line bg-surface-raised px-3 py-2 font-mono text-sm text-content-secondary">
                 {SupportedTipToken.SOL}
               </span>
             </div>
           </div>
 
-          <label className="space-y-2 block">
-            <Typography as="span" variant="label">
+          <label className="block space-y-2">
+            <Typography
+              as="span"
+              variant="label"
+              className="text-content-tertiary"
+            >
               Note
             </Typography>
             <Input
@@ -183,12 +230,12 @@ export default function CompanyTipDeveloperDialog({
               maxLength={160}
               onChange={(event) => setNote(event.target.value)}
               placeholder="Reward for high-quality engineering work"
-              className="border-[#2b2933] bg-[#0f0d16] text-white"
+              className="border-line bg-surface-inset text-content-primary placeholder:text-content-tertiary focus-visible:border-focus focus-visible:ring-focus"
             />
           </label>
 
           {!recipientAddress && (
-            <div className="rounded-[18px] border border-orange-500/30 bg-orange-500/10 p-3 text-sm text-orange-200">
+            <div className="rounded-xl border border-line-warning bg-surface-raised p-3 text-sm text-content-warning">
               This developer needs to connect a wallet before receiving company
               tips.
             </div>
@@ -196,7 +243,7 @@ export default function CompanyTipDeveloperDialog({
 
           <Button onClick={handleTip} disabled={busy} className="w-full">
             {busy && (
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-black/30 border-t-black" />
+              <span className="size-4 animate-spin rounded-full border-2 border-action-primary-foreground/30 border-t-action-primary-foreground" />
             )}
             {connected ? "Send company tip" : "Connect wallet"}
           </Button>

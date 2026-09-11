@@ -14,7 +14,7 @@ Start development server:
 bun run dev
 ```
 
-Note: `bun run dev` runs Drizzle migrations on startup. Make sure Postgres is running and `DATABASE_URL` is set in `apps/server/.env` (or `.env.local`).
+Note: `bun run dev` runs Drizzle migrations on startup. Make sure Postgres is running and `DATABASE_URL` is set in the repository-root `.env` (or `.env.local`).
 
 Run migrations manually:
 

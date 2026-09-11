@@ -1,5 +1,4 @@
-import API_ENDPOINTS from "@/enums/API_ENUM";
-import ApiClient from "@/util/api";
+import { trpc } from "@/trpc/client";
 
 export interface GatedContent {
   id: string;
@@ -26,26 +25,25 @@ export interface GatedContentPayload {
 
 class GatedContentService {
   static async getMine() {
-    return ApiClient.get<GatedContent[]>(API_ENDPOINTS.GATED_CONTENT);
+    const response = await trpc.account.gatedContent.list.query();
+    return response as unknown as GatedContent[];
   }
 
   static async getPublic(username: string) {
-    return ApiClient.get<GatedContent[]>(
-      `${API_ENDPOINTS.GATED_CONTENT}/public/${encodeURIComponent(username)}`,
-    );
+    const response = await trpc.public.gatedContent.query({ username });
+    return response as unknown as GatedContent[];
   }
 
   static async create(data: GatedContentPayload) {
-    return ApiClient.post<GatedContent>(
-      API_ENDPOINTS.GATED_CONTENT,
-      data as any,
-    );
+    const response = await trpc.account.gatedContent.create.mutate(data);
+    return response as unknown as GatedContent;
   }
 
   static async requestAccess(id: string) {
-    return ApiClient.get<{ accessUrl: string; expiresAt: string }>(
-      `${API_ENDPOINTS.GATED_CONTENT}/${id}/access`,
-    );
+    const response = await trpc.account.gatedContent.requestAccess.query({
+      id,
+    });
+    return response as unknown as { accessUrl: string; expiresAt: string };
   }
 }
 

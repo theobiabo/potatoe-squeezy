@@ -1,6 +1,10 @@
 import { telegram_bot } from '../config/telegraf';
 
 const sendTelegramMessage = async (chatId: string, message: string) => {
+  if (process.env.DISABLE_TELEGRAM_BOT === 'true') {
+    return;
+  }
+
   try {
     await telegram_bot.telegram.sendMessage(chatId, message);
   } catch (error) {
@@ -9,6 +13,10 @@ const sendTelegramMessage = async (chatId: string, message: string) => {
 };
 
 const sendTelegramNotification = async (chatId: string, message: string) => {
+  if (process.env.DISABLE_TELEGRAM_BOT === 'true') {
+    return;
+  }
+
   try {
     await telegram_bot.telegram.sendMessage(chatId, message, {
       parse_mode: 'MarkdownV2',

@@ -9,6 +9,9 @@ interface GitHubRepositoryGraphProps {
   loading?: boolean;
 }
 
+const repositoryStateClassName =
+  "rounded-xl border border-line bg-surface-inset p-4";
+
 function RepositoryCard({ repository }: { repository: GitHubRepository }) {
   const activityLabel = getRepositoryActivityLabel(repository.updated_at);
   const active = activityLabel === "Active" || activityLabel === "Maintained";
@@ -18,7 +21,7 @@ function RepositoryCard({ repository }: { repository: GitHubRepository }) {
       href={repository.html_url}
       target="_blank"
       rel="noreferrer"
-      className="block rounded-[18px] border border-[#2b2933] bg-[#15131d] p-4 transition-colors hover:border-[#4b465a] hover:bg-[#1c1925]"
+      className="block rounded-xl border border-line bg-surface-inset p-4 transition-colors hover:border-line-strong hover:bg-surface-raised focus-visible:border-focus focus-visible:outline-none"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
@@ -30,7 +33,7 @@ function RepositoryCard({ repository }: { repository: GitHubRepository }) {
           </Typography>
         </div>
         <span
-          className={`mt-1 h-2 w-2 shrink-0 rounded-full ${active ? "bg-[#7ee787]" : "bg-[#8f8a99]"}`}
+          className={`mt-1 h-2 w-2 shrink-0 rounded-full ${active ? "bg-content-success" : "bg-content-tertiary"}`}
         />
       </div>
 
@@ -40,7 +43,7 @@ function RepositoryCard({ repository }: { repository: GitHubRepository }) {
         </Typography>
       )}
 
-      <div className="mt-4 flex items-center justify-between gap-3 text-xs text-[#8f8a99]">
+      <div className="mt-4 flex items-center justify-between gap-3 text-xs text-content-tertiary">
         <span>{activityLabel}</span>
         <span className="truncate">{repository.language || "Repository"}</span>
       </div>
@@ -54,6 +57,11 @@ export default function GitHubRepositoryGraph({
   loading,
 }: GitHubRepositoryGraphProps) {
   const visibleRepositories = repositories.slice(0, 4);
+  const repositoryStateMessage = loading
+    ? "Loading GitHub repositories."
+    : visibleRepositories.length === 0
+      ? "No public repositories found."
+      : null;
 
   return (
     <ProfileSection
@@ -61,16 +69,10 @@ export default function GitHubRepositoryGraph({
       description={`Public repositories fetched from @${username} on GitHub.`}
       contentClassName="pb-7"
     >
-      {loading ? (
-        <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-5">
+      {repositoryStateMessage ? (
+        <div className={repositoryStateClassName}>
           <Typography as="p" variant="muted">
-            Loading GitHub repositories.
-          </Typography>
-        </div>
-      ) : visibleRepositories.length === 0 ? (
-        <div className="rounded-[18px] border border-[#2b2933] bg-[#15131d] p-5">
-          <Typography as="p" variant="muted">
-            No public repositories found.
+            {repositoryStateMessage}
           </Typography>
         </div>
       ) : (

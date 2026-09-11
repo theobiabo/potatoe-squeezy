@@ -1,12 +1,13 @@
-import { Button } from "../ui/button";
-import { useState } from "react";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { GithubIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
-import { Link } from "@tanstack/react-router";
 import { AuthService } from "@/services/auth.service";
-import { useEffect } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import Typography from "@/components/typography";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
 
 function AuthComponent() {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,61 +39,92 @@ function AuthComponent() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[80vh] px-4">
+    <main className="flex min-h-[80dvh] items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full space-y-8 text-center lg:max-w-xl"
+        className="w-full max-w-md"
       >
-        <div className="space-y-6">
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring" }}
-            className=" transition-transform cursor-pointer text-7xl flex items-center justify-center hover:rotate-12"
-          >
-            <img src="./logo/logo.png" width={150} />
-          </motion.span>
+        <Card className="gap-0 border-line bg-surface shadow-none">
+          <CardHeader className="items-center gap-4 border-b border-line px-5 py-6 text-center sm:px-6">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
+              className="flex cursor-pointer items-center justify-center transition-transform hover:rotate-12"
+            >
+              <img
+                src="./logo/logo.png"
+                alt="Potatoe Squeezy"
+                width={150}
+                className="h-auto w-28 sm:w-32"
+              />
+            </motion.div>
 
-          <motion.h1
-            className="text-2xl font-semibold text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Developer reputation and rewards for open-source work.
-          </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="space-y-3"
+            >
+              <Badge
+                variant="secondary"
+                className="border-line bg-surface-raised text-content-secondary"
+              >
+                Open-source rewards
+              </Badge>
+              <Typography as="h1" variant="h2" className="text-content-primary">
+                Developer reputation and rewards for open-source work.
+              </Typography>
+            </motion.div>
 
-          <motion.p
-            className="text-md leading-relaxed text-[#8f8a99]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            Build a public developer profile, track contribution history, and
-            receive support from people and companies that value your work.
-          </motion.p>
-        </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <CardDescription className="max-w-sm text-content-secondary">
+                Build a public developer profile, track contribution history,
+                and receive support from people and companies that value your
+                work.
+              </CardDescription>
+            </motion.div>
+          </CardHeader>
 
-        <motion.div
-          className="flex flex-col items-center gap-2 pt-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          {!isAuthenticated ? (
-            <Button className="w-fit" onClick={handleGithubLogin}>
-              <GithubIcon /> Continue with Github
-            </Button>
-          ) : (
-            <Link to="/app">
-              <Button className="py-5">Proceed to Dashboard</Button>
-            </Link>
-          )}
-        </motion.div>
+          <CardContent className="px-5 py-5 sm:px-6 sm:py-6">
+            <motion.div
+              className="flex flex-col items-center gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              {!isAuthenticated ? (
+                <Button
+                  className="w-full"
+                  size="lg"
+                  onClick={handleGithubLogin}
+                >
+                  <GithubIcon className="size-4" />
+                  {isLoading ? "Connecting..." : "Continue with GitHub"}
+                </Button>
+              ) : (
+                <Button asChild className="w-full" size="lg">
+                  <Link to="/app">Proceed to Dashboard</Link>
+                </Button>
+              )}
+              <Typography
+                as="p"
+                variant="caption"
+                className="text-center text-content-tertiary"
+              >
+                Sign in securely with your GitHub account.
+              </Typography>
+            </motion.div>
+          </CardContent>
+        </Card>
       </motion.div>
-    </div>
+    </main>
   );
 }
 

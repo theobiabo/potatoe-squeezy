@@ -11,23 +11,23 @@
   "scripts": {
     "check:workspace-deps": "bun run scripts/check-workspace-deps.ts",
     "preinstall": "bun run scripts/check-workspace-deps.ts",
-    "dev": "bun --cwd apps/server dev & bun --cwd apps/web-app dev & bun --cwd apps/github-bot dev & bun --cwd apps/extension dev & wait",
-    "start": "bun --cwd apps/server start & bun --cwd apps/web-app start & bun --cwd apps/github-bot start & bun --cwd apps/extension start & wait",
-    "dev:server": "bun --cwd apps/server dev",
-    "start:server": "bun --cwd apps/server start",
-    "dev:web": "bun --cwd apps/web-app dev",
-    "build:web": "bun --cwd apps/web-app build",
-    "dev:bot": "bun --cwd apps/github-bot dev",
-    "start:bot": "bun --cwd apps/github-bot start",
-    "dev:extension": "bun --cwd apps/extension dev",
-    "build:extension": "bun --cwd apps/extension build",
-    "build": "bun --filter '*' run build",
+    "dev": "bun --env-file=.env --env-file=.env.local --cwd apps/server dev & bun --env-file=.env --env-file=.env.local --cwd apps/web-app dev & bun --env-file=.env --env-file=.env.local --cwd apps/github-bot dev & bun --env-file=.env --env-file=.env.local --cwd apps/extension dev & wait",
+    "start": "bun --env-file=.env --env-file=.env.local --cwd apps/server start & bun --env-file=.env --env-file=.env.local --cwd apps/web-app start & bun --env-file=.env --env-file=.env.local --cwd apps/github-bot start & bun --env-file=.env --env-file=.env.local --cwd apps/extension start & wait",
+    "dev:server": "bun --env-file=.env --env-file=.env.local --cwd apps/server dev",
+    "start:server": "bun --env-file=.env --env-file=.env.local --cwd apps/server start",
+    "dev:web": "bun --env-file=.env --env-file=.env.local --cwd apps/web-app dev",
+    "build:web": "bun --env-file=.env --env-file=.env.local --cwd apps/web-app build",
+    "dev:bot": "bun --env-file=.env --env-file=.env.local --cwd apps/github-bot dev",
+    "start:bot": "bun --env-file=.env --env-file=.env.local --cwd apps/github-bot start",
+    "dev:extension": "bun --env-file=.env --env-file=.env.local --cwd apps/extension dev",
+    "build:extension": "bun --env-file=.env --env-file=.env.local --cwd apps/extension build",
+    "build": "bun --env-file=.env --env-file=.env.local --filter '*' run build",
     "format": "prettier --write ."
   },
   "private": true,
   "devDependencies": {
     "@potatoe/shared": "workspace:*",
-    "prettier": "^3.5.3"
+    "prettier": "^3.9.6"
   },
   "overrides": {
     "eslint": "^8.57.1",

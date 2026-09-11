@@ -1,8 +1,16 @@
 import { drizzle } from 'drizzle-orm/neon-http';
 import { neon } from '@neondatabase/serverless';
-import * as dotenv from 'dotenv';
+import { config } from 'dotenv';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-dotenv.config();
+const workspaceRoot = resolve(
+  dirname(fileURLToPath(import.meta.url)),
+  '../../..',
+);
+
+config({ path: resolve(workspaceRoot, '.env') });
+config({ path: resolve(workspaceRoot, '.env.local') });
 
 async function push() {
   try {

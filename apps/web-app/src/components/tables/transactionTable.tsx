@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowDownRightIcon,
@@ -14,7 +14,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import Typography from "@/components/typography";
 import { NoDataFound } from "../fallbacks/noDataFound";
 import TransactionService, {
   TransactionRecord,
@@ -58,6 +59,10 @@ function WalletTransactionTable() {
   const formatAddress = (address: string) =>
     `${address.slice(0, 4)}...${address.slice(-4)}`;
 
+  const toggleTransaction = (id: number) => {
+    setExpandedTransactionId((currentId) => (currentId === id ? null : id));
+  };
+
   if (isLoading) {
     return (
       <motion.div
@@ -65,11 +70,15 @@ function WalletTransactionTable() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full"
       >
-        <Card className="border-[#2b2933] bg-[#0f0d16]">
-          <CardContent className="flex items-center justify-center h-48">
-            <div className="text-[#8f8a99] animate-pulse">
+        <Card className="border-line bg-surface-raised shadow-none">
+          <CardContent className="flex h-48 items-center justify-center">
+            <Typography
+              as="p"
+              variant="muted"
+              className="animate-pulse text-content-secondary"
+            >
               Loading transactions...
-            </div>
+            </Typography>
           </CardContent>
         </Card>
       </motion.div>
@@ -83,9 +92,15 @@ function WalletTransactionTable() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full"
       >
-        <Card className="border-[#2b2933] bg-[#0f0d16]">
-          <CardContent className="flex items-center justify-center h-48 text-red-400">
-            {error}
+        <Card className="border-line bg-surface-raised shadow-none">
+          <CardContent className="flex h-48 items-center justify-center">
+            <Typography
+              as="p"
+              variant="muted"
+              className="text-content-critical"
+            >
+              {error}
+            </Typography>
           </CardContent>
         </Card>
       </motion.div>
@@ -98,14 +113,14 @@ function WalletTransactionTable() {
       animate={{ opacity: 1, y: 0 }}
       className="w-full"
     >
-      <Card className="border-[#2b2933] bg-[#0f0d16]">
-        <CardHeader className="flex-row items-center justify-between pb-4 space-y-0">
-          <h2 className="text-lg font-semibold text-white">
+      <Card className="border-line bg-surface-raised shadow-none">
+        <CardHeader className="flex-row items-center justify-between border-b border-line pb-4">
+          <Typography as="h2" variant="h4" className="text-content-primary">
             Recent Transactions
-          </h2>
+          </Typography>
           <Badge
-            variant="secondary"
-            className="text-purple-300 bg-purple-500/20 border-purple-500/30"
+            variant="outline"
+            className="border-line bg-surface-inset text-content-secondary"
           >
             Last 24h
           </Badge>
@@ -116,68 +131,120 @@ function WalletTransactionTable() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="border-[#2b2933] hover:bg-transparent">
-                  {/*<TableHead className="text-[#8f8a99]">Type</TableHead>*/}
-                  <TableHead className="text-[#8f8a99]"></TableHead>
-                  <TableHead className="text-[#8f8a99]">Amount</TableHead>
-                  <TableHead className="text-[#8f8a99]">From/To</TableHead>
-                  <TableHead className="text-[#8f8a99]">Time</TableHead>
+                <TableRow className="border-line hover:bg-transparent">
+                  <TableHead
+                    aria-label="Transaction type"
+                    className="text-content-tertiary"
+                  />
+                  <TableHead className="text-content-tertiary">
+                    Amount
+                  </TableHead>
+                  <TableHead className="text-content-tertiary">
+                    From/To
+                  </TableHead>
+                  <TableHead className="text-content-tertiary">Time</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {transactions.map((tx) => {
                   const type = getTransactionType(tx);
+                  const isReceived = type === "Received";
                   const isExpanded = expandedTransactionId === tx.id;
-                  const displayAddress =
-                    type === "Received"
-                      ? tx.senderAddress
-                      : tx.recipientAddress;
+                  const displayAddress = isReceived
+                    ? tx.senderAddress
+                    : tx.recipientAddress;
+                  const details = [
+                    {
+                      label: "Type",
+                      value: type,
+                      valueClassName: "font-medium text-content-primary",
+                    },
+                    {
+                      label: "Timestamp",
+                      value: moment(tx.createdAt).startOf("day").fromNow(),
+                      valueClassName: "font-medium text-content-primary",
+                    },
+                    {
+                      label: "From",
+                      value: shortenAddress(tx.senderAddress, 6, 4),
+                      valueClassName:
+                        "font-mono break-all text-content-primary",
+                    },
+                    {
+                      label: "To",
+                      value: shortenAddress(tx.recipientAddress, 6, 4),
+                      valueClassName:
+                        "font-mono break-all text-content-primary",
+                    },
+                    {
+                      label: "Transaction Hash",
+                      value: truncateMiddle(tx.txHash, 20),
+                      valueClassName:
+                        "font-mono break-all text-content-primary",
+                    },
+                    {
+                      label: "Note",
+                      value: tx.note?.trim() || "No note added",
+                      valueClassName: "text-content-primary",
+                    },
+                  ];
+
                   return (
                     <Fragment key={tx.id}>
                       <motion.tr
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        onClick={() =>
-                          setExpandedTransactionId((currentId) =>
-                            currentId === tx.id ? null : tx.id,
-                          )
-                        }
-                        className="cursor-pointer border-[#2b2933] transition-colors hover:bg-[#15131d]"
+                        role="button"
+                        tabIndex={0}
+                        aria-expanded={isExpanded}
+                        aria-label={`${type} transaction ${tx.amount} SOL`}
+                        onClick={() => toggleTransaction(tx.id)}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            toggleTransaction(tx.id);
+                          }
+                        }}
+                        className="cursor-pointer border-b border-line outline-none transition-colors hover:bg-surface-inset focus-visible:bg-surface-inset focus-visible:ring-2 focus-visible:ring-focus"
                       >
-                        <TableCell className="flex items-center gap-2 font-medium">
+                        <TableCell className="w-11">
                           <span
-                            className={`p-1.5 rounded-full ${
-                              type === "Received"
-                                ? "bg-green-500/20 text-green-400"
-                                : "bg-red-500/20 text-red-400"
+                            className={`inline-flex rounded-full border p-1.5 ${
+                              isReceived
+                                ? "border-line-success bg-surface-inset text-content-success"
+                                : "border-line-critical bg-surface-inset text-content-critical"
                             }`}
                           >
-                            {type === "Received" ? (
-                              <ArrowDownRightIcon className="w-4 h-4" />
-                            ) : (
-                              <ArrowUpRightIcon className="w-4 h-4" />
-                            )}
+                            <span className="inline-flex [&>svg]:size-4">
+                              {isReceived ? (
+                                <ArrowDownRightIcon />
+                              ) : (
+                                <ArrowUpRightIcon />
+                              )}
+                            </span>
                           </span>
                         </TableCell>
                         <TableCell
-                          className={`font-mono font-medium ${
-                            type === "Received"
-                              ? "text-green-400"
-                              : "text-red-400"
+                          className={`font-mono font-medium tabular-nums ${
+                            isReceived
+                              ? "text-content-success"
+                              : "text-content-critical"
                           }`}
                         >
-                          {type === "Received" ? "+" : "-"}
+                          {isReceived ? "+" : "-"}
                           {tx.amount} SOL
                         </TableCell>
-                        <TableCell className="font-mono text-[#8f8a99]">
+                        <TableCell className="font-mono text-content-secondary">
                           {formatAddress(displayAddress)}
                         </TableCell>
-                        <TableCell className="text-[#8f8a99]">
+                        <TableCell className="text-content-secondary">
                           <div
                             className="flex items-center gap-2"
                             title={format(new Date(tx.createdAt), "PPpp")}
                           >
-                            <ClockIcon className="w-4 h-4 text-[#8f8a99]" />
+                            <span className="inline-flex text-content-tertiary [&>svg]:size-4">
+                              <ClockIcon />
+                            </span>
                             {formatDistanceToNow(new Date(tx.createdAt), {
                               addSuffix: true,
                             })}
@@ -191,60 +258,28 @@ function WalletTransactionTable() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="border-[#2b2933] bg-[#15131d]"
+                            className="border-b border-line bg-surface-inset"
                           >
                             <TableCell colSpan={4} className="px-4 py-4">
-                              <div className="grid gap-3 text-sm text-[#c9d1d9] md:grid-cols-2">
-                                <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
-                                    Type
-                                  </p>
-                                  <p className="font-medium text-white">
-                                    {type}
-                                  </p>
-                                </div>
-                                <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
-                                    Timestamp
-                                  </p>
-                                  <p className="font-medium text-white">
-                                    {moment(tx.createdAt)
-                                      .startOf("day")
-                                      .fromNow()}
-                                  </p>
-                                </div>
-                                <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
-                                    From
-                                  </p>
-                                  <p className="font-mono break-all text-white">
-                                    {shortenAddress(tx.senderAddress, 6, 4)}
-                                  </p>
-                                </div>
-                                <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
-                                    To
-                                  </p>
-                                  <p className="font-mono break-all text-white">
-                                    {shortenAddress(tx.recipientAddress, 6, 4)}
-                                  </p>
-                                </div>
-                                <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
-                                    Transaction Hash
-                                  </p>
-                                  <p className="font-mono break-all text-white">
-                                    {truncateMiddle(tx.txHash, 20)}
-                                  </p>
-                                </div>
-                                <div>
-                                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-[#8f8a99]">
-                                    Note
-                                  </p>
-                                  <p className="text-white">
-                                    {tx.note?.trim() || "No note added"}
-                                  </p>
-                                </div>
+                              <div className="grid gap-3 text-sm md:grid-cols-2">
+                                {details.map((detail) => (
+                                  <div key={detail.label}>
+                                    <Typography
+                                      as="p"
+                                      variant="label"
+                                      className="mb-1 text-content-tertiary"
+                                    >
+                                      {detail.label}
+                                    </Typography>
+                                    <Typography
+                                      as="p"
+                                      variant="body2"
+                                      className={detail.valueClassName}
+                                    >
+                                      {detail.value}
+                                    </Typography>
+                                  </div>
+                                ))}
                               </div>
                             </TableCell>
                           </motion.tr>

@@ -1,9 +1,123 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-body: "Space Grotesk", sans-serif;
+  --font-heading: "Archivo Black", sans-serif;
+  --canvas: #050505;
+  --surface: #101011;
+  --surface-raised: #1c1c1e;
+  --surface-inset: #252527;
+  --content-primary: #f5f5f7;
+  --content-secondary: #b7b5bb;
+  --content-tertiary: #85828a;
+  --content-success: #a6e5bd;
+  --content-warning: #e5c66b;
+  --content-critical: #ff9da5;
+  --line: #2e2e31;
+  --line-strong: #3a3a3e;
+  --line-success: #3c7651;
+  --line-warning: #74602c;
+  --line-critical: #84464d;
+  --action-primary: #f97316;
+  --action-primary-foreground: #101011;
+  --action-primary-hover: #ea580c;
+  --focus: #f97316;
+  --background: var(--canvas);
+  --foreground: var(--content-primary);
+  --card: var(--surface-raised);
+  --card-foreground: var(--content-primary);
+  --popover: var(--surface-raised);
+  --popover-foreground: var(--content-primary);
+  --primary: var(--action-primary);
+  --primary-hover: var(--action-primary-hover);
+  --primary-foreground: var(--action-primary-foreground);
+  --secondary: var(--surface-inset);
+  --secondary-hover: #313134;
+  --secondary-foreground: var(--content-primary);
+  --muted: var(--surface-inset);
+  --muted-foreground: var(--content-tertiary);
+  --accent: var(--surface-inset);
+  --accent-foreground: var(--content-primary);
+  --destructive: var(--content-critical);
+  --destructive-foreground: #ffffff;
+  --border: #000000;
+  --input: var(--surface-raised);
+  --ring: var(--focus);
+  --chart-1: var(--action-primary);
+  --chart-2: #b7a9f4;
+  --chart-3: var(--content-success);
+  --chart-4: #e8a7cf;
+  --chart-5: var(--content-warning);
+  --radius: 0;
+  --sidebar: var(--surface-raised);
+  --sidebar-foreground: var(--content-primary);
+  --sidebar-primary: var(--action-primary);
+  --sidebar-primary-foreground: var(--action-primary-foreground);
+  --sidebar-accent: var(--surface-raised);
+  --sidebar-accent-foreground: var(--content-primary);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--focus);
+}
+
+.light {
+  --canvas: #fff9f2;
+  --surface: #fffdf9;
+  --surface-raised: #ffffff;
+  --surface-inset: #f4eadf;
+  --content-primary: #211d19;
+  --content-secondary: #665d55;
+  --content-tertiary: #93887d;
+  --content-success: #24734e;
+  --content-warning: #9a6617;
+  --content-critical: #b3454d;
+  --line: #d9cbbd;
+  --line-strong: #b9aa9a;
+  --line-success: #91c8a6;
+  --line-warning: #dec187;
+  --line-critical: #dfa8ac;
+  --action-primary: #f97316;
+  --action-primary-foreground: #101011;
+  --action-primary-hover: #ea580c;
+  --focus: #f97316;
+  --background: var(--canvas);
+  --foreground: var(--content-primary);
+  --card: var(--surface-raised);
+  --card-foreground: var(--content-primary);
+  --popover: var(--surface-raised);
+  --popover-foreground: var(--content-primary);
+  --primary: var(--action-primary);
+  --primary-hover: var(--action-primary-hover);
+  --primary-foreground: var(--action-primary-foreground);
+  --secondary: var(--surface-inset);
+  --secondary-hover: #ebddce;
+  --secondary-foreground: var(--content-primary);
+  --muted: var(--surface-inset);
+  --muted-foreground: var(--content-tertiary);
+  --accent: #ffe0bf;
+  --accent-foreground: var(--content-primary);
+  --destructive: var(--content-critical);
+  --destructive-foreground: #ffffff;
+  --border: #211d19;
+  --input: var(--surface-raised);
+  --ring: var(--focus);
+  --sidebar: var(--surface-raised);
+  --sidebar-foreground: var(--content-primary);
+  --sidebar-primary: var(--action-primary);
+  --sidebar-primary-foreground: var(--action-primary-foreground);
+  --sidebar-accent: var(--surface-inset);
+  --sidebar-accent-foreground: var(--content-primary);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--focus);
+}
+
+* {
+  box-sizing: border-box;
+}
 
 html,
 body,
@@ -11,22 +125,17 @@ body,
   min-height: 100%;
 }
 
-body {
-  margin: 0;
-  background-color: #0f0d16;
-  background-image: radial-gradient(
-    circle at 1px 1px,
-    #3b3746 1px,
-    transparent 0
-  );
-  background-size: 48px 48px;
-  background-attachment: fixed;
-  color: #c8ccda;
-  font-family: "IBM Plex Mono", monospace;
+html {
+  background: var(--canvas);
 }
 
-* {
-  box-sizing: border-box;
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--content-primary);
+  font-family: var(--font-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 button,
@@ -36,191 +145,67 @@ select {
   font: inherit;
 }
 
-.ibm-plex-mono-thin {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 100;
-  font-style: normal;
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
 }
 
-.ibm-plex-mono-extralight {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 200;
-  font-style: normal;
+::selection {
+  background: color-mix(in srgb, var(--action-primary) 42%, transparent);
+  color: var(--content-primary);
 }
 
-.ibm-plex-mono-light {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 300;
-  font-style: normal;
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-.ibm-plex-mono-regular {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 400;
-  font-style: normal;
+::-webkit-scrollbar-track {
+  background: var(--canvas);
 }
 
-.ibm-plex-mono-medium {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 500;
-  font-style: normal;
+::-webkit-scrollbar-thumb {
+  border: 3px solid var(--canvas);
+  border-radius: 999px;
+  background: var(--line-strong);
 }
 
-.ibm-plex-mono-semibold {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.ibm-plex-mono-bold {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.ibm-plex-mono-thin-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 100;
-  font-style: italic;
-}
-
-.ibm-plex-mono-extralight-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 200;
-  font-style: italic;
-}
-
-.ibm-plex-mono-light-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.ibm-plex-mono-regular-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.ibm-plex-mono-medium-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.ibm-plex-mono-semibold-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.ibm-plex-mono-bold-italic {
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.instrument-serif-regular {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.instrument-serif-regular-italic {
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-out forwards;
-}
-
-:root {
-  --background: #0f0d16;
-  --foreground: #c8ccda;
-  --card: #0f0d16;
-  --card-foreground: #c9d1d9;
-  --popover: #15131d;
-  --popover-foreground: #c9d1d9;
-  --primary: #f97316;
-  --primary-foreground: #0f0d16;
-  --secondary: #15131d;
-  --secondary-foreground: #c9d1d9;
-  --muted: #15131d;
-  --muted-foreground: #8f8a99;
-  --accent: #15131d;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #2b2933;
-  --input: #2b2933;
-  --ring: #f97316;
-  --chart-1: #7ee787;
-  --chart-2: #58a6ff;
-  --chart-3: #f97316;
-  --chart-4: #a78bfa;
-  --chart-5: #f87171;
-  --radius: 1.5rem;
-  --sidebar: #0f0d16;
-  --sidebar-foreground: #c9d1d9;
-  --sidebar-primary: #f97316;
-  --sidebar-primary-foreground: #0f0d16;
-  --sidebar-accent: #15131d;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #2b2933;
-  --sidebar-ring: #f97316;
-  --default-color: #f97316;
-  --primary-red: #ef4444;
-  --primary-red-foreground: #ffffff;
-}
-
-.dark {
-  --background: #0f0d16;
-  --foreground: #c8ccda;
-  --card: #0f0d16;
-  --card-foreground: #c9d1d9;
-  --popover: #15131d;
-  --popover-foreground: #c9d1d9;
-  --primary: #f97316;
-  --primary-foreground: #0f0d16;
-  --secondary: #15131d;
-  --secondary-foreground: #c9d1d9;
-  --muted: #15131d;
-  --muted-foreground: #8f8a99;
-  --accent: #15131d;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #2b2933;
-  --input: #2b2933;
-  --ring: #f97316;
-  --chart-1: #7ee787;
-  --chart-2: #58a6ff;
-  --chart-3: #f97316;
-  --chart-4: #a78bfa;
-  --chart-5: #f87171;
-  --sidebar: #0f0d16;
-  --sidebar-foreground: #c9d1d9;
-  --sidebar-primary: #f97316;
-  --sidebar-primary-foreground: #0f0d16;
-  --sidebar-accent: #15131d;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #2b2933;
-  --sidebar-ring: #f97316;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--content-tertiary);
 }
 
 @theme inline {
+  --font-head: var(--font-heading);
+  --font-sans: var(--font-body);
+  --font-mono: "IBM Plex Mono", monospace;
+  --shadow-xs: 1px 1px 0 0 var(--border);
+  --shadow-sm: 2px 2px 0 0 var(--border);
+  --shadow: 3px 3px 0 0 var(--border);
+  --shadow-md: 4px 4px 0 0 var(--border);
+  --shadow-lg: 6px 6px 0 0 var(--border);
+  --shadow-xl: 10px 10px 0 1px var(--border);
+  --shadow-2xl: 16px 16px 0 1px var(--border);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-inset: var(--surface-inset);
+  --color-content-primary: var(--content-primary);
+  --color-content-secondary: var(--content-secondary);
+  --color-content-tertiary: var(--content-tertiary);
+  --color-content-success: var(--content-success);
+  --color-content-warning: var(--content-warning);
+  --color-content-critical: var(--content-critical);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-success: var(--line-success);
+  --color-line-warning: var(--line-warning);
+  --color-line-critical: var(--line-critical);
+  --color-action-primary: var(--action-primary);
+  --color-action-primary-foreground: var(--action-primary-foreground);
+  --color-focus: var(--focus);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -228,8 +213,10 @@ select {
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -245,10 +232,10 @@ select {
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -263,15 +250,19 @@ select {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    color: var(--foreground);
-    background-color: var(--background);
-    background-image: radial-gradient(
-      circle at 1px 1px,
-      #3b3746 1px,
-      transparent 0
-    );
-    background-size: 48px 48px;
-    background-attachment: fixed;
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

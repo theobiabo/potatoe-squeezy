@@ -1,65 +1,103 @@
-import DashboardHeader from "@/header/dashboardHeader.tsx";
-import DashboardBottomTab from "@/dashboard/dashboardBottomTab.tsx";
-import useAuth from "@/hooks/useAuth";
-import { useEffect } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import type { JSX, ReactNode } from "react";
+
+import DashboardHeader from "@/header/dashboardHeader";
+
 import ModalLayout from "@/components/popups/modals";
-import AddOrUpdateAddress from "@/components/pages/settings/add-or-update-address.tsx";
+import AddOrUpdateAddress from "@/components/pages/settings/add-or-update-address";
+import { Button } from "@/components/ui/button";
+import {
+  AppRail,
+  FloatingNavigationDock,
+  WalletConnectionPrompt,
+  WorkspaceNotice,
+} from "@/components/workspace";
+import {
+  WORKSPACE_NAVIGATION,
+  WORKSPACE_NAVIGATION_GROUPS,
+} from "@/data/dashboardData";
 import { useUserStore } from "@/store/user.store";
 
 interface IDashboardProps {
-  children: React.ReactNode;
+  children: ReactNode;
   title?: string;
   showTabs?: boolean;
 }
 
 const DefaultDashboard = ({
   children,
+  title,
   showTabs = true,
-}: IDashboardProps): React.JSX.Element | null => {
-  const { isAuthenticated, checkAuthStatus } = useAuth();
-  const navigate = useNavigate();
-  const { wallet } = useUserStore();
-
-  useEffect(() => {
-    let cancelled = false;
-    checkAuthStatus().then((isValid) => {
-      if (cancelled) return;
-      if (!isValid) navigate({ to: "/" });
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [checkAuthStatus, navigate]);
-
-  if (!isAuthenticated) {
-    return null;
-  }
+}: IDashboardProps): JSX.Element | null => {
+  const wallet = useUserStore((state) => state.wallet);
+  const user = useUserStore((state) => state.user ?? state.authUser);
+  const accountName =
+    user?.name ?? user?.displayName ?? user?.username ?? "Potatoe Squeezy";
+  const accountSupportingText = user?.email ?? "Developer workspace";
+  const accountInitials = accountName.slice(0, 2).toUpperCase();
 
   return (
-    <div className="min-h-screen bg-transparent pb-28">
-      {!wallet && (
-        <div className="w-full border-b border-[#2b2933] bg-[#15131d]/90 py-2 text-center text-white">
-          <ModalLayout
-            title="Add a wallet address to continue"
-            trigger={
-              <p>
-                Please add your Solana wallet address.{" "}
-                <span className={"font-semibold underline cursor-pointer"}>
-                  Click here.
-                </span>
-              </p>
-            }
-          >
-            <AddOrUpdateAddress />
-          </ModalLayout>
-        </div>
-      )}
-      <div className="container mx-auto px-4">
-        <DashboardHeader />
-        <div className="mx-auto my-8 w-full max-w-5xl">{children}</div>
-        {showTabs && <DashboardBottomTab />}
+    <div className="min-h-dvh bg-canvas text-content-primary lg:flex">
+      <WalletConnectionPrompt />
+
+      {showTabs ? (
+        <AppRail
+          brand={{
+            label: accountName,
+            supportingText: accountSupportingText,
+            mark: user?.avatarUrl ? (
+              <img
+                src={user.avatarUrl}
+                alt=""
+                className="size-full object-cover"
+              />
+            ) : (
+              <span className="font-head text-sm text-content-primary">
+                {accountInitials}
+              </span>
+            ),
+          }}
+          groups={WORKSPACE_NAVIGATION_GROUPS}
+        />
+      ) : null}
+
+      <div className="min-w-0 flex-1">
+        <DashboardHeader title={title} />
+        <main className="mx-auto w-full max-w-[1180px] px-4 py-6 pb-28 sm:px-6 sm:py-8 sm:pb-32 lg:px-8">
+          {!wallet ? (
+            <div className="mx-auto mb-8 flex w-full max-w-[900px] flex-col items-center gap-3">
+              <WorkspaceNotice
+                className="w-full rounded-[24px] px-5 py-4"
+                tone="warning"
+                title="Add a receiving wallet"
+              >
+                Connect a Solana address to receive tips and unlock payouts.
+              </WorkspaceNotice>
+              <ModalLayout
+                title="Add a wallet address to continue"
+                trigger={<Button type="button">Add wallet</Button>}
+              >
+                <AddOrUpdateAddress />
+              </ModalLayout>
+            </div>
+          ) : null}
+          <div className="mx-auto w-full max-w-[1100px]">{children}</div>
+        </main>
       </div>
+
+      {showTabs ? (
+        <FloatingNavigationDock
+          className="lg:hidden"
+          items={WORKSPACE_NAVIGATION}
+          profile={
+            user
+              ? {
+                  name: user.name ?? user.displayName ?? user.username,
+                  avatarUrl: user.avatarUrl,
+                }
+              : undefined
+          }
+        />
+      ) : null}
     </div>
   );
 };

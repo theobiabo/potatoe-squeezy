@@ -1,0 +1,120 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - complementary [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: PO
+        - generic [ref=e9]:
+          - generic [ref=e10]: Potatoe Squeezy
+          - generic [ref=e11]: Developer workspace
+      - navigation "Workspace navigation" [ref=e12]:
+        - region "Workspace" [ref=e14]:
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - link "Overview" [ref=e18] [cursor=pointer]:
+                - /url: /app
+            - listitem [ref=e25]:
+              - link "Explore" [ref=e26] [cursor=pointer]:
+                - /url: /app/explore
+            - listitem [ref=e31]:
+              - link "Bounties" [ref=e32] [cursor=pointer]:
+                - /url: /app/bounties
+            - listitem [ref=e37]:
+              - link "Company" [ref=e38] [cursor=pointer]:
+                - /url: /app/company
+            - listitem [ref=e44]:
+              - link "Leaderboard" [ref=e45] [cursor=pointer]:
+                - /url: /app/leaderboard
+    - generic [ref=e53]:
+      - banner [ref=e54]:
+        - link "Potatoe Squeezy" [ref=e56] [cursor=pointer]:
+          - /url: /app
+        - link "Search for anything" [ref=e59] [cursor=pointer]:
+          - /url: /app/explore
+        - generic [ref=e64]:
+          - button "Switch to light mode" [ref=e65] [cursor=pointer]: Light mode
+          - button [ref=e66]
+          - button "Open settings" [ref=e71] [cursor=pointer]
+      - main [ref=e72]:
+        - generic [ref=e73]:
+          - status [ref=e74]:
+            - generic [ref=e77]:
+              - generic [ref=e78]: Add a receiving wallet
+              - generic [ref=e79]: Connect a Solana address to receive tips and unlock payouts.
+          - button [ref=e80]:
+            - button "Add wallet" [ref=e81] [cursor=pointer]
+        - generic [ref=e83]:
+          - region [ref=e84]:
+            - generic [ref=e85]:
+              - generic [ref=e86]:
+                - generic [ref=e87]:
+                  - generic [ref=e88]: Developer profile
+                  - heading "0514B0" [level=1] [ref=e89]
+                  - generic [ref=e90]: "@0514B0"
+                - generic [ref=e91]:
+                  - button "Tip developer" [ref=e92] [cursor=pointer]
+                  - button "Invite developer" [ref=e93] [cursor=pointer]
+                  - button "Share profile" [ref=e94] [cursor=pointer]
+              - generic [ref=e96]:
+                - img "0514B0" [ref=e97]
+                - generic [ref=e98]:
+                  - generic [ref=e99]: solana
+                  - generic [ref=e100]: Wallet connected
+          - generic [ref=e101]:
+            - generic [ref=e102]:
+              - generic [ref=e103]: Total points
+              - generic [ref=e104]: "0"
+            - generic [ref=e105]:
+              - generic [ref=e106]: Total earned
+              - generic [ref=e107]: $0.00
+            - generic [ref=e108]:
+              - generic [ref=e109]: Merged bounties
+              - generic [ref=e110]: "0"
+            - generic [ref=e111]:
+              - generic [ref=e112]: Current streak
+              - generic [ref=e113]: "0"
+              - generic [ref=e114]: days
+          - generic [ref=e115]:
+            - generic [ref=e116]:
+              - generic [ref=e117]: Giver rank
+              - generic [ref=e120]:
+                - paragraph [ref=e121]: No rank yet
+                - paragraph [ref=e122]: Based on public tips sent to other developers.
+            - generic [ref=e123]:
+              - generic [ref=e124]: Tips sent
+              - generic [ref=e127]:
+                - paragraph [ref=e128]: 0 tips
+                - paragraph [ref=e129]: 0 SOL sent through Potatoe Squeezy.
+          - generic [ref=e130]:
+            - generic [ref=e132]:
+              - generic [ref=e133]: 0 contributions in the last year
+              - generic [ref=e134]: Merged bounties and recorded open-source rewards from this profile.
+            - paragraph [ref=e136]: Loading GitHub activity.
+          - generic [ref=e137]:
+            - generic [ref=e139]:
+              - generic [ref=e140]: GitHub repositories
+              - generic [ref=e141]: Public repositories fetched from @0514B0 on GitHub.
+            - paragraph [ref=e144]: Loading GitHub repositories.
+          - generic [ref=e145]:
+            - generic [ref=e147]:
+              - generic [ref=e148]: Share profile
+              - generic [ref=e149]: Share a public profile, README badge, or short post that points supporters to your developer page.
+            - generic [ref=e150]:
+              - paragraph [ref=e152]: http://localhost:5173/app/dev/0514B0
+              - generic [ref=e153]:
+                - button "Copy profile" [ref=e154] [cursor=pointer]
+                - button "Copy README badge" [ref=e155] [cursor=pointer]
+                - button "Copy social post" [ref=e156] [cursor=pointer]
+          - generic [ref=e157]:
+            - generic [ref=e158]: Supporter wall
+            - paragraph [ref=e162]: This developer keeps their supporter wall private.
+          - generic [ref=e163]:
+            - generic [ref=e165]:
+              - generic [ref=e166]: Badges
+              - generic [ref=e167]: Milestones earned through public activity.
+            - paragraph [ref=e169]: No badges earned yet.
+          - generic [ref=e170]:
+            - generic [ref=e172]:
+              - generic [ref=e173]: Recent contributions
+              - generic [ref=e174]: Latest rewarded pull requests and project work.
+            - paragraph [ref=e176]: No contributions yet.
+  - region "Notifications alt+T"
